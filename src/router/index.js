@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 //view読み込み
+import main from '@/views/main'
 import teams from '@/views/teams'
 import players from '@/views/players'
 import entryTeam from '@/views/entry-team'
@@ -14,28 +15,15 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'top',
-    component: teams,
-  },
-  {
-    path: '/teams',
-    name: 'teams',
-    component: teams,
-  },
-  {
-    path: '/players',
-    name: 'players',
-    component: players,
-  },
-  {
-    path: '/entry-team',
-    name: 'entry-team',
-    component: entryTeam,
-  },
-  {
-    path: '/entry-player',
-    name: 'entry-player',
-    component: entryPlayer,
+    name: 'main',
+    component: main,
+    children: [
+      // menu内に各アプリのURLをネスト
+      { path: '/teams', component: teams },
+      { path: '/players', component: players },
+      { path: '/entry-team', component: entryTeam },
+      { path: '/entry-player', component: entryPlayer },
+    ],
   },
 ]
 
