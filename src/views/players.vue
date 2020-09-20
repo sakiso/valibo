@@ -1,9 +1,21 @@
 <template>
-  <v-app-bar color="blue lighten-3">app-bar</v-app-bar>
+  <v-app>
+    <sideBar></sideBar>
+    <v-content>
+      <v-card width="200" color="teal lighten-1">
+        <v-card-title> players </v-card-title>
+      </v-card>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-export default {}
+import sideBar from '@/components/sidebar'
+export default {
+  components: {
+    sideBar,
+  },
+}
 </script>
 
 <style></style>
