@@ -1,5 +1,7 @@
 <template>
-  <v-navigation-drawer>aaa</v-navigation-drawer>
+  <v-app>
+    <v-navigation-drawer> aaa </v-navigation-drawer>
+  </v-app>
 </template>
 
 <script>
