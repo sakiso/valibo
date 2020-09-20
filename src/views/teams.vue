@@ -1,26 +1,21 @@
 <template>
   <v-app>
-    <v-content fill-height>
-      <v-container mt-n2 pt-0 pb-0 fluid fill-height>
-        <v-row justify="center" height="100%">
-          <v-col>
-            <sideBar></sideBar>
-          </v-col>
-          <v-col>
-            <v-sheet> a </v-sheet>
-          </v-col>
-        </v-row>
+    <v-content>
+      <v-container ma-0 pa-0 fluid fill-height>
+        <v-card flat tile height="100%" width="25%">
+          <v-card-title> players </v-card-title>
+        </v-card>
+        <v-card flat tile height="100%" width="75%" color="blue lighten-2">
+          <v-card-title> 検索画面 </v-card-title>
+        </v-card>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import sideBar from '@/components/sidebar'
 export default {
-  components: {
-    sideBar,
-  },
+  components: {},
 }
 </script>
 

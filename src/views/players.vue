@@ -1,14 +1,13 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid fill-height>
-        <v-row height="100%">
-          <v-col cols="6">
-            <v-card height="500" width="200" color="teal lighten-1">
-              <v-card-title> players </v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
+      <v-container ma-0 pa-0 fluid fill-height>
+        <v-card flat tile height="100%" width="25%">
+          <v-card-title> players </v-card-title>
+        </v-card>
+        <v-card flat tile height="100%" width="75%" color="blue lighten-2">
+          <v-card-title> 検索画面 </v-card-title>
+        </v-card>
       </v-container>
     </v-content>
   </v-app>
