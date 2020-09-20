@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar>
+    <v-app-bar app>
       <tabBar></tabBar>
     </v-app-bar>
     <router-view />
