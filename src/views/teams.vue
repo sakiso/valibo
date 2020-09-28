@@ -2,20 +2,42 @@
   <v-app>
     <v-content>
       <v-container ma-0 pa-0 fluid fill-height>
-        <div>
-          <v-card>
+        <v-row height="100%">
+          <v-col ma-0 pa-0 cols="3">
             <teamSidebar height="100%"></teamSidebar>
-          </v-card>
-        </div>
-        <v-card flat tile height="100%" width="56%" color="blue lighten-2">
-          <v-card-title> 検索画面 </v-card-title>
-          <v-list color="blue lighten-2">
-            <v-list-item> a </v-list-item>
-          </v-list>
-        </v-card>
-        <v-card flat tile height="100%" width="22%" color="teal lighten-2">
-          <v-card-title> 自分 </v-card-title>
-        </v-card>
+          </v-col>
+          <v-col ma-0 pa-0 cols="6">
+            <v-card ma-0 pa-0 flat tile color="blue lighten-2">
+              <v-card-title> 検索画面 </v-card-title>
+              <v-list color="blue lighten-2">
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+                <v-list-item> a </v-list-item>
+              </v-list>
+            </v-card>
+            <v-row>
+              <v-col cols="12"> pagenation </v-col>
+            </v-row>
+          </v-col>
+          <v-col ma-0 pa-0 cols="3">
+            <v-card flat tile height="100%" color="teal lighten-2">
+              <v-card-title> 自分 </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
     </v-content>
   </v-app>

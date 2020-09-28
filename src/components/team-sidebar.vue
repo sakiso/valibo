@@ -1,9 +1,7 @@
 <template>
-  <v-app>
-    <v-card flat tile>
-      <v-card-title> players </v-card-title>
-    </v-card>
-  </v-app>
+  <v-card tile height="100%">
+    <v-card-title> players </v-card-title>
+  </v-card>
 </template>
 
 <script>
