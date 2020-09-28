@@ -2,9 +2,7 @@
   <v-app>
     <v-content>
       <v-container ma-0 pa-0 fluid fill-height>
-        <v-card flat tile height="100%" width="25%">
-          <v-card-title> players </v-card-title>
-        </v-card>
+        <playerSerch></playerSerch>
         <v-card flat tile height="100%" width="75%" color="blue lighten-2">
           <v-card-title> 検索画面 </v-card-title>
         </v-card>
@@ -14,8 +12,11 @@
 </template>
 
 <script>
+import PlayerSerch from '@/components/player-serch.vue'
 export default {
-  components: {},
+  components: {
+    PlayerSerch,
+  },
 }
 </script>
 
