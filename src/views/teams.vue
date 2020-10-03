@@ -3,36 +3,38 @@
     <v-content>
       <v-container ma-0 pa-0 fluid fill-height>
         <v-row height="100%">
-          <v-col ma-0 pa-0 cols="3">
+          <v-col ma-0 pa-0 cols="2">
             <teamSidebar height="100%"></teamSidebar>
           </v-col>
 
-          <v-col ma-0 pa-0 cols="7">
+          <v-col ma-0 pa-0 cols="8">
             <v-card ma-0 pa-0 flat tile color="blue lighten-2">
               <v-card-title> 検索画面 </v-card-title>
 
-              <v-list color="blue lighten-2">
-                <v-list-item v-for="(team, key) in teams" :key="key">
-                  <v-card>
-                    <v-card-title>
-                      {{ team.team_name }}
-                    </v-card-title>
+              <v-container>
+                <v-row>
+                  <v-col cols="4" v-for="(team, key) in teams" :key="key">
+                    <v-card>
+                      <v-card-title>
+                        {{ team.team_name }}
+                      </v-card-title>
 
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col>
-                            {{ team.place_of_activity }}
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col> {{ team.entry_date }} </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                  </v-card>
-                </v-list-item>
-              </v-list>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col>
+                              {{ team.place_of_activity }}
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col> {{ team.entry_date }} </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-card>
 
             <v-row>
@@ -89,4 +91,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>
