@@ -6,7 +6,7 @@
           <v-col ma-0 pa-0 cols="3">
             <teamSidebar height="100%"></teamSidebar>
           </v-col>
-          <v-col ma-0 pa-0 cols="6">
+          <v-col ma-0 pa-0 cols="7">
             <v-card ma-0 pa-0 flat tile color="blue lighten-2">
               <v-card-title> 検索画面 </v-card-title>
               <v-list color="blue lighten-2">
@@ -32,7 +32,7 @@
               <v-col cols="12"> pagenation </v-col>
             </v-row>
           </v-col>
-          <v-col ma-0 pa-0 cols="3">
+          <v-col ma-0 pa-0 cols="2">
             <v-card flat tile height="100%" color="teal lighten-2">
               <v-card-title> 自分 </v-card-title>
             </v-card>
