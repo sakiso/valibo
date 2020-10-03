@@ -34,10 +34,12 @@
                 </v-list-item>
               </v-list>
             </v-card>
+
             <v-row>
               <v-col cols="12"> pagenation </v-col>
             </v-row>
           </v-col>
+
           <v-col ma-0 pa-0 cols="2">
             <v-card flat tile height="100%" color="teal lighten-2">
               <v-card-title> 自分 </v-card-title>
