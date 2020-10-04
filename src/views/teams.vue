@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <v-container ma-0 pa-0 fluid fill-height>
+      <v-container mb-0 mt-n3 pa-0 fluid fill-height>
         <v-row height="100%">
-          <v-col ma-0 pa-0 cols="2">
-            <teamSidebar height="100%"></teamSidebar>
+          <v-col cols="2">
+            <teamSidebar class="fixed width-16per grey lighten-2"></teamSidebar>
           </v-col>
 
           <v-col ma-0 pa-0 cols="8">
@@ -42,8 +42,13 @@
             </v-row>
           </v-col>
 
-          <v-col ma-0 pa-0 cols="2">
-            <v-card flat tile height="100%" color="teal lighten-2">
+          <v-col cols="2">
+            <v-card
+              flat
+              tile
+              height="100%"
+              class="fixed teal lighten-1 fill-height width-16per"
+            >
               <v-card-title> 自分 </v-card-title>
             </v-card>
           </v-col>
@@ -91,4 +96,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.fixed {
+  position: fixed;
+}
+.width-16per {
+  width: 16%;
+}
+</style>

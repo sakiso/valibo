@@ -1,6 +1,6 @@
 <template>
   <v-card tile height="100%">
-    <v-card-title> players </v-card-title>
+    <v-card-title> playerwsssss </v-card-title>
   </v-card>
 </template>
 
