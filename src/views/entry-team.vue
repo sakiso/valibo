@@ -42,7 +42,7 @@
                 </v-list-item>
               </v-list>
             </v-card-text>
-            <v-btn large> 登録 </v-btn>
+            <v-btn large @click="entryTeam"> 登録 </v-btn>
             <br />
             <br />
           </v-card>
@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import { db } from '@/plugins/firebase'
+
 export default {
   data: function () {
     return {
@@ -68,7 +70,45 @@ export default {
         '9回',
         '10回以上',
       ],
+      teamsRef: null,
+      teamInfo: {
+        teamName: '',
+        placeOfActivity: '',
+        entryTimestamp: null,
+        entryDate: '',
+        activityCycle: {
+          weekOrMonth: '',
+          timesAWeekOrMonth: '',
+        },
+      },
     }
+  },
+
+  created: function () {
+    //teamsコレクションへの参照
+    this.teamsRef = db.collection('teams')
+  },
+
+  methods: {
+    entryTeam() {
+      //入力がなければ抜ける
+      if (this.teamInfo === '') {
+        console.log('入力なし')
+        return
+      }
+
+      //teamsコレクションへの登録
+      this.teamsRef.add({
+        team_name: this.teamInfo.teamName,
+        place_of_activity: this.teamInfo.placeOfActivity,
+        entry_timestamp: this.teamInfo.entryTimestamp,
+        entry_date: this.teamInfo.entryDate,
+        activity_cycle: {
+          week_or_month: this.teamInfo.activityCycle.weekOrMonth,
+          times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
+        },
+      })
+    },
   },
 }
 </script>
