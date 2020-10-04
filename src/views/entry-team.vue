@@ -3,7 +3,7 @@
     <v-content>
       <v-container ma-0 pa-0 fluid fill-height>
         <v-row height="100%" justify="center">
-          <v-card min-width="30%" color="blue lighten-4" align="center">
+          <v-card min-width="430px" color="blue lighten-4" align="center">
             <v-card-title> チーム登録 </v-card-title>
 
             <v-card-text>
@@ -12,32 +12,52 @@
                   <v-list-item-icon>
                     <v-icon>mdi-account-group</v-icon>
                   </v-list-item-icon>
-                  <v-text-field label="チーム名"></v-text-field>
+                  <v-text-field
+                    label="チーム名"
+                    v-model="teamInfo.teamName"
+                  ></v-text-field>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-icon>
                     <v-icon>mdi-map-marker</v-icon>
                   </v-list-item-icon>
-                  <v-text-field label="活動場所"></v-text-field>
+                  <v-text-field
+                    label="活動場所"
+                    v-model="teamInfo.placeOfActivity"
+                  ></v-text-field>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-icon>
                     <v-icon>mdi-fire</v-icon>
                   </v-list-item-icon>
-                  <v-text-field label="活動頻度"></v-text-field>
+                  <v-slider
+                    v-model="teamInfo.levelOfSeriousness"
+                    label="本気度"
+                    max="4"
+                    step="1"
+                    :tick-labels="ticksLabels"
+                  ></v-slider>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-icon>
                     <v-icon>mdi-calendar-clock </v-icon>
                   </v-list-item-icon>
-                  <v-radio-group label="活動ペース">
+                  <v-radio-group
+                    label="活動ペース"
+                    v-model="teamInfo.activityCycle.weekOrMonth"
+                  >
                     <br />
-                    <v-radio label="毎週" value="radio-1"></v-radio>
-                    <v-radio label="毎月" value="radio-2"></v-radio>
-                    <v-select :items="items" label="回数" solo></v-select>
+                    <v-radio label="毎週" value="AWeek"></v-radio>
+                    <v-radio label="毎月" value="AMonth"></v-radio>
+                    <v-select
+                      :items="times"
+                      label="回数"
+                      solo
+                      v-model="teamInfo.activityCycle.timesAWeekOrMonth"
+                    ></v-select>
                   </v-radio-group>
                 </v-list-item>
               </v-list>
@@ -58,7 +78,7 @@ import { db } from '@/plugins/firebase'
 export default {
   data: function () {
     return {
-      items: [
+      times: [
         '1回',
         '2回',
         '3回',
@@ -70,10 +90,12 @@ export default {
         '9回',
         '10回以上',
       ],
+      ticksLabels: ['1', '2', '3', '4', '5'],
       teamsRef: null,
       teamInfo: {
         teamName: '',
         placeOfActivity: '',
+        levelOfSeriousness: '2',
         entryTimestamp: null,
         entryDate: '',
         activityCycle: {
@@ -97,17 +119,41 @@ export default {
         return
       }
 
+      //timestamp取得
+      const timestamp = new Date()
+      //timestampからYYYY/MM/DD形式の文字列を取得
+      const entryDate =
+        timestamp.getFullYear() +
+        '/' +
+        (timestamp.getMonth() + 1) +
+        '/' +
+        timestamp.getDate()
+
       //teamsコレクションへの登録
       this.teamsRef.add({
         team_name: this.teamInfo.teamName,
         place_of_activity: this.teamInfo.placeOfActivity,
-        entry_timestamp: this.teamInfo.entryTimestamp,
-        entry_date: this.teamInfo.entryDate,
+        level_of_seriousness: this.teamInfo.levelOfSeriousness,
+        entry_timestamp: timestamp,
+        entry_date: entryDate,
         activity_cycle: {
           week_or_month: this.teamInfo.activityCycle.weekOrMonth,
           times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
         },
       })
+
+      //画面入力値を初期化
+      this.teamInfo = {
+        teamName: '',
+        placeOfActivity: '',
+        levelOfSeriousness: '2',
+        entryTimestamp: null,
+        entryDate: '',
+        activityCycle: {
+          weekOrMonth: '',
+          timesAWeekOrMonth: '',
+        },
+      }
     },
   },
 }
