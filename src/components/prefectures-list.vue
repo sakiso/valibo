@@ -1,13 +1,12 @@
 <template>
-  <v-app>
-    <v-select
-      :items="prefecturesList"
-      label="都道府県"
-      solo
-      prepend-icon="mdi-map-marker"
-      v-model="selectedPrefecture"
-    ></v-select>
-  </v-app>
+  <v-select
+    :items="prefecturesList"
+    label="都道府県"
+    solo
+    dense
+    prepend-icon="mdi-map-marker"
+    v-model="selectedPrefecture"
+  ></v-select>
 </template>
 
 <script>

@@ -3,7 +3,12 @@
     <v-content>
       <v-container ma-0 pa-0 fluid fill-height>
         <v-row height="100%" justify="center">
-          <v-card min-width="430px" color="blue lighten-4" align="center">
+          <v-card
+            min-width="430px"
+            width="50%"
+            color="blue lighten-4"
+            align="center"
+          >
             <v-card-title> チーム登録 </v-card-title>
 
             <v-card-text>
@@ -39,6 +44,17 @@
                     step="1"
                     :tick-labels="ticksLabels"
                   ></v-slider>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-select
+                    prepend-icon="mdi-fire"
+                    :items="position"
+                    label="求めるポジション"
+                    chips
+                    multiple
+                    v-model="teamInfo.wantedPosition"
+                  ></v-select>
                 </v-list-item>
 
                 <v-list-item>
@@ -90,18 +106,25 @@ export default {
         '9回',
         '10回以上',
       ],
+      position: [
+        'ウィングスパイカー',
+        'ミドルブロッカー',
+        'セッター',
+        'リベロ',
+      ],
       ticksLabels: ['1', '2', '3', '4', '5'],
       teamsRef: null,
       teamInfo: {
         teamName: '',
         placeOfActivity: '',
         levelOfSeriousness: '2',
-        entryTimestamp: null,
-        entryDate: '',
+        wantedPosition: '',
         activityCycle: {
           weekOrMonth: '',
           timesAWeekOrMonth: '',
         },
+        entryTimestamp: null,
+        entryDate: '',
       },
     }
   },
