@@ -4,7 +4,9 @@
       <v-container mb-0 mt-n3 pa-0 fluid fill-height>
         <v-row height="100%">
           <v-col cols="3">
-            <teamSidebar class="fixed width-16per grey lighten-2"></teamSidebar>
+            <teamSidebar
+              class="fixed width-25halfper grey lighten-2"
+            ></teamSidebar>
           </v-col>
 
           <v-col ma-0 pa-0 cols="9">
@@ -89,7 +91,7 @@ export default {
 .fixed {
   position: fixed;
 }
-.width-16per {
-  width: 25%;
+.width-25halfper {
+  width: 25.5%;
 }
 </style>

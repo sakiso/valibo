@@ -10,7 +10,7 @@
           label=""
           solo
           dense
-          v-model="levelOfSeriousness"
+          v-model="maxLevelOfSeriousness"
           @change="selectLevel"
         ></v-select>
       </v-col>
@@ -21,7 +21,7 @@
           label=""
           solo
           dense
-          v-model="levelOfSeriousness"
+          v-model="minLevelOfSeriousness"
           @change="selectLevel"
         ></v-select>
       </v-col>
@@ -33,7 +33,8 @@
 export default {
   data: function () {
     return {
-      levelOfSeriousness: null,
+      minLevelOfSeriousness: null,
+      maxLevelOfSeriousness: null,
       levelList: [1, 2, 3, 4, 5],
     }
   },

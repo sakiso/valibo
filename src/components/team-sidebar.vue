@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-card tile flat height="100%">
       <v-card-title> チーム検索条件 </v-card-title>
       <v-divider></v-divider>
@@ -14,21 +14,21 @@
         <div class="font-weight-black">活動エリア</div>
         <prefecturesList></prefecturesList>
         <div class="font-weight-black">本気度</div>
-        <seriousnessSlider
+        <seriousnessSelecter
           @selectLevel="selectLevelOfSeriousness"
-        ></seriousnessSlider>
+        ></seriousnessSelecter>
       </v-card-text>
     </v-card>
-  </v-app>
+  </div>
 </template>
 
 <script>
 import PrefecturesList from '@/components/prefectures-list'
-import SeriousnessSlider from '@/components/Seriousness-slider'
+import SeriousnessSelecter from '@/components/Seriousness-selecter'
 export default {
   components: {
     PrefecturesList,
-    SeriousnessSlider,
+    SeriousnessSelecter,
   },
 
   data: function () {
