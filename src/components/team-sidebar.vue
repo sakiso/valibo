@@ -109,7 +109,7 @@ export default {
           //検索結果無しの場合
           if (snapshot.empty) {
             console.log('no matching docs')
-            this.errMessage = '条件を満たすチームが存在しません。'
+            this.errMessage = '条件を満たすチームが存在しません'
             return
           }
           //検索結果ありの場合
