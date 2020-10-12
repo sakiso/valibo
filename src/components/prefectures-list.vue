@@ -2,10 +2,9 @@
   <v-select
     :items="prefecturesList"
     label="都道府県"
-    solo
-    dense
     prepend-icon="mdi-map-marker"
     v-model="selectedPrefecture"
+    @change="selectPrefecture"
   ></v-select>
 </template>
 
@@ -64,6 +63,12 @@ export default {
       ],
       selectedPrefecture: '',
     }
+  },
+
+  methods: {
+    selectPrefecture() {
+      this.$emit('selectPrefecture', this.selectedPrefecture)
+    },
   },
 }
 </script>

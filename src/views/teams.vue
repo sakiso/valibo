@@ -23,13 +23,32 @@
 
                       <v-card-text>
                         <v-container>
-                          <v-row>
+                          <v-row dense>
                             <v-col>
                               {{ team.place_of_activity }}
                             </v-col>
                           </v-row>
-                          <v-row>
-                            <v-col> {{ team.entry_date }} </v-col>
+                          <v-row dense>
+                            <v-col>
+                              <v-rating
+                                readonly
+                                empty-icon="mdi-minus"
+                                full-icon="mdi-fire"
+                                hover
+                                dense
+                                color="grey darken-1"
+                                background-color="grey lighten-1"
+                                length="5"
+                                size="20"
+                                :value="team.level_of_seriousness + 1"
+                              ></v-rating>
+                            </v-col>
+                          </v-row>
+                          <v-row dense>
+                            <v-col>
+                              {{ team.activity_cycle.week_or_month }}
+                              {{ team.activity_cycle.times_a_week_or_month }}
+                            </v-col>
                           </v-row>
                         </v-container>
                       </v-card-text>
@@ -72,16 +91,13 @@ export default {
     this.todoListRef = db.collection('teams')
 
     this.todoListRef.onSnapshot((querySnapshot) => {
-      console.log('リスナー配置')
-      //データが更新されるたびにここのコールバック関数を実行
-
+      //リスナー配置し、Firestoreのデータが更新されるたびに以下の関数を実行
       //データ取得処理
       const obj = {}
       querySnapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
       })
       this.teams = obj
-      console.log(this.teams)
     })
   },
 }

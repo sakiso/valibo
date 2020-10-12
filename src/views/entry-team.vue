@@ -4,8 +4,8 @@
       <v-container ma-0 pa-0 fluid fill-height>
         <v-row height="100%" justify="center">
           <v-card
-            min-width="430px"
-            width="50%"
+            min-width="400px"
+            width="30%"
             color="blue lighten-4"
             align="center"
           >
@@ -14,30 +14,22 @@
             <v-card-text>
               <v-list>
                 <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account-group</v-icon>
-                  </v-list-item-icon>
                   <v-text-field
+                    prepend-icon=" mdi-account-group "
                     label="チーム名"
                     v-model="teamInfo.teamName"
                   ></v-text-field>
                 </v-list-item>
 
                 <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-map-marker</v-icon>
-                  </v-list-item-icon>
-                  <v-text-field
-                    label="活動場所"
-                    v-model="teamInfo.placeOfActivity"
-                  ></v-text-field>
+                  <prefectures-list
+                    @selectPrefecture="setPrefecture"
+                  ></prefectures-list>
                 </v-list-item>
 
                 <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-fire</v-icon>
-                  </v-list-item-icon>
                   <v-slider
+                    prepend-icon=" mdi-fire "
                     v-model="teamInfo.levelOfSeriousness"
                     label="本気度"
                     max="4"
@@ -47,31 +39,22 @@
                 </v-list-item>
 
                 <v-list-item>
-                  <v-select
-                    prepend-icon="mdi-fire"
-                    :items="position"
-                    label="求めるポジション"
-                    chips
-                    multiple
-                    v-model="teamInfo.wantedPosition"
-                  ></v-select>
+                  <wanted-position-selecer @selectPosition="setWantedPosition">
+                  </wanted-position-selecer>
                 </v-list-item>
 
                 <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-calendar-clock </v-icon>
-                  </v-list-item-icon>
                   <v-radio-group
+                    prepend-icon="mdi-calendar-clock"
                     label="活動ペース"
                     v-model="teamInfo.activityCycle.weekOrMonth"
                   >
                     <br />
-                    <v-radio label="毎週" value="AWeek"></v-radio>
-                    <v-radio label="毎月" value="AMonth"></v-radio>
+                    <v-radio label="毎週" value="毎週"></v-radio>
+                    <v-radio label="毎月" value="毎月"></v-radio>
                     <v-select
                       :items="times"
                       label="回数"
-                      solo
                       v-model="teamInfo.activityCycle.timesAWeekOrMonth"
                     ></v-select>
                   </v-radio-group>
@@ -90,8 +73,15 @@
 
 <script>
 import { db } from '@/plugins/firebase'
+import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
+import PrefecturesList from '@/components/prefectures-list.vue'
 
 export default {
+  components: {
+    WantedPositionSelecer,
+    PrefecturesList,
+  },
+
   data: function () {
     return {
       times: [
@@ -106,19 +96,13 @@ export default {
         '9回',
         '10回以上',
       ],
-      position: [
-        'ウィングスパイカー',
-        'ミドルブロッカー',
-        'セッター',
-        'リベロ',
-      ],
       ticksLabels: ['1', '2', '3', '4', '5'],
       teamsRef: null,
       teamInfo: {
         teamName: '',
         placeOfActivity: '',
         levelOfSeriousness: '2',
-        wantedPosition: '',
+        wantedPosition: [],
         activityCycle: {
           weekOrMonth: '',
           timesAWeekOrMonth: '',
@@ -135,6 +119,13 @@ export default {
   },
 
   methods: {
+    setPrefecture(prefecture) {
+      this.teamInfo.placeOfActivity = prefecture
+    },
+    setWantedPosition(position) {
+      //ポジション選択時に子コンポーネントから受け取ったデータを保存するメソッド
+      this.teamInfo.wantedPosition = position
+    },
     entryTeam() {
       //入力がなければ抜ける
       if (this.teamInfo === '') {
@@ -159,6 +150,7 @@ export default {
         level_of_seriousness: this.teamInfo.levelOfSeriousness,
         entry_timestamp: timestamp,
         entry_date: entryDate,
+        wanted_position: this.teamInfo.wantedPosition,
         activity_cycle: {
           week_or_month: this.teamInfo.activityCycle.weekOrMonth,
           times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
@@ -172,6 +164,7 @@ export default {
         levelOfSeriousness: '2',
         entryTimestamp: null,
         entryDate: '',
+        wantedPosition: [],
         activityCycle: {
           weekOrMonth: '',
           timesAWeekOrMonth: '',

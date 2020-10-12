@@ -8,10 +8,9 @@
         <v-select
           :items="levelList"
           label=""
-          solo
           dense
-          v-model="maxLevelOfSeriousness"
-          @change="selectLevel"
+          v-model="levelOfSeriousness.minLevel"
+          @change="selectMinLevel"
         ></v-select>
       </v-col>
       <v-col cols="1" class="text-center"> ～ </v-col>
@@ -19,10 +18,9 @@
         <v-select
           :items="levelList"
           label=""
-          solo
           dense
-          v-model="minLevelOfSeriousness"
-          @change="selectLevel"
+          v-model="levelOfSeriousness.maxLevel"
+          @change="selectMaxLevel"
         ></v-select>
       </v-col>
     </v-row>
@@ -33,15 +31,22 @@
 export default {
   data: function () {
     return {
-      minLevelOfSeriousness: null,
-      maxLevelOfSeriousness: null,
+      levelOfSeriousness: {
+        minLevel: null,
+        maxLevel: null,
+      },
       levelList: [1, 2, 3, 4, 5],
     }
   },
   methods: {
-    selectLevel() {
+    selectMinLevel() {
       //親コンポーネントのselectLevelカスタムイベントを発火させる
-      this.$emit('selectLevel', this.levelOfSeriousness)
+      console.log()
+      this.$emit('selectMinLevel', this.levelOfSeriousness.minLevel)
+    },
+    selectMaxLevel() {
+      //親コンポーネントのselectLevelカスタムイベントを発火させる
+      this.$emit('selectMaxLevel', this.levelOfSeriousness.maxLevel)
     },
   },
 }
