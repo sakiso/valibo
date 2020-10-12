@@ -6,6 +6,7 @@
           <v-col cols="3">
             <teamSidebar
               class="fixed width-25halfper grey lighten-2"
+              @selectTeams="selectTeams"
             ></teamSidebar>
           </v-col>
 
@@ -99,6 +100,13 @@ export default {
       })
       this.teams = obj
     })
+  },
+
+  methods: {
+    selectTeams(selectedTeams) {
+      //検索の結果取得したチーム情報を、画面表示している変数に上書きする
+      this.teams = selectedTeams
+    },
   },
 }
 </script>

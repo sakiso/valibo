@@ -50,7 +50,7 @@ export default {
       minlevelOfSeriousness: '',
       maxlevelOfSeriousness: '',
       wantedPosition: '',
-      errMessage: '',
+      errMessage: null,
     }
   },
 
@@ -76,6 +76,9 @@ export default {
     },
 
     selectTeamsFromFilestore() {
+      //処理開始時に表示されている検索エラーメッセージは初期化する
+      this.errMessage = null
+
       //未入力項目があるとき、エラーを表示して抜ける
       if (
         !this.placeOfActivity ||
@@ -106,6 +109,7 @@ export default {
           //検索結果無しの場合
           if (snapshot.empty) {
             console.log('no matching docs')
+            this.errMessage = '条件を満たすチームが存在しません。'
             return
           }
           //検索結果ありの場合
@@ -114,6 +118,7 @@ export default {
             obj[doc.id] = doc.data()
           })
           console.log(obj)
+          this.$emit('selectTeams', obj)
         })
         .catch((err) => {
           //エラーの場合
