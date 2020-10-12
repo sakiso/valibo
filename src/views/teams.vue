@@ -21,9 +21,12 @@
                       <v-card-title>
                         {{ team.team_name }}
                       </v-card-title>
-
+                      <v-img
+                        height="180"
+                        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                      ></v-img>
                       <v-card-text>
-                        <v-container>
+                        <v-container mt-0 pt-0 pb-1>
                           <v-row dense>
                             <v-col>
                               {{ team.place_of_activity }}
@@ -58,7 +61,6 @@
                 </v-row>
               </v-container>
             </v-card>
-
             <v-row>
               <v-col cols="12"> pagenation </v-col>
             </v-row>
