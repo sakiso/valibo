@@ -59,6 +59,15 @@
                     ></v-select>
                   </v-radio-group>
                 </v-list-item>
+
+                <v-list-item>
+                  <v-file-input
+                    accept="image/*"
+                    label="チームの写真"
+                    prepend-icon="mdi-camera"
+                    @change="selectedImage"
+                  ></v-file-input>
+                </v-list-item>
               </v-list>
             </v-card-text>
             <v-btn large @click="entryTeam"> 登録 </v-btn>
@@ -73,6 +82,7 @@
 
 <script>
 import { db } from '@/plugins/firebase'
+import { storage } from '@/plugins/firebase'
 import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
 import PrefecturesList from '@/components/prefectures-list.vue'
 
@@ -98,6 +108,7 @@ export default {
       ],
       ticksLabels: ['1', '2', '3', '4', '5'],
       teamsRef: null,
+      imageInfo: null,
       teamInfo: {
         teamName: '',
         placeOfActivity: '',
@@ -107,8 +118,6 @@ export default {
           weekOrMonth: '',
           timesAWeekOrMonth: '',
         },
-        entryTimestamp: null,
-        entryDate: '',
       },
     }
   },
@@ -125,6 +134,11 @@ export default {
     setWantedPosition(position) {
       //ポジション選択時に子コンポーネントから受け取ったデータを保存するメソッド
       this.teamInfo.wantedPosition = position
+    },
+    selectedImage(fileInfo) {
+      console.log(fileInfo.name)
+      //ファイル名とローカル上のパスを取得
+      this.imageInfo = fileInfo
     },
     entryTeam() {
       //入力がなければ抜ける
@@ -143,18 +157,34 @@ export default {
         '/' +
         timestamp.getDate()
 
-      //teamsコレクションへの登録
-      this.teamsRef.add({
-        team_name: this.teamInfo.teamName,
-        place_of_activity: this.teamInfo.placeOfActivity,
-        level_of_seriousness: this.teamInfo.levelOfSeriousness,
-        entry_timestamp: timestamp,
-        entry_date: entryDate,
-        wanted_position: this.teamInfo.wantedPosition,
-        activity_cycle: {
-          week_or_month: this.teamInfo.activityCycle.weekOrMonth,
-          times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
-        },
+      //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
+      const uniqueImageName = this.imageInfo.name + '_' + timestamp
+      //storageへの参照
+      const storageRef = storage.ref()
+      const teamImagesRef = storageRef.child('team_image/' + uniqueImageName)
+
+      //put後のコールバック関数内で参照が切れるのでthisをselfに退避
+      const self = this
+      teamImagesRef.put(this.imageInfo).then(async function (snapshot) {
+        const url = await snapshot.ref.getDownloadURL()
+        console.log(url)
+        console.log('upload done')
+
+        //teamsコレクションへの登録
+        self.teamsRef.add({
+          team_name: self.teamInfo.teamName,
+          place_of_activity: self.teamInfo.placeOfActivity,
+          level_of_seriousness: self.teamInfo.levelOfSeriousness,
+          entry_timestamp: timestamp,
+          entry_date: entryDate,
+          wanted_position: self.teamInfo.wantedPosition,
+          activity_cycle: {
+            week_or_month: self.teamInfo.activityCycle.weekOrMonth,
+            times_a_week_or_month:
+              self.teamInfo.activityCycle.timesAWeekOrMonth,
+          },
+          team_image_url: url,
+        })
       })
 
       //画面入力値を初期化
@@ -162,8 +192,6 @@ export default {
         teamName: '',
         placeOfActivity: '',
         levelOfSeriousness: '2',
-        entryTimestamp: null,
-        entryDate: '',
         wantedPosition: [],
         activityCycle: {
           weekOrMonth: '',
