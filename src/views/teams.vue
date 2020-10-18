@@ -21,10 +21,7 @@
                       <v-card-title>
                         {{ team.team_name }}
                       </v-card-title>
-                      <v-img
-                        height="180"
-                        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                      ></v-img>
+                      <v-img height="180" :src="team.team_image_URL"></v-img>
                       <v-card-text>
                         <v-container mt-0 pt-0 pb-1>
                           <v-row dense>
@@ -52,6 +49,18 @@
                             <v-col>
                               {{ team.activity_cycle.week_or_month }}
                               {{ team.activity_cycle.times_a_week_or_month }}
+                            </v-col>
+                          </v-row>
+                          <v-row dense>
+                            <v-col>
+                              <v-btn
+                                x-small
+                                color="grey"
+                                dark
+                                @click="deleteTeam(key)"
+                              >
+                                削除
+                              </v-btn>
                             </v-col>
                           </v-row>
                         </v-container>
@@ -82,7 +91,10 @@ export default {
   name: 'TeamsView',
 
   data: function () {
-    return { teams: {} }
+    return {
+      teams: {},
+      teamsRef: null,
+    }
   },
   components: {
     TeamSidebar,
@@ -91,9 +103,9 @@ export default {
   created: function () {
     //Firestoreからデータ取得
     //teamsコレクションへの参照
-    this.todoListRef = db.collection('teams')
+    this.teamsRef = db.collection('teams')
 
-    this.todoListRef.onSnapshot((querySnapshot) => {
+    this.teamsRef.onSnapshot((querySnapshot) => {
       //リスナー配置し、Firestoreのデータが更新されるたびに以下の関数を実行
       //データ取得処理
       const obj = {}
@@ -108,6 +120,10 @@ export default {
     selectTeams(selectedTeams) {
       //検索の結果取得したチーム情報を、画面表示している変数に上書きする
       this.teams = selectedTeams
+    },
+
+    deleteTeam(key) {
+      this.teamsRef.doc(key).delete()
     },
   },
 }
