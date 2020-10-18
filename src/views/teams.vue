@@ -21,7 +21,12 @@
                       <v-card-title>
                         {{ team.team_name }}
                       </v-card-title>
-                      <v-img height="180" :src="team.team_image_URL"></v-img>
+                      <v-img
+                        height="130"
+                        width="100%"
+                        :src="team.team_image_url"
+                        contain
+                      ></v-img>
                       <v-card-text>
                         <v-container mt-0 pt-0 pb-1>
                           <v-row dense>
@@ -111,6 +116,9 @@ export default {
       const obj = {}
       querySnapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
+        console.log(doc.id)
+        console.log(doc.data().team_name)
+        console.log(doc.data().team_image_url)
       })
       this.teams = obj
     })

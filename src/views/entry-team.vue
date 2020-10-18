@@ -18,6 +18,7 @@
                     prepend-icon=" mdi-account-group "
                     label="チーム名"
                     v-model="teamInfo.teamName"
+                    @blur="checkInput"
                   ></v-text-field>
                 </v-list-item>
 
@@ -48,6 +49,7 @@
                     prepend-icon="mdi-calendar-clock"
                     label="活動ペース"
                     v-model="teamInfo.activityCycle.weekOrMonth"
+                    @blur="checkInput"
                   >
                     <br />
                     <v-radio label="毎週" value="毎週"></v-radio>
@@ -56,6 +58,7 @@
                       :items="times"
                       label="回数"
                       v-model="teamInfo.activityCycle.timesAWeekOrMonth"
+                      @blur="checkInput"
                     ></v-select>
                   </v-radio-group>
                 </v-list-item>
@@ -70,7 +73,14 @@
                 </v-list-item>
               </v-list>
             </v-card-text>
-            <v-btn large @click="entryTeam"> 登録 </v-btn>
+            <v-btn
+              large
+              @click="entryTeam"
+              color="primary"
+              :disabled="!isEntryReady"
+            >
+              登録
+            </v-btn>
             <br />
             <br />
           </v-card>
@@ -107,8 +117,10 @@ export default {
         '10回以上',
       ],
       ticksLabels: ['1', '2', '3', '4', '5'],
+      isEntryReady: false,
       teamsRef: null,
       imageInfo: null,
+      teamImageUrl: '',
       teamInfo: {
         teamName: '',
         placeOfActivity: '',
@@ -139,11 +151,58 @@ export default {
       console.log(fileInfo.name)
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
+
+      //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
+      const timestamp = new Date()
+      const uniqueImageName = this.imageInfo.name + '_' + timestamp
+      //storageへの参照
+      const storageRef = storage.ref()
+      const teamImagesRef = storageRef.child('team_image/' + uniqueImageName)
+
+      //アップロードしてURLを取得
+      //コールバック関数内でthisへ参照できないため、selfに退避する
+      let self = this
+      teamImagesRef.put(this.imageInfo).then(async function (snapshot) {
+        self.teamImageUrl = await snapshot.ref.getDownloadURL()
+        console.log(self.teamImageUrl)
+        console.log('upload done')
+        self.checkInput()
+      })
+    },
+
+    checkInput() {
+      if (
+        //チーム名の入力が完了しているか
+        this.teamInfo.teamName !== '' &&
+        //活動エリアの入力が完了しているか
+        this.teamInfo.placeOfActivity !== '' &&
+        //求めるポジションの入力が完了しているか
+        this.teamInfo.wantedPosition !== [] &&
+        //活動ペース（月/週）の入力が完了しているか
+        this.teamInfo.activityCycle.weekOrMonth !== '' &&
+        //活動ペース（回数）の入力が完了しているか
+        this.teamInfo.activityCycle.timesAWeekOrMonth !== '' &&
+        //チーム写真のアップロードが完了しているか
+        this.teamImageUrl !== ''
+      ) {
+        //準備完了状態をtrueに更新し、これによりボタンが活性化する
+        this.isEntryReady = true
+      } else {
+        //条件を満たさない場合はボタンを非活性にする
+        this.isEntryReady = false
+      }
     },
     entryTeam() {
       //入力がなければ抜ける
-      if (this.teamInfo === '') {
-        console.log('入力なし')
+      if (
+        this.teamInfo.teamName === '' ||
+        this.teamInfo.placeOfActivity === '' ||
+        this.teamInfo.wantedPosition === [] ||
+        this.teamInfo.activityCycle.weekOrMonth === '' ||
+        this.teamInfo.activityCycle.timesAWeekOrMonth === '' ||
+        this.imageInfo === null
+      ) {
+        console.log('入力項目に不足あり')
         return
       }
 
@@ -157,50 +216,32 @@ export default {
         '/' +
         timestamp.getDate()
 
-      //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
-      const uniqueImageName = this.imageInfo.name + '_' + timestamp
-      //storageへの参照
-      const storageRef = storage.ref()
-      const teamImagesRef = storageRef.child('team_image/' + uniqueImageName)
-
-      //put後のコールバック関数内で参照が切れるのでthisをselfに退避
-      const self = this
-      teamImagesRef.put(this.imageInfo).then(async function (snapshot) {
-        const url = await snapshot.ref.getDownloadURL()
-        console.log(url)
-        console.log('upload done')
-
-        //teamsコレクションへの登録
-        self.teamsRef.add({
-          team_name: self.teamInfo.teamName,
-          place_of_activity: self.teamInfo.placeOfActivity,
-          level_of_seriousness: self.teamInfo.levelOfSeriousness,
-          entry_timestamp: timestamp,
-          entry_date: entryDate,
-          wanted_position: self.teamInfo.wantedPosition,
-          activity_cycle: {
-            week_or_month: self.teamInfo.activityCycle.weekOrMonth,
-            times_a_week_or_month:
-              self.teamInfo.activityCycle.timesAWeekOrMonth,
-          },
-          team_image_url: url,
-        })
+      //teamsコレクションへの登録
+      this.teamsRef.add({
+        team_name: this.teamInfo.teamName,
+        place_of_activity: this.teamInfo.placeOfActivity,
+        level_of_seriousness: this.teamInfo.levelOfSeriousness,
+        entry_timestamp: timestamp,
+        entry_date: entryDate,
+        wanted_position: this.teamInfo.wantedPosition,
+        activity_cycle: {
+          week_or_month: this.teamInfo.activityCycle.weekOrMonth,
+          times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
+        },
+        team_image_url: this.teamImageUrl,
       })
 
       //画面入力値を初期化
-      this.teamInfo = {
-        teamName: '',
-        placeOfActivity: '',
-        levelOfSeriousness: '2',
-        wantedPosition: [],
-        activityCycle: {
-          weekOrMonth: '',
-          timesAWeekOrMonth: '',
-        },
-      }
+      this.teamInfo.teamName = ''
+      this.teamInfo.placeOfActivity = ''
+      this.teamInfo.levelOfSeriousness = '2'
+      this.teamInfo.wantedPosition = []
+      this.teamInfo.activityCycle.weekOrMonth = ''
+      this.teamInfo.activityCycle.timesAWeekOrMonth = ''
+      this.imageInfo = null
     },
   },
 }
 </script>
 
-<style></style>
+<style scoped></style>
