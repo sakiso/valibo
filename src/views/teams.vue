@@ -116,9 +116,6 @@ export default {
       const obj = {}
       querySnapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
-        console.log(doc.id)
-        console.log(doc.data().team_name)
-        console.log(doc.data().team_image_url)
       })
       this.teams = obj
     })
