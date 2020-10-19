@@ -68,7 +68,7 @@
                     accept="image/*"
                     label="チームの写真"
                     prepend-icon="mdi-camera"
-                    @change="selectedImage"
+                    @change="uploadImage"
                   ></v-file-input>
                 </v-list-item>
               </v-list>
@@ -95,6 +95,7 @@ import { db } from '@/plugins/firebase'
 import { storage } from '@/plugins/firebase'
 import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
 import PrefecturesList from '@/components/prefectures-list.vue'
+import imageCompression from '@/imageCompression.js'
 
 export default {
   components: {
@@ -120,6 +121,7 @@ export default {
       isEntryReady: false,
       teamsRef: null,
       imageInfo: null,
+      compressedImage: null,
       teamImageUrl: '',
       teamInfo: {
         teamName: '',
@@ -143,14 +145,23 @@ export default {
     setPrefecture(prefecture) {
       this.teamInfo.placeOfActivity = prefecture
     },
+
     setWantedPosition(position) {
       //ポジション選択時に子コンポーネントから受け取ったデータを保存するメソッド
       this.teamInfo.wantedPosition = position
     },
-    selectedImage(fileInfo) {
+
+    async uploadImage(fileInfo) {
       console.log(fileInfo.name)
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
+
+      //画像を圧縮する
+      console.log('start compress')
+      this.compressedImage = await imageCompression.getCompressImageFile(
+        this.imageInfo
+      )
+      console.log('finished compress')
 
       //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
       const timestamp = new Date()
@@ -162,7 +173,7 @@ export default {
       //アップロードしてURLを取得
       //コールバック関数内でthisへ参照できないため、selfに退避する
       let self = this
-      teamImagesRef.put(this.imageInfo).then(async function (snapshot) {
+      teamImagesRef.put(this.compressedImage).then(async function (snapshot) {
         self.teamImageUrl = await snapshot.ref.getDownloadURL()
         console.log(self.teamImageUrl)
         console.log('upload done')

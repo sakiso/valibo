@@ -16,7 +16,7 @@
 
               <v-container>
                 <v-row>
-                  <v-col cols="4" v-for="(team, key) in teams" :key="key">
+                  <v-col cols="3" v-for="(team, key) in teams" :key="key">
                     <v-card>
                       <v-card-title>
                         {{ team.team_name }}
