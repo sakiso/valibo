@@ -79,8 +79,11 @@
                     accept="image/*"
                     label="チームの写真"
                     prepend-icon="mdi-camera"
-                    @change="uploadImage"
+                    @change="selectImage"
                   ></v-file-input>
+                </v-list-item>
+
+                <v-list-item>
                   <vue-loading
                     v-if="uploading"
                     type="spiningDubbles"
@@ -172,41 +175,11 @@ export default {
       this.teamInfo.wantedPosition = position
     },
 
-    async uploadImage(fileInfo) {
-      //upload完了までtrueにしておきloadingのスピナーを表示する
-      this.uploading = true
-
+    async selectImage(fileInfo) {
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
-
-      //画像を圧縮する
-      console.log('start compress')
-      this.compressedImage = await imageCompression.getCompressImageFile(
-        this.imageInfo
-      )
-      console.log('finished compress')
-
-      //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
-      const timestamp = new Date()
-      const uniqueImageName = this.imageInfo.name + '_' + timestamp
-      //storageへの参照
-      const storageRef = storage.ref()
-      const teamImagesRef = storageRef.child('team_image/' + uniqueImageName)
-
-      //アップロードしてURLを取得
-      //コールバック関数内でthisへ参照できないため、selfに退避する
-      let self = this
-      teamImagesRef.put(this.compressedImage).then(async function (snapshot) {
-        self.teamImageUrl = await snapshot.ref.getDownloadURL()
-        console.log(self.teamImageUrl)
-        console.log('upload done')
-
-        //loadingスピナーを非表示にするためfalseに更新
-        self.uploading = false
-
-        //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
-        self.checkInput()
-      })
+      //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
+      this.checkInput()
     },
 
     checkInput() {
@@ -222,9 +195,7 @@ export default {
         //活動ペース（月/週）の入力が完了しているか
         this.teamInfo.activityCycle.weekOrMonth !== '' &&
         //活動ペース（回数）の入力が完了しているか
-        this.teamInfo.activityCycle.timesAWeekOrMonth !== '' &&
-        //チーム写真のアップロードが完了しているか
-        this.teamImageUrl !== ''
+        this.teamInfo.activityCycle.timesAWeekOrMonth !== ''
       ) {
         //準備完了状態をtrueに更新し、これによりボタンが活性化する
         this.isEntryReady = true
@@ -233,7 +204,8 @@ export default {
         this.isEntryReady = false
       }
     },
-    entryTeam() {
+
+    async entryTeam() {
       //入力がなければ抜ける
       if (
         this.teamInfo.teamName === '' ||
@@ -247,6 +219,9 @@ export default {
         return
       }
 
+      //リサイズ、アップロード、firestore登録完了までloadingのスピナーを表示する
+      this.uploading = true
+
       //timestamp取得
       const timestamp = new Date()
       //timestampからYYYY/MM/DD形式の文字列を取得
@@ -256,6 +231,30 @@ export default {
         (timestamp.getMonth() + 1) +
         '/' +
         timestamp.getDate()
+
+      //画像を圧縮する
+      console.log('start compress')
+      this.compressedImage = await imageCompression.getCompressImageFile(
+        this.imageInfo
+      )
+      console.log('finished compress')
+
+      //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
+      const uniqueImageName = this.imageInfo.name + '_' + timestamp
+      //storageへの参照
+      const storageRef = storage.ref()
+      const teamImagesRef = storageRef.child('team_image/' + uniqueImageName)
+
+      //アップロードしてURLを取得
+      //コールバック関数内でthisへ参照できないため、selfに退避する
+      let self = this
+      await teamImagesRef
+        .put(this.compressedImage)
+        .then(async function (snapshot) {
+          self.teamImageUrl = await snapshot.ref.getDownloadURL()
+          console.log(self.teamImageUrl)
+          console.log('upload done')
+        })
 
       //teamsコレクションへの登録
       this.teamsRef.add({
@@ -272,6 +271,9 @@ export default {
         email_address: this.teamInfo.emailAddress,
         team_image_url: this.teamImageUrl,
       })
+
+      //loadingスピナーを非表示にするためfalseに更新
+      this.uploading = false
 
       //画面入力値を初期化
       this.teamInfo.teamName = ''
