@@ -2,7 +2,7 @@
   <v-select
     prepend-icon=" mdi-volleyball "
     :items="positionList"
-    label="求めるポジション"
+    label="募集中のポジション"
     v-model="wantedPosition"
     @change="selectPosition"
     :multiple="multipleFlg"

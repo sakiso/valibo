@@ -18,6 +18,8 @@
                     prepend-icon=" mdi-account-group "
                     label="チーム名"
                     v-model="teamInfo.teamName"
+                    counter="15"
+                    :rules="rulesOfTeamName"
                     @blur="checkInput"
                   ></v-text-field>
                 </v-list-item>
@@ -76,12 +78,15 @@
                 </v-list-item>
 
                 <v-list-item>
-                  <v-text-field
+                  <v-textarea
+                    rows="2"
                     label="ひとこと"
                     prepend-icon="mdi-comment"
                     v-model="teamInfo.messageOfTeam"
                     @blur="checkInput"
-                  ></v-text-field>
+                    :rules="rulesOfMessage"
+                    counter="25"
+                  ></v-textarea>
                 </v-list-item>
 
                 <v-list-item>
@@ -137,6 +142,12 @@ export default {
 
   data: function () {
     return {
+      rulesOfTeamName: [
+        (value) => value.length <= 15 || '15文字以下で入力してください',
+      ],
+      rulesOfMessage: [
+        (value) => value.length <= 25 || '25文字以下で入力してください',
+      ],
       times: [
         '1回',
         '2回',
