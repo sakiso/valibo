@@ -27,6 +27,7 @@
                     label="連絡先（e-mail）"
                     prepend-icon="mdi-email"
                     v-model="teamInfo.emailAddress"
+                    @blur="checkInput"
                   ></v-text-field>
                 </v-list-item>
 
@@ -60,7 +61,7 @@
                     prepend-icon="mdi-calendar-clock"
                     label="活動ペース"
                     v-model="teamInfo.activityCycle.weekOrMonth"
-                    @blur="checkInput"
+                    @change="checkInput"
                   >
                     <br />
                     <v-radio label="毎週" value="毎週"></v-radio>
@@ -72,6 +73,15 @@
                       @blur="checkInput"
                     ></v-select>
                   </v-radio-group>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-text-field
+                    label="ひとこと"
+                    prepend-icon="mdi-comment"
+                    v-model="teamInfo.messageOfTeam"
+                    @blur="checkInput"
+                  ></v-text-field>
                 </v-list-item>
 
                 <v-list-item>
@@ -156,6 +166,7 @@ export default {
           timesAWeekOrMonth: '',
         },
         emailAddress: '',
+        messageOfTeam: '',
       },
     }
   },
@@ -168,16 +179,24 @@ export default {
   methods: {
     setPrefecture(prefecture) {
       this.teamInfo.placeOfActivity = prefecture
+
+      //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
+      this.checkInput()
     },
 
     setWantedPosition(position) {
       //ポジション選択時に子コンポーネントから受け取ったデータを保存するメソッド
       this.teamInfo.wantedPosition = position
+
+      //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
+      this.checkInput()
     },
 
     async selectImage(fileInfo) {
+      console.log(fileInfo)
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
+
       //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
       this.checkInput()
     },
@@ -191,11 +210,16 @@ export default {
         //活動エリアの入力が完了しているか
         this.teamInfo.placeOfActivity !== '' &&
         //求めるポジションの入力が完了しているか
-        this.teamInfo.wantedPosition !== [] &&
+        this.teamInfo.wantedPosition.length !== 0 &&
         //活動ペース（月/週）の入力が完了しているか
         this.teamInfo.activityCycle.weekOrMonth !== '' &&
         //活動ペース（回数）の入力が完了しているか
-        this.teamInfo.activityCycle.timesAWeekOrMonth !== ''
+        this.teamInfo.activityCycle.timesAWeekOrMonth !== '' &&
+        //メッセージの入力が完了しているか
+        this.teamInfo.messageOfTeam !== '' &&
+        //写真の選択が完了しているか
+        this.imageInfo !== null && //画像が選択されていない場合
+        this.imageInfo !== void 0 //画像を選択後に×で削除した場合（nullではなくundefinedになるのでvoid0と比較する）
       ) {
         //準備完了状態をtrueに更新し、これによりボタンが活性化する
         this.isEntryReady = true
@@ -269,6 +293,7 @@ export default {
           times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
         },
         email_address: this.teamInfo.emailAddress,
+        message_of_team: this.teamInfo.messageOfTeam,
         team_image_url: this.teamImageUrl,
       })
 

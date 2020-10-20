@@ -16,24 +16,35 @@
 
               <v-container>
                 <v-row>
-                  <v-col cols="3" v-for="(team, key) in teams" :key="key">
-                    <v-card>
+                  <v-col cols="4" v-for="(team, key) in teams" :key="key">
+                    <v-card height="470">
                       <v-card-title>
                         {{ team.team_name }}
                       </v-card-title>
+
                       <v-img
-                        height="130"
+                        height="210"
                         width="100%"
                         :src="team.team_image_url"
                         contain
                       ></v-img>
+
                       <v-card-text>
                         <v-container mt-0 pt-0 pb-1>
+                          <v-row dense>
+                            <v-col class="text-subtitle-1">
+                              {{ team.message_of_team }}
+                            </v-col>
+                          </v-row>
+
+                          <v-divider></v-divider>
+
                           <v-row dense>
                             <v-col>
                               {{ team.place_of_activity }}
                             </v-col>
                           </v-row>
+
                           <v-row dense>
                             <v-col>
                               <v-rating
@@ -50,12 +61,14 @@
                               ></v-rating>
                             </v-col>
                           </v-row>
+
                           <v-row dense>
                             <v-col>
                               {{ team.activity_cycle.week_or_month }}
                               {{ team.activity_cycle.times_a_week_or_month }}
                             </v-col>
                           </v-row>
+
                           <v-row dense>
                             <v-col>
                               <v-btn
@@ -71,7 +84,9 @@
                               >
                                 contact
                               </v-btn>
-                              <br />
+                            </v-col>
+
+                            <v-col>
                               <v-btn
                                 x-small
                                 color="grey"
