@@ -5,14 +5,21 @@
     label="求めるポジション"
     v-model="wantedPosition"
     @change="selectPosition"
+    :multiple="multipleFlg"
   ></v-select>
 </template>
 
 <script>
 export default {
+  props: {
+    multipleFlg: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      wantedPosition: '',
+      wantedPosition: [],
       positionList: [
         'ウィングスパイカー',
         'ミドルブロッカー',

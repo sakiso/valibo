@@ -40,7 +40,10 @@
                 </v-list-item>
 
                 <v-list-item>
-                  <wanted-position-selecer @selectPosition="setWantedPosition">
+                  <wanted-position-selecer
+                    @selectPosition="setWantedPosition"
+                    :multiple-flg="true"
+                  >
                   </wanted-position-selecer>
                 </v-list-item>
 
