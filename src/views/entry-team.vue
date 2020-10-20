@@ -81,6 +81,12 @@
                     prepend-icon="mdi-camera"
                     @change="uploadImage"
                   ></v-file-input>
+                  <vue-loading
+                    v-if="uploading"
+                    type="spiningDubbles"
+                    color="#7ec0e7"
+                    :size="{ width: '50px', height: '50px' }"
+                  ></vue-loading>
                 </v-list-item>
               </v-list>
             </v-card-text>
@@ -104,6 +110,7 @@
 <script>
 import { db } from '@/plugins/firebase'
 import { storage } from '@/plugins/firebase'
+import { VueLoading } from 'vue-loading-template'
 import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
 import PrefecturesList from '@/components/prefectures-list.vue'
 import imageCompression from '@/imageCompression.js'
@@ -112,6 +119,7 @@ export default {
   components: {
     WantedPositionSelecer,
     PrefecturesList,
+    VueLoading,
   },
 
   data: function () {
@@ -131,6 +139,7 @@ export default {
       ticksLabels: ['1', '2', '3', '4', '5'],
       isEntryReady: false,
       teamsRef: null,
+      uploading: false,
       imageInfo: null,
       compressedImage: null,
       teamImageUrl: '',
@@ -164,7 +173,9 @@ export default {
     },
 
     async uploadImage(fileInfo) {
-      console.log(fileInfo.name)
+      //upload完了までtrueにしておきloadingのスピナーを表示する
+      this.uploading = true
+
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
 
@@ -189,6 +200,11 @@ export default {
         self.teamImageUrl = await snapshot.ref.getDownloadURL()
         console.log(self.teamImageUrl)
         console.log('upload done')
+
+        //loadingスピナーを非表示にするためfalseに更新
+        self.uploading = false
+
+        //各入力項目の入力が完了しているかチェックし、OKなら登録ボタンを活性化する
         self.checkInput()
       })
     },
@@ -197,6 +213,8 @@ export default {
       if (
         //チーム名の入力が完了しているか
         this.teamInfo.teamName !== '' &&
+        //メールアドレスの入力が完了しているか
+        this.teamInfo.emailAddress !== '' &&
         //活動エリアの入力が完了しているか
         this.teamInfo.placeOfActivity !== '' &&
         //求めるポジションの入力が完了しているか
