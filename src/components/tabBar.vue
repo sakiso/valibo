@@ -14,9 +14,7 @@ export default {
       tab: null,
       items: [
         { tab: 'チーム検索', path: '/teams' },
-        { tab: 'プレイヤー検索', path: '/players' },
         { tab: 'チーム登録', path: '/entry-team' },
-        { tab: 'プレイヤー登録', path: '/entry-player' },
       ],
     }
   },
