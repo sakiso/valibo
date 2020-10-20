@@ -60,6 +60,20 @@
                             <v-col>
                               <v-btn
                                 x-small
+                                color="blue darken-1"
+                                dark
+                                @click="
+                                  displayDialog(
+                                    team.team_name,
+                                    team.email_address
+                                  )
+                                "
+                              >
+                                contact
+                              </v-btn>
+                              <br />
+                              <v-btn
+                                x-small
                                 color="grey"
                                 dark
                                 @click="deleteTeam(key)"
@@ -74,6 +88,13 @@
                   </v-col>
                 </v-row>
               </v-container>
+
+              <v-dialog v-model="dialog" max-width="500px">
+                <dialog-card
+                  :title="dialogTitle"
+                  :text="dialogText"
+                ></dialog-card>
+              </v-dialog>
             </v-card>
             <v-row>
               <v-col cols="12"> pagenation </v-col>
@@ -89,8 +110,8 @@
 //firebase import
 import TeamSidebar from '@/components/team-sidebar.vue'
 import { db } from '@/plugins/firebase'
-//import firebase from 'firebase/app'
 import 'firebase/auth'
+import DialogCard from '@/components/dialog.vue'
 
 export default {
   name: 'TeamsView',
@@ -99,10 +120,14 @@ export default {
     return {
       teams: {},
       teamsRef: null,
+      dialog: false,
+      dialogText: 'none',
+      dialogTitle: '-',
     }
   },
   components: {
     TeamSidebar,
+    DialogCard,
   },
 
   created: function () {
@@ -129,6 +154,16 @@ export default {
 
     deleteTeam(key) {
       this.teamsRef.doc(key).delete()
+    },
+
+    displayDialog(teamName, email) {
+      //画面から受け取ったチーム名とemailをセットし、dialogを表示する
+      this.dialogTitle = '「' + teamName + '」連絡先'
+      this.dialogText = email
+      console.log(this.dialogTitle, this.dialogText)
+
+      //dialog表示
+      this.dialog = true
     },
   },
 }

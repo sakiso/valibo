@@ -23,6 +23,14 @@
                 </v-list-item>
 
                 <v-list-item>
+                  <v-text-field
+                    label="連絡先（e-mail）"
+                    prepend-icon="mdi-email"
+                    v-model="teamInfo.emailAddress"
+                  ></v-text-field>
+                </v-list-item>
+
+                <v-list-item>
                   <prefectures-list
                     @selectPrefecture="setPrefecture"
                   ></prefectures-list>
@@ -135,6 +143,7 @@ export default {
           weekOrMonth: '',
           timesAWeekOrMonth: '',
         },
+        emailAddress: '',
       },
     }
   },
@@ -242,6 +251,7 @@ export default {
           week_or_month: this.teamInfo.activityCycle.weekOrMonth,
           times_a_week_or_month: this.teamInfo.activityCycle.timesAWeekOrMonth,
         },
+        email_address: this.teamInfo.emailAddress,
         team_image_url: this.teamImageUrl,
       })
 
