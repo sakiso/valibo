@@ -16,10 +16,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    wantedPosition: {
+      type: Array,
+      default: () => [], //配列のdefaultは素で書くと参照を共有してしまうため、関数で値を返している
+    },
   },
   data() {
     return {
-      wantedPosition: [],
       positionList: [
         'ウィングスパイカー',
         'ミドルブロッカー',
@@ -32,6 +35,8 @@ export default {
   methods: {
     selectPosition() {
       this.$emit('selectPosition', this.wantedPosition)
+      //このようにpropsを直接更新するとブラウザ上でVue warnが出て、「dataで更新しなさい」と言われるが
+      //親コンポーネントから選択状態をクリアしたいため、data内に選択状態を持たないようにしている
     },
   },
 }

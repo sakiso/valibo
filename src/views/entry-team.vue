@@ -57,6 +57,7 @@
                     <wanted-position-selecer
                       @selectPosition="setWantedPosition"
                       :multiple-flg="true"
+                      :wanted-position="teamInfo.wantedPosition"
                     >
                     </wanted-position-selecer>
                   </v-list-item>
