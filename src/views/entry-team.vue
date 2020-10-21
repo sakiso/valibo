@@ -217,7 +217,6 @@ export default {
     },
 
     async selectImage(fileInfo) {
-      console.log(fileInfo)
       //ファイル名とローカル上のパスを取得
       this.imageInfo = fileInfo
 
