@@ -337,12 +337,17 @@ export default {
 
       //画面入力値を初期化
       this.teamInfo.teamName = ''
-      this.teamInfo.placeOfActivity = ''
+      this.teamInfo.emailAddress = null
+      this.teamInfo.placeOfActivity = null
       this.teamInfo.levelOfSeriousness = '2'
-      this.teamInfo.wantedPosition = []
+      this.teamInfo.wantedPosition = null
       this.teamInfo.activityCycle.weekOrMonth = ''
       this.teamInfo.activityCycle.timesAWeekOrMonth = ''
+      this.teamInfo.messageOfTeam = ''
       this.imageInfo = null
+
+      //登録完了後、登録ボタンを非活性化する
+      this.teamInfo.isEntryReady = false
     },
   },
 }
