@@ -116,6 +116,11 @@
                 </v-list>
               </v-card-text>
             </v-form>
+
+            <v-alert v-if="entryTeamDone" dense max-width="70%" type="success">
+              {{ this.systemMessage }}
+            </v-alert>
+
             <v-btn
               large
               @click="entryTeam"
@@ -125,10 +130,6 @@
               登録
             </v-btn>
             <br />
-            <br />
-            <v-alert v-if="entryTeamDone" dense max-width="70%" type="success">
-              {{ this.systemMessage }}
-            </v-alert>
             <br />
           </v-card>
         </v-row>
