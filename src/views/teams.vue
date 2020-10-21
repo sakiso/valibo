@@ -23,9 +23,9 @@
                       </v-card-title>
 
                       <v-img
+                        height="40%"
                         width="100%"
                         :src="team.team_image_url"
-                        contain
                       ></v-img>
 
                       <v-card-text>
