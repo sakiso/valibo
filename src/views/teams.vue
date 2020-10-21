@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="3">
             <teamSidebar
-              class="fixed width-25halfper height-100per"
+              class="fixed width-25per height-100per"
               @selectTeams="selectTeams"
             ></teamSidebar>
           </v-col>
@@ -184,8 +184,8 @@ export default {
 .fixed {
   position: fixed;
 }
-.width-25halfper {
-  width: 25.5%;
+.width-25per {
+  width: 25%;
 }
 .wordBreak-breakAll {
   word-break: break-all;
