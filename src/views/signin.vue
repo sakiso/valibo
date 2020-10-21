@@ -10,7 +10,7 @@
             color="#F7F7F7"
             align="center"
           >
-            <v-card-title> 管理者ログイン </v-card-title>
+            <v-card-title> ログイン </v-card-title>
 
             <v-card-text>
               <v-list>
@@ -37,6 +37,9 @@
                 <v-alert dense max-width="90%" type="info" v-if="asAdmin">
                   管理者としてログインしています
                 </v-alert>
+                <v-alert dense max-width="90%" type="info" v-if="asUser">
+                  一般ユーザとしてログインしています
+                </v-alert>
 
                 <v-row justify="center">
                   <v-col cols="5">
@@ -45,7 +48,7 @@
                       width="75%"
                       color="primary"
                       @click="signIn"
-                      :disabled="asAdmin"
+                      :disabled="asAdmin || asUser"
                     >
                       ログイン
                     </v-btn>
@@ -56,7 +59,7 @@
                       width="75%"
                       color="error"
                       @click="signOut"
-                      :disabled="!asAdmin"
+                      :disabled="!(asAdmin || asUser)"
                     >
                       ログアウト
                     </v-btn>
@@ -74,6 +77,7 @@
 </template>
 
 <script>
+import { db } from '@/plugins/firebase'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -86,16 +90,37 @@ export default {
       password: '',
       isReadyToSignIn: false,
       asAdmin: false,
+      asUser: false,
     }
   },
 
   created: function () {
     //thisをselfに退避
     const self = this
-    //初期表示時にログイン済みであればazAdminを上書きする
-    firebase.auth().onAuthStateChanged(function (user) {
+    //ログイン情報をもとにroleを判断する
+    firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        self.asAdmin = true
+        //accountコレクション内のログイン中ユーザのdocへの参照を作成
+        const roleRef = db.collection('valibo_account_master').doc(user.email)
+
+        //参照からrole("admin" or "user")を取得する
+        await roleRef.get().then((doc) => {
+          if (!doc.exists) {
+            console.log('No such document!')
+          } else {
+            console.log('Document data:', doc.data().role)
+            self.role = doc.data().role
+          }
+        })
+
+        //取得したroleがadminならasAdmin、userならasUserをtrueにする
+        if (self.role === 'admin') {
+          self.asAdmin = true
+          console.log('admin')
+        } else if (self.role === 'user') {
+          self.asUser = true
+          console.log('user')
+        }
       }
     })
   },
@@ -146,6 +171,7 @@ export default {
       console.log('signOut')
       firebase.auth().signOut()
       this.asAdmin = false
+      this.asUser = false
     },
   },
 }

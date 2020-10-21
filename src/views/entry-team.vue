@@ -12,7 +12,7 @@
           >
             <v-card-title> チーム登録 </v-card-title>
 
-            <v-form ref="entryTeamForm">
+            <v-form ref="entryTeamForm" :disabled="!(asUser || asAdmin)">
               <v-card-text>
                 <v-list>
                   <v-list-item>
@@ -218,7 +218,7 @@ export default {
 
     //thisをselfに退避
     const self = this
-    //初期表示時にログイン済みであればazAdminを上書きする
+    //ログイン情報をもとにroleを判断する
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
         //accountコレクション内のログイン中ユーザのdocへの参照を作成
