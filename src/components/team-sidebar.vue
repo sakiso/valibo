@@ -1,12 +1,18 @@
 <template>
   <div>
-    <v-card tile flat>
+    <v-card tile color="#F7F7F7" height="100%">
       <v-card-title> チーム検索条件 </v-card-title>
       <v-divider></v-divider>
 
       <v-card-subtitle class="text-center">
         <font class="err">{{ errMessage }}</font>
-        <v-btn rounded width="70%" @click="selectTeamsFromFilestore">
+        <v-btn
+          color="#717171"
+          dark
+          rounded
+          width="70%"
+          @click="selectTeamsFromFilestore"
+        >
           <v-icon>mdi-magnify</v-icon>
           検索
         </v-btn>
@@ -134,5 +140,8 @@ export default {
 .err {
   color: rgb(255, 81, 0);
   font-weight: bold;
+}
+.bg-sidebar {
+  background-color: #f7f7f7;
 }
 </style>

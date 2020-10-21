@@ -14,16 +14,16 @@
             <v-container mt-2>
               <v-row>
                 <v-col cols="4" v-for="(team, key) in teams" :key="key">
-                  <v-card width="98%" height="480">
-                    <v-card-title>
-                      {{ team.team_name }}
-                    </v-card-title>
-
+                  <v-card width="100%" height="100%">
                     <v-img
-                      height="40%"
+                      height="200"
                       width="100%"
                       :src="team.team_image_url"
                     ></v-img>
+
+                    <v-card-title>
+                      {{ team.team_name }}
+                    </v-card-title>
 
                     <v-card-text>
                       <v-container mt-0 pt-0 pb-1>
@@ -81,8 +81,8 @@
                               contact
                             </v-btn>
                           </v-col>
-
-                          <v-col>
+                          <v-spacer></v-spacer>
+                          <v-col cols="2">
                             <v-btn
                               x-small
                               color="grey"
@@ -191,7 +191,7 @@ export default {
   word-break: break-all;
 }
 .bg-teams-view {
-  background-color: grey;
+  background-color: #fafafa;
 }
 .height-100per {
   height: 100%;
