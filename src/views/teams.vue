@@ -1,17 +1,17 @@
 <template>
   <v-app>
-    <v-content>
-      <v-container mb-0 mt-n3 pa-0 fluid>
-        <v-row height="100%">
+    <v-content class="bg-black">
+      <v-container mb-0 mt-n3 pa-0 fluid class="bg-blue height-100per">
+        <v-row>
           <v-col cols="3">
             <teamSidebar
-              class="fixed width-25halfper grey lighten-2"
+              class="fixed width-25halfper grey lighten-2 height-100per"
               @selectTeams="selectTeams"
             ></teamSidebar>
           </v-col>
 
           <v-col ma-0 pa-0 cols="9">
-            <v-card ma-0 pa-0 flat tile height="100%" color="grey">
+            <v-card ma-0 pa-0 flat tile color="grey" class="height-100per">
               <v-card-title> チーム一覧 </v-card-title>
 
               <v-container>
@@ -193,5 +193,14 @@ export default {
 }
 .wordBreak-breakAll {
   word-break: break-all;
+}
+.bg-blue {
+  background-color: grey;
+}
+.bg-black {
+  background-color: black;
+}
+.height-100per {
+  height: 100%;
 }
 </style>

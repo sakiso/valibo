@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card tile flat height="100%">
+    <v-card tile flat height="130%">
       <v-card-title> チーム検索条件 </v-card-title>
       <v-divider></v-divider>
 
