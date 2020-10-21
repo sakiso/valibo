@@ -10,6 +10,12 @@
 
 <script>
 export default {
+  props: {
+    selectedPrefecture: {
+      type: String,
+      default: '',
+    },
+  },
   data: function () {
     return {
       prefecturesList: [
@@ -61,7 +67,6 @@ export default {
         '鹿児島',
         '沖縄',
       ],
-      selectedPrefecture: '',
     }
   },
 

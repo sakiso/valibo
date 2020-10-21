@@ -39,6 +39,7 @@
                   <v-list-item>
                     <prefectures-list
                       @selectPrefecture="setPrefecture"
+                      :selected-prefecture="teamInfo.placeOfActivity"
                     ></prefectures-list>
                   </v-list-item>
 
@@ -338,7 +339,7 @@ export default {
       //画面入力値を初期化
       this.teamInfo.teamName = ''
       this.teamInfo.emailAddress = null
-      this.teamInfo.placeOfActivity = null
+      this.teamInfo.placeOfActivity = ''
       this.teamInfo.levelOfSeriousness = '2'
       this.teamInfo.wantedPosition = null
       this.teamInfo.activityCycle.weekOrMonth = ''
