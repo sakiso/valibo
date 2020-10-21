@@ -100,6 +100,7 @@
                       label="チームの写真"
                       prepend-icon="mdi-camera"
                       @change="selectImage"
+                      v-if="imageInputForm"
                     ></v-file-input>
                   </v-list-item>
 
@@ -180,6 +181,7 @@ export default {
       teamsRef: null,
       uploading: false,
       imageInfo: null,
+      imageInputForm: true,
       compressedImage: null,
       teamImageUrl: '',
       teamInfo: {
@@ -345,7 +347,13 @@ export default {
       this.teamInfo.activityCycle.weekOrMonth = ''
       this.teamInfo.activityCycle.timesAWeekOrMonth = ''
       this.teamInfo.messageOfTeam = ''
-      this.imageInfo = null
+
+      //v-file-inputはファイルをバインドしているわけではないので、
+      //選択ファイルをクリアするためにv-ifで一度描画を破棄し、すぐ再描画する
+      this.imageInputForm = false
+      this.$nextTick(() => {
+        this.imageInputForm = true //DOMの更新を待つためnexTickで再描画を実行
+      })
 
       //登録完了後、登録ボタンを非活性化する
       this.teamInfo.isEntryReady = false
