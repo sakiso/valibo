@@ -1,4 +1,5 @@
 <template>
+  <!-- 親コンポーネントから title と textを受け取って描画する-->
   <v-card>
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>

@@ -11,19 +11,18 @@
           </v-col>
 
           <v-col ma-0 pa-0 cols="9">
-            <v-card ma-0 pa-0 flat tile color="blue lighten-2">
-              <v-card-title> 検索画面 </v-card-title>
+            <v-card ma-0 pa-0 flat tile color="grey">
+              <v-card-title> チーム一覧 </v-card-title>
 
               <v-container>
                 <v-row>
                   <v-col cols="4" v-for="(team, key) in teams" :key="key">
-                    <v-card height="470">
+                    <v-card height="490">
                       <v-card-title>
                         {{ team.team_name }}
                       </v-card-title>
 
                       <v-img
-                        height="210"
                         width="100%"
                         :src="team.team_image_url"
                         contain
@@ -32,7 +31,7 @@
                       <v-card-text>
                         <v-container mt-0 pt-0 pb-1>
                           <v-row dense>
-                            <v-col class="text-subtitle-1">
+                            <v-col class="text-subtitle-1 wordBreak-breakAll">
                               {{ team.message_of_team }}
                             </v-col>
                           </v-row>
@@ -156,6 +155,10 @@ export default {
       const obj = {}
       querySnapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
+
+        //表示時のレイアウトを揃えるため、"ひとこと"を30文字まで全角スペ埋めする
+        const wk = obj[doc.id].message_of_team.padEnd(30, '　')
+        obj[doc.id].message_of_team = wk
       })
       this.teams = obj
     })
@@ -175,7 +178,6 @@ export default {
       //画面から受け取ったチーム名とemailをセットし、dialogを表示する
       this.dialogTitle = '「' + teamName + '」連絡先'
       this.dialogText = email
-      console.log(this.dialogTitle, this.dialogText)
 
       //dialog表示
       this.dialog = true
@@ -190,5 +192,8 @@ export default {
 }
 .width-25halfper {
   width: 25.5%;
+}
+.wordBreak-breakAll {
+  word-break: break-all;
 }
 </style>
