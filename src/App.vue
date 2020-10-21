@@ -10,4 +10,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.bg-teams-view {
+  background-color: #fafafa;
+}
+</style>

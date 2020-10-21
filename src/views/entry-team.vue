@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-content>
-      <v-container ma-0 pa-0 fluid fill-height>
+    <v-content class="bg-teams-view">
+      <v-container fluid fill-height>
         <v-row height="100%" justify="center">
           <v-card
             min-width="400"
