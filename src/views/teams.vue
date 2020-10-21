@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container mb-0 mt-n3 pa-0 fluid fill-height>
+      <v-container mb-0 mt-n3 pa-0 fluid>
         <v-row height="100%">
           <v-col cols="3">
             <teamSidebar
@@ -11,7 +11,7 @@
           </v-col>
 
           <v-col ma-0 pa-0 cols="9">
-            <v-card ma-0 pa-0 flat tile color="grey">
+            <v-card ma-0 pa-0 flat tile height="100%" color="grey">
               <v-card-title> チーム一覧 </v-card-title>
 
               <v-container>
@@ -99,6 +99,7 @@
                         </v-container>
                       </v-card-text>
                     </v-card>
+                    <v-spacer></v-spacer>
                   </v-col>
                 </v-row>
               </v-container>
@@ -110,9 +111,6 @@
                 ></dialog-card>
               </v-dialog>
             </v-card>
-            <v-row>
-              <v-col cols="12"> pagenation </v-col>
-            </v-row>
           </v-col>
         </v-row>
       </v-container>
