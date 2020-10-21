@@ -125,6 +125,10 @@
             </v-btn>
             <br />
             <br />
+            <v-alert v-if="entryTeamDone" dense max-width="70%" type="success">
+              {{ this.systemMessage }}
+            </v-alert>
+            <br />
           </v-card>
         </v-row>
       </v-container>
@@ -176,6 +180,8 @@ export default {
         '9回',
         '10回以上',
       ],
+      systemMessage: '',
+      entryTeamDone: false,
       ticksLabels: ['1', '2', '3', '4', '5'],
       isEntryReady: false,
       teamsRef: null,
@@ -356,10 +362,19 @@ export default {
       })
 
       //登録完了後、登録ボタンを非活性化する
-      this.teamInfo.isEntryReady = false
+      this.isEntryReady = false
+
+      //登録完了メッセージ出力
+      this.entryTeamDone = true
+      this.systemMessage = 'チームを登録しました'
     },
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.system-message {
+  color: darkblue;
+  font-size: 25pt;
+}
+</style>
