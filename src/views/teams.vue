@@ -68,8 +68,8 @@
                         <v-row dense>
                           <v-col>
                             <v-btn
-                              x-small
-                              color="blue darken-1"
+                              small
+                              color="#F48D97"
                               dark
                               @click="
                                 displayDialog(
@@ -84,7 +84,7 @@
                           <v-spacer></v-spacer>
                           <v-col cols="2">
                             <v-btn
-                              x-small
+                              small
                               color="grey"
                               dark
                               @click="deleteTeam(key)"
