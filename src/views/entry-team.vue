@@ -4,9 +4,10 @@
       <v-container ma-0 pa-0 fluid fill-height>
         <v-row height="100%" justify="center">
           <v-card
-            min-width="400px"
-            width="30%"
-            color="blue lighten-4"
+            min-width="400"
+            width="35%"
+            max-width="600"
+            color="#F7F7F7"
             align="center"
           >
             <v-card-title> チーム登録 </v-card-title>
