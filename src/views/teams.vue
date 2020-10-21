@@ -1,116 +1,112 @@
 <template>
   <v-app>
-    <v-content class="bg-black">
-      <v-container mb-0 mt-n3 pa-0 fluid class="bg-blue height-100per">
+    <v-content class="bg-teams-view">
+      <v-container mb-0 mt-n3 pa-0 fluid class="bg-teams-view height-100per">
         <v-row>
           <v-col cols="3">
             <teamSidebar
-              class="fixed width-25halfper grey lighten-2 height-100per"
+              class="fixed width-25halfper height-100per"
               @selectTeams="selectTeams"
             ></teamSidebar>
           </v-col>
 
-          <v-col ma-0 pa-0 cols="9">
-            <v-card ma-0 pa-0 flat tile color="grey" class="height-100per">
-              <v-card-title> チーム一覧 </v-card-title>
+          <v-col cols="9">
+            <v-container mt-2>
+              <v-row>
+                <v-col cols="4" v-for="(team, key) in teams" :key="key">
+                  <v-card width="98%" height="480">
+                    <v-card-title>
+                      {{ team.team_name }}
+                    </v-card-title>
 
-              <v-container>
-                <v-row>
-                  <v-col cols="4" v-for="(team, key) in teams" :key="key">
-                    <v-card height="490">
-                      <v-card-title>
-                        {{ team.team_name }}
-                      </v-card-title>
+                    <v-img
+                      height="40%"
+                      width="100%"
+                      :src="team.team_image_url"
+                    ></v-img>
 
-                      <v-img
-                        height="40%"
-                        width="100%"
-                        :src="team.team_image_url"
-                      ></v-img>
+                    <v-card-text>
+                      <v-container mt-0 pt-0 pb-1>
+                        <v-row dense>
+                          <v-col class="text-subtitle-1 wordBreak-breakAll">
+                            {{ team.message_of_team }}
+                          </v-col>
+                        </v-row>
 
-                      <v-card-text>
-                        <v-container mt-0 pt-0 pb-1>
-                          <v-row dense>
-                            <v-col class="text-subtitle-1 wordBreak-breakAll">
-                              {{ team.message_of_team }}
-                            </v-col>
-                          </v-row>
+                        <v-divider></v-divider>
 
-                          <v-divider></v-divider>
+                        <v-row dense>
+                          <v-col>
+                            {{ team.place_of_activity }}
+                          </v-col>
+                        </v-row>
 
-                          <v-row dense>
-                            <v-col>
-                              {{ team.place_of_activity }}
-                            </v-col>
-                          </v-row>
+                        <v-row dense>
+                          <v-col>
+                            <v-rating
+                              readonly
+                              empty-icon="mdi-minus"
+                              full-icon="mdi-fire"
+                              hover
+                              dense
+                              color="grey darken-1"
+                              background-color="grey lighten-1"
+                              length="5"
+                              size="20"
+                              :value="team.level_of_seriousness + 1"
+                            ></v-rating>
+                          </v-col>
+                        </v-row>
 
-                          <v-row dense>
-                            <v-col>
-                              <v-rating
-                                readonly
-                                empty-icon="mdi-minus"
-                                full-icon="mdi-fire"
-                                hover
-                                dense
-                                color="grey darken-1"
-                                background-color="grey lighten-1"
-                                length="5"
-                                size="20"
-                                :value="team.level_of_seriousness + 1"
-                              ></v-rating>
-                            </v-col>
-                          </v-row>
+                        <v-row dense>
+                          <v-col>
+                            {{ team.activity_cycle.week_or_month }}
+                            {{ team.activity_cycle.times_a_week_or_month }}
+                          </v-col>
+                        </v-row>
 
-                          <v-row dense>
-                            <v-col>
-                              {{ team.activity_cycle.week_or_month }}
-                              {{ team.activity_cycle.times_a_week_or_month }}
-                            </v-col>
-                          </v-row>
+                        <v-row dense>
+                          <v-col>
+                            <v-btn
+                              x-small
+                              color="blue darken-1"
+                              dark
+                              @click="
+                                displayDialog(
+                                  team.team_name,
+                                  team.email_address
+                                )
+                              "
+                            >
+                              contact
+                            </v-btn>
+                          </v-col>
 
-                          <v-row dense>
-                            <v-col>
-                              <v-btn
-                                x-small
-                                color="blue darken-1"
-                                dark
-                                @click="
-                                  displayDialog(
-                                    team.team_name,
-                                    team.email_address
-                                  )
-                                "
-                              >
-                                contact
-                              </v-btn>
-                            </v-col>
+                          <v-col>
+                            <v-btn
+                              x-small
+                              color="grey"
+                              dark
+                              @click="deleteTeam(key)"
+                            >
+                              削除
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                  <v-spacer></v-spacer>
+                </v-col>
+              </v-row>
+            </v-container>
 
-                            <v-col>
-                              <v-btn
-                                x-small
-                                color="grey"
-                                dark
-                                @click="deleteTeam(key)"
-                              >
-                                削除
-                              </v-btn>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-card-text>
-                    </v-card>
-                    <v-spacer></v-spacer>
-                  </v-col>
-                </v-row>
-              </v-container>
-
-              <v-dialog v-model="dialog" max-width="500px">
-                <dialog-card
-                  :title="dialogTitle"
-                  :text="dialogText"
-                ></dialog-card>
-              </v-dialog>
-            </v-card>
+            <v-dialog v-model="dialog" max-width="500px">
+              <dialog-card
+                :title="dialogTitle"
+                :text="dialogText"
+              ></dialog-card>
+            </v-dialog>
           </v-col>
         </v-row>
       </v-container>
@@ -194,11 +190,8 @@ export default {
 .wordBreak-breakAll {
   word-break: break-all;
 }
-.bg-blue {
+.bg-teams-view {
   background-color: grey;
-}
-.bg-black {
-  background-color: black;
 }
 .height-100per {
   height: 100%;
