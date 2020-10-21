@@ -7,7 +7,7 @@
       <v-card-subtitle class="text-center">
         <font class="err">{{ errMessage }}</font>
         <v-btn
-          color="#717171"
+          color="#67b0b2"
           dark
           rounded
           width="70%"

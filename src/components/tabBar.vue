@@ -1,5 +1,5 @@
 <template>
-  <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
+  <v-tabs v-model="tab" background-color="#67b0b2" grow dark>
     <v-tab v-for="item in items" :key="item.tab" @click="switchPage(item.path)">
       {{ item.tab }}
     </v-tab>
