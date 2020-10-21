@@ -15,13 +15,13 @@ export default {
       items: [
         { tab: 'チーム検索', path: '/teams' },
         { tab: 'チーム登録', path: '/entry-team' },
+        { tab: '管理者機能', path: '/admin-signin' },
       ],
     }
   },
 
   methods: {
     switchPage(path) {
-      console.log('switch')
       this.$router.replace(path)
     },
   },

@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import main from '@/views/main'
 import teams from '@/views/teams'
 import entryTeam from '@/views/entry-team'
+import adminSignin from '@/views/admin-signin'
+
 Vue.use(VueRouter)
 //routerの設定とインスタンス生成
 const routes = [
@@ -16,6 +18,7 @@ const routes = [
       // menu内に各アプリのURLをネスト
       { path: '/teams', component: teams },
       { path: '/entry-team', component: entryTeam },
+      { path: '/admin-signin', component: adminSignin },
     ],
   },
 ]

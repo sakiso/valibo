@@ -88,6 +88,7 @@
                               color="grey"
                               dark
                               @click="deleteTeam(key)"
+                              v-if="asAdmin"
                             >
                               削除
                             </v-btn>
@@ -118,6 +119,7 @@
 //firebase import
 import TeamSidebar from '@/components/team-sidebar.vue'
 import { db } from '@/plugins/firebase'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import DialogCard from '@/components/dialog.vue'
 
@@ -131,6 +133,7 @@ export default {
       dialog: false,
       dialogText: 'none',
       dialogTitle: '-',
+      asAdmin: false,
     }
   },
   components: {
@@ -139,6 +142,15 @@ export default {
   },
 
   created: function () {
+    //thisをselfに退避
+    const self = this
+    //初期表示時にログイン済みであればazAdminを上書きする
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        self.asAdmin = true
+      }
+    })
+
     //Firestoreからデータ取得
     //teamsコレクションへの参照
     this.teamsRef = db.collection('teams')
