@@ -95,32 +95,30 @@ export default {
   },
 
   created: function () {
+    console.log('createdフック')
     //thisをselfに退避
     const self = this
-    //ログイン情報をもとにroleを判断する
+    //ログインしている場合、stateのroleを取得し、asAdmin,asUserを設定する
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        //accountコレクション内のログイン中ユーザのdocへの参照を作成
-        const roleRef = db.collection('valibo_account_master').doc(user.email)
+        console.log('ログイン確認完了 ログイン中')
+        console.log('stateのrole:', self.$store.state.role)
 
-        //参照からrole("admin" or "user")を取得する
-        await roleRef.get().then((doc) => {
-          if (!doc.exists) {
-            console.log('No such document!')
-          } else {
-            console.log('Document data:', doc.data().role)
-            self.role = doc.data().role
-          }
-        })
-
-        //取得したroleがadminならasAdmin、userならasUserをtrueにする
-        if (self.role === 'admin') {
-          self.asAdmin = true
-          console.log('admin')
-        } else if (self.role === 'user') {
-          self.asUser = true
-          console.log('user')
+        if (self.$store.state.role === 'admin') {
+          self.asAdmin = true //管理者の場合
+          console.log('adminでログイン中')
+        } else if (self.$store.state.role === 'user') {
+          self.asUser = true //一般ユーザの場合
+          console.log('userでログイン中')
+        } else {
+          //その他の場合（想定されない）
+          console.log('roleが取得できない')
         }
+      } else {
+        //ログインしていない場合、stateのログイン状態をクリアする
+        //stateをlocalStrageに永続保管しているため、
+        //firebase側のログイン状態が切れていた場合は初期化しなければならない
+        self.$store.commit('deleteRole')
       }
     })
   },
@@ -142,8 +140,8 @@ export default {
         console.log('未入力項目あり')
         return
       }
-      console.log('id:', this.id, 'PW:', this.password)
 
+      //ログイン処理
       firebase
         .auth()
         .signInWithEmailAndPassword(this.id, this.password)
@@ -155,10 +153,35 @@ export default {
 
       //thisをselfに退避
       const self = this
-      //認証状態（userがnullでない）のとき、サインイン状態を示すv-alertを表示する
-      firebase.auth().onAuthStateChanged(function (user) {
+      //ログイン情報をもとにroleを判断する
+      firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
-          self.asAdmin = true
+          //accountコレクション内のログイン中ユーザのdocへの参照を作成
+          const roleRef = db.collection('valibo_account_master').doc(user.email)
+
+          //参照からrole("admin" or "user")を取得する
+          await roleRef.get().then((doc) => {
+            if (!doc.exists) {
+              console.log('No such document!')
+            } else {
+              console.log('Document data:', doc.data().role)
+              self.role = doc.data().role
+            }
+          })
+
+          //取得したroleのadmin/userをstateに保存し、
+          //asAdmin,asUserをtrueにする
+          if (self.role === 'admin') {
+            self.$store.commit('updateRole', 'admin')
+            console.log('adminをstateに登録', self.$store.state.role)
+            self.asAdmin = true
+          } else if (self.role === 'user') {
+            self.$store.commit('updateRole', 'user')
+            self.asUser = true
+            console.log('userをstateに登録', self.$store.state.role)
+          }
+
+          console.log('signIn後のstateのrole:', self.$store.state.role)
 
           //画面表示項目を初期化し、ログインボタンを非活性にする
           self.id = ''
@@ -167,11 +190,16 @@ export default {
         }
       })
     },
+
     signOut() {
-      console.log('signOut')
+      console.log('signOut前のstateのrole:', this.$store.state.role)
+      //ログアウト時に、asAdmin/asUserおよびstateの情報を消す
       firebase.auth().signOut()
       this.asAdmin = false
       this.asUser = false
+      this.$store.commit('deleteRole')
+
+      console.log('signOut')
     },
   },
 }
