@@ -119,8 +119,6 @@
 //firebase import
 import TeamSidebar from '@/components/team-sidebar.vue'
 import { db } from '@/plugins/firebase'
-import firebase from 'firebase/app'
-import 'firebase/auth'
 import DialogCard from '@/components/dialog.vue'
 
 export default {
@@ -143,34 +141,16 @@ export default {
   },
 
   created: function () {
-    //thisをselfに退避
-    const self = this
-    //ログイン情報をもとにroleを判断する
-    firebase.auth().onAuthStateChanged(async function (user) {
-      if (user) {
-        //accountコレクション内のログイン中ユーザのdocへの参照を作成
-        const roleRef = db.collection('valibo_account_master').doc(user.email)
-
-        //参照からrole("admin" or "user")を取得する
-        await roleRef.get().then((doc) => {
-          if (!doc.exists) {
-            console.log('No such document!')
-          } else {
-            console.log('Document data:', doc.data().role)
-            self.role = doc.data().role
-          }
-        })
-
-        //取得したroleがadminならasAdmin、userならasUserをtrueにする
-        if (self.role === 'admin') {
-          self.asAdmin = true
-          console.log('admin')
-        } else if (self.role === 'user') {
-          self.asUser = true
-          console.log('user')
-        }
-      }
-    })
+    //取得したroleがadminならasAdmin、userならasUserをtrueにする
+    if (this.$store.state.role === 'admin') {
+      this.asAdmin = true
+      console.log('admin')
+    } else if (this.$store.state.role === 'user') {
+      this.asUser = true
+      console.log('user')
+    } else {
+      console.log('未ログイン')
+    }
 
     //Firestoreからデータ取得
     //teamsコレクションへの参照

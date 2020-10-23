@@ -139,7 +139,6 @@
 </template>
 
 <script>
-import { db } from '@/plugins/firebase'
 import { storage } from '@/plugins/firebase'
 import { VueLoading } from 'vue-loading-template'
 import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
@@ -211,9 +210,6 @@ export default {
   },
 
   created: function () {
-    //teamsコレクションへの参照
-    this.teamsRef = db.collection('teams')
-
     //取得したroleがadminならasAdmin、userならasUserをtrueにする
     if (this.$store.state.role === 'admin') {
       this.asAdmin = true
