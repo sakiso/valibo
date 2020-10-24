@@ -29,7 +29,7 @@
                       <v-container mt-0 pt-0 pb-1>
                         <v-row dense>
                           <v-col class="text-subtitle-1 wordBreak-breakAll">
-                            {{ team.message_of_team }}
+                            {{ fixedLengthMessage(team.message_of_team) }}
                           </v-col>
                         </v-row>
 
@@ -162,13 +162,19 @@ export default {
       const obj = {}
       querySnapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
-
-        //表示時のレイアウトを揃えるため、"ひとこと"を30文字まで全角スペ埋めする
-        const wk = obj[doc.id].message_of_team.padEnd(30, '　')
-        obj[doc.id].message_of_team = wk
       })
       this.teams = obj
     })
+  },
+
+  computed: {
+    fixedLengthMessage: function () {
+      //computedは直接引数を受け取れないので、一度関数を返しそれに引数を受け取らせる
+      return (message) => {
+        //表示時のレイアウトを揃えるため、"ひとこと"を30文字まで全角スペ埋めする
+        return message.padEnd(30, '　')
+      }
+    },
   },
 
   methods: {
