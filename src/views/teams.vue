@@ -13,7 +13,15 @@
           <v-col cols="9">
             <v-container mt-2>
               <v-row>
-                <v-col cols="4" v-for="(team, key) in teams" :key="key">
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="4"
+                  xl="3"
+                  v-for="(team, key) in teams"
+                  :key="key"
+                >
                   <v-card width="100%" height="100%">
                     <v-img
                       height="200"
