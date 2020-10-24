@@ -12,6 +12,15 @@
           >
             <v-card-title> チーム登録 </v-card-title>
 
+            <v-alert
+              dense
+              max-width="90%"
+              type="warning"
+              v-if="!asUser && !asAdmin"
+            >
+              ログインするとチーム登録が可能になります
+            </v-alert>
+
             <v-form ref="entryTeamForm" :disabled="!(asUser || asAdmin)">
               <v-card-text>
                 <v-list>
