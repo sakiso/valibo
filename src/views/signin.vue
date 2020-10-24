@@ -33,6 +33,7 @@
                     v-model="password"
                     @blur="checkInputMust"
                     :disabled="asUser || asAdmin"
+                    @keyup="signIn"
                   ></v-text-field>
                 </v-list-item>
 
@@ -50,7 +51,7 @@
                       width="75%"
                       color="primary"
                       @click="signIn"
-                      :disabled="asAdmin || asUser"
+                      :disabled="asAdmin || asUser || !isReadyToSignIn"
                     >
                       ログイン
                     </v-btn>
@@ -97,13 +98,11 @@ export default {
   },
 
   created: function () {
-    console.log('createdフック')
     //thisをselfに退避
     const self = this
     //ログインしている場合、stateのroleを取得し、asAdmin,asUserを設定する
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        console.log('ログイン確認完了 ログイン中')
         console.log('stateのrole:', self.$store.state.role)
 
         if (self.$store.state.role === 'admin') {
