@@ -20,6 +20,7 @@
                     label="ID"
                     v-model="id"
                     @blur="checkInputMust"
+                    :disabled="asUser || asAdmin"
                   >
                   </v-text-field>
                 </v-list-item>
@@ -31,6 +32,7 @@
                     type="password"
                     v-model="password"
                     @blur="checkInputMust"
+                    :disabled="asUser || asAdmin"
                   ></v-text-field>
                 </v-list-item>
 
