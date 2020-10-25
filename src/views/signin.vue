@@ -28,7 +28,7 @@
                       v-model="password"
                       @blur="checkInputMust"
                       :disabled="asUser || asAdmin"
-                      @keyup="signIn"
+                      @keyup.enter="signIn"
                     ></v-text-field>
                   </v-list-item>
 
