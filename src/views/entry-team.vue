@@ -3,7 +3,7 @@
     <v-content class="bg-teams-view">
       <v-container fluid fill-height>
         <v-row height="100%" justify="center">
-          <v-col cols="12" sm="8" md="6" lg="4" xl="3">
+          <v-col cols="12" sm="8" md="6" lg="5" xl="4">
             <v-card color="#F7F7F7" align="center">
               <v-card-title> チーム登録 </v-card-title>
 
