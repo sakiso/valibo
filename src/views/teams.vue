@@ -13,7 +13,7 @@
     </v-navigation-drawer>
 
     <v-content class="bg-teams-view">
-      <v-container mt-n3 pa-0 fluid class="bg-teams-view height-100per">
+      <v-container mt-n3 pt-0 fluid class="bg-teams-view height-100per">
         <v-row>
           <v-col
             v-if="!$vuetify.breakpoint.xsOnly"
@@ -142,7 +142,7 @@
               color="#67b0b2"
               @click="openDrawer"
             >
-              <v-icon mr-0>mdi-magnify</v-icon>
+              <v-icon>mdi-magnify</v-icon>
             </v-btn>
 
             <v-dialog v-model="dialog" max-width="500px">
