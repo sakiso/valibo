@@ -3,20 +3,32 @@
     <v-content class="bg-teams-view">
       <v-container mb-0 mt-n3 pa-0 fluid class="bg-teams-view height-100per">
         <v-row>
-          <v-col cols="3">
+          <v-col
+            v-if="!$vuetify.breakpoint.xsOnly"
+            cols="0"
+            sm="4"
+            md="3"
+            lg="3"
+            xl="3"
+          >
             <teamSidebar
-              class="fixed width-25per height-100per"
+              class="fixed height-100per"
+              :class="{
+                'width-0per': $vuetify.breakpoint.xs,
+                'width-33per': $vuetify.breakpoint.sm,
+                'width-25per': $vuetify.breakpoint.mdAndUp,
+              }"
               @selectTeams="selectTeams"
             ></teamSidebar>
           </v-col>
 
-          <v-col cols="9">
+          <v-col cols="12" sm="8" md="9" lg="9" xl="9">
             <v-container mt-2>
               <v-row>
                 <v-col
                   cols="12"
-                  sm="6"
-                  md="4"
+                  sm="12"
+                  md="6"
                   lg="4"
                   xl="3"
                   v-for="(team, key) in teams"
@@ -211,8 +223,14 @@ export default {
 .fixed {
   position: fixed;
 }
+.width-0per {
+  width: 0%;
+}
 .width-25per {
   width: 25%;
+}
+.width-33per {
+  width: 33%;
 }
 .wordBreak-breakAll {
   word-break: break-all;
