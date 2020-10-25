@@ -1,9 +1,12 @@
 <template>
   <div>
-    <v-app-bar app height="50">
+    <v-app-bar v-if="!$vuetify.breakpoint.xsOnly" app height="50">
       <tabBar></tabBar>
     </v-app-bar>
     <router-view />
+    <v-bottom-navigation v-if="$vuetify.breakpoint.xsOnly" app height="50">
+      <tabBar></tabBar>
+    </v-bottom-navigation>
   </div>
 </template>
 
@@ -18,4 +21,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.navigation {
+  position: fixed;
+  bottom: 2%;
+  left: 45%;
+  width: 40px;
+  height: 40px;
+}
+</style>

@@ -1,78 +1,74 @@
 <template>
   <v-app>
     <v-content class="bg-teams-view">
-      <v-container ma-0 pa-0 fluid fill-height>
-        <v-row height="100%" justify="center">
-          <v-card
-            min-width="400"
-            width="35%"
-            max-width="600"
-            color="#F7F7F7"
-            align="center"
-          >
-            <v-card-title> ログイン </v-card-title>
+      <v-container fluid fill-height>
+        <v-row justify="center">
+          <v-col cols="12" sm="8" md="6" lg="4" xl="3">
+            <v-card color="#F7F7F7" align="center">
+              <v-card-title> ログイン </v-card-title>
 
-            <v-card-text>
-              <v-list>
-                <v-list-item>
-                  <v-text-field
-                    prepend-icon=" mdi-identifier "
-                    label="ID"
-                    v-model="id"
-                    @blur="checkInputMust"
-                    :disabled="asUser || asAdmin"
-                  >
-                  </v-text-field>
-                </v-list-item>
-
-                <v-list-item>
-                  <v-text-field
-                    prepend-icon=" mdi-key "
-                    label="Password"
-                    type="password"
-                    v-model="password"
-                    @blur="checkInputMust"
-                    :disabled="asUser || asAdmin"
-                    @keyup="signIn"
-                  ></v-text-field>
-                </v-list-item>
-
-                <v-alert dense max-width="90%" type="info" v-if="asAdmin">
-                  管理者としてログインしています
-                </v-alert>
-                <v-alert dense max-width="90%" type="info" v-if="asUser">
-                  一般ユーザとしてログインしています
-                </v-alert>
-
-                <v-row justify="center">
-                  <v-col cols="5">
-                    <v-btn
-                      large
-                      width="75%"
-                      color="primary"
-                      @click="signIn"
-                      :disabled="asAdmin || asUser || !isReadyToSignIn"
+              <v-card-text>
+                <v-list>
+                  <v-list-item>
+                    <v-text-field
+                      prepend-icon=" mdi-identifier "
+                      label="ID"
+                      v-model="id"
+                      @blur="checkInputMust"
+                      :disabled="asUser || asAdmin"
                     >
-                      ログイン
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="5">
-                    <v-btn
-                      large
-                      width="75%"
-                      color="error"
-                      @click="signOut"
-                      :disabled="!(asAdmin || asUser)"
-                    >
-                      ログアウト
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <br />
-                <br />
-              </v-list>
-            </v-card-text>
-          </v-card>
+                    </v-text-field>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-text-field
+                      prepend-icon=" mdi-key "
+                      label="Password"
+                      type="password"
+                      v-model="password"
+                      @blur="checkInputMust"
+                      :disabled="asUser || asAdmin"
+                      @keyup="signIn"
+                    ></v-text-field>
+                  </v-list-item>
+
+                  <v-alert dense max-width="90%" type="info" v-if="asAdmin">
+                    管理者としてログインしています
+                  </v-alert>
+                  <v-alert dense max-width="90%" type="info" v-if="asUser">
+                    一般ユーザとしてログインしています
+                  </v-alert>
+
+                  <v-row justify="center">
+                    <v-col cols="5">
+                      <v-btn
+                        large
+                        width="80%"
+                        color="primary"
+                        @click="signIn"
+                        :disabled="asAdmin || asUser || !isReadyToSignIn"
+                      >
+                        ログイン
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="5">
+                      <v-btn
+                        large
+                        width="80%"
+                        color="error"
+                        @click="signOut"
+                        :disabled="!(asAdmin || asUser)"
+                      >
+                        ログアウト
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <br />
+                  <br />
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-row>
       </v-container>
     </v-content>

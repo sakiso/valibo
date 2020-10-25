@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <v-content class="bg-teams-view">
-      <v-container mb-0 mt-n3 pa-0 fluid class="bg-teams-view height-100per">
+      <v-container mt-n3 pa-0 fluid class="bg-teams-view height-100per">
         <v-row>
           <v-col
             v-if="!$vuetify.breakpoint.xsOnly"
-            cols="0"
+            cols="4"
             sm="4"
             md="3"
             lg="3"
