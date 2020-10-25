@@ -99,8 +99,6 @@ export default {
     //ログインしている場合、stateのroleを取得し、asAdmin,asUserを設定する
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        console.log('stateのrole:', self.$store.state.role)
-
         if (self.$store.state.role === 'admin') {
           self.asAdmin = true //管理者の場合
           console.log('adminでログイン中')
@@ -170,15 +168,13 @@ export default {
           //asAdmin,asUserをtrueにする
           if (self.role === 'admin') {
             self.$store.commit('updateRole', 'admin')
-            console.log('adminをstateに登録', self.$store.state.role)
+            console.log('login as admin')
             self.asAdmin = true
           } else if (self.role === 'user') {
             self.$store.commit('updateRole', 'user')
             self.asUser = true
-            console.log('userをstateに登録', self.$store.state.role)
+            console.log('login as user')
           }
-
-          console.log('signIn後のstateのrole:', self.$store.state.role)
 
           //画面表示項目を初期化し、ログインボタンを非活性にする
           self.id = ''
