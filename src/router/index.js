@@ -16,6 +16,7 @@ const routes = [
     component: main,
     children: [
       // menu内に各アプリのURLをネスト
+      { path: '', component: teams },
       { path: '/teams', component: teams },
       { path: '/entry-team', component: entryTeam },
       { path: '/signin', component: adminSignin },
