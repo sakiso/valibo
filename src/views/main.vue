@@ -3,6 +3,7 @@
     <v-app-bar v-if="!$vuetify.breakpoint.xsOnly" app height="50">
       <tabBar></tabBar>
     </v-app-bar>
+
     <router-view />
 
     <v-bottom-navigation v-if="$vuetify.breakpoint.xsOnly" app height="50">

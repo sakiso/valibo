@@ -11,7 +11,7 @@
           dark
           rounded
           width="70%"
-          @click="selectTeamsFromFilestore"
+          @click="selectTeamsFromFirestore"
         >
           <v-icon>mdi-magnify</v-icon>
           検索
@@ -81,7 +81,7 @@ export default {
       this.placeOfActivity = prefecture
     },
 
-    selectTeamsFromFilestore() {
+    selectTeamsFromFirestore() {
       //処理開始時に表示されている検索エラーメッセージは初期化する
       this.errMessage = null
 

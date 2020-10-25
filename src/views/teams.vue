@@ -1,7 +1,15 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list> </v-list>
+    <v-navigation-drawer
+      width="85%"
+      v-if="$vuetify.breakpoint.xsOnly"
+      v-model="drawer"
+      app
+    >
+      <teamSidebar
+        class="height-100per"
+        @selectTeams="selectTeams"
+      ></teamSidebar>
     </v-navigation-drawer>
 
     <v-content class="bg-teams-view">
@@ -217,6 +225,9 @@ export default {
     selectTeams(selectedTeams) {
       //検索の結果取得したチーム情報を、画面表示している変数に上書きする
       this.teams = selectedTeams
+
+      //xsサイズでドロワーから検索した場合のために、ドロワーを閉じる
+      this.drawer = false
     },
 
     deleteTeam(key) {
