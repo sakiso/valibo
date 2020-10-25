@@ -2,7 +2,8 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-  outputDir: 'docs',
+  //GitHub Pages使うときの設定
+  /*  outputDir: 'docs', */
   assetsDir: './',
   publicPath: './'
 }
