@@ -4,6 +4,7 @@
       <tabBar></tabBar>
     </v-app-bar>
     <router-view />
+
     <v-bottom-navigation v-if="$vuetify.breakpoint.xsOnly" app height="50">
       <tabBar></tabBar>
     </v-bottom-navigation>
@@ -18,15 +19,12 @@ export default {
   components: {
     TabBar,
   },
+  data: function () {
+    return {
+      drawer: false,
+    }
+  },
 }
 </script>
 
-<style scoped>
-.navigation {
-  position: fixed;
-  bottom: 2%;
-  left: 45%;
-  width: 40px;
-  height: 40px;
-}
-</style>
+<style scoped></style>

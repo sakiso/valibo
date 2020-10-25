@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list> </v-list>
+    </v-navigation-drawer>
+
     <v-content class="bg-teams-view">
       <v-container mt-n3 pa-0 fluid class="bg-teams-view height-100per">
         <v-row>
@@ -122,6 +126,17 @@
               </v-row>
             </v-container>
 
+            <v-btn
+              v-if="$vuetify.breakpoint.xsOnly"
+              class="serchBtn"
+              fab
+              dark
+              color="#67b0b2"
+              @click="openDrawer"
+            >
+              <v-icon mr-0>mdi-magnify</v-icon>
+            </v-btn>
+
             <v-dialog v-model="dialog" max-width="500px">
               <dialog-card
                 :title="dialogTitle"
@@ -153,6 +168,7 @@ export default {
       dialogTitle: '-',
       asAdmin: false,
       asUser: false,
+      drawer: false,
     }
   },
   components: {
@@ -215,6 +231,10 @@ export default {
       //dialog表示
       this.dialog = true
     },
+
+    openDrawer() {
+      this.drawer = true
+    },
   },
 }
 </script>
@@ -240,5 +260,11 @@ export default {
 }
 .height-100per {
   height: 100%;
+}
+.serchBtn {
+  position: fixed;
+  top: 17px;
+  left: 17px;
+  text-align: end;
 }
 </style>
