@@ -3,144 +3,145 @@
     <v-content class="bg-teams-view">
       <v-container fluid fill-height>
         <v-row height="100%" justify="center">
-          <v-card
-            min-width="400"
-            width="35%"
-            max-width="600"
-            color="#F7F7F7"
-            align="center"
-          >
-            <v-card-title> チーム登録 </v-card-title>
+          <v-col cols="12" sm="8" md="6" lg="4" xl="3">
+            <v-card color="#F7F7F7" align="center">
+              <v-card-title> チーム登録 </v-card-title>
 
-            <v-alert
-              dense
-              max-width="90%"
-              type="warning"
-              v-if="!asUser && !asAdmin"
-            >
-              ログインするとチーム登録が可能になります
-            </v-alert>
+              <v-alert
+                dense
+                max-width="90%"
+                type="warning"
+                v-if="!asUser && !asAdmin"
+              >
+                ログインするとチーム登録が可能になります
+              </v-alert>
 
-            <v-form ref="entryTeamForm" :disabled="!(asUser || asAdmin)">
-              <v-card-text>
-                <v-list>
-                  <v-list-item>
-                    <v-text-field
-                      prepend-icon=" mdi-account-group "
-                      label="チーム名"
-                      v-model="teamInfo.teamName"
-                      counter="10"
-                      :rules="rulesOfTeamName"
-                      @blur="checkInputMust"
-                    ></v-text-field>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-text-field
-                      label="連絡先（e-mail）"
-                      prepend-icon="mdi-email"
-                      type="email"
-                      :rules="rulesOfEmail"
-                      v-model="teamInfo.emailAddress"
-                      @blur="checkInputMust"
-                    ></v-text-field>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <prefectures-list
-                      @selectPrefecture="setPrefecture"
-                      :selected-prefecture="teamInfo.placeOfActivity"
-                    ></prefectures-list>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-slider
-                      prepend-icon=" mdi-fire "
-                      v-model="teamInfo.levelOfSeriousness"
-                      label="本気度"
-                      max="4"
-                      step="1"
-                      :tick-labels="ticksLabels"
-                    ></v-slider>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <wanted-position-selecer
-                      @selectPosition="setWantedPosition"
-                      :multiple-flg="true"
-                      :wanted-position="teamInfo.wantedPosition"
-                    >
-                    </wanted-position-selecer>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-radio-group
-                      prepend-icon="mdi-calendar-clock"
-                      label="活動ペース"
-                      v-model="teamInfo.activityCycle.weekOrMonth"
-                      @change="checkInputMust"
-                    >
-                      <br />
-                      <v-radio label="毎週" value="毎週"></v-radio>
-                      <v-radio label="毎月" value="毎月"></v-radio>
-                      <v-select
-                        :items="times"
-                        label="回数"
-                        v-model="teamInfo.activityCycle.timesAWeekOrMonth"
+              <v-form ref="entryTeamForm" :disabled="!(asUser || asAdmin)">
+                <v-card-text>
+                  <v-list>
+                    <v-list-item>
+                      <v-text-field
+                        prepend-icon=" mdi-account-group "
+                        label="チーム名"
+                        v-model="teamInfo.teamName"
+                        counter="10"
+                        :rules="rulesOfTeamName"
                         @blur="checkInputMust"
-                      ></v-select>
-                    </v-radio-group>
-                  </v-list-item>
+                      ></v-text-field>
+                    </v-list-item>
 
-                  <v-list-item>
-                    <v-textarea
-                      rows="2"
-                      label="ひとこと"
-                      prepend-icon="mdi-comment"
-                      v-model="teamInfo.messageOfTeam"
-                      @blur="checkInputMust"
-                      :rules="rulesOfMessage"
-                      counter="30"
-                    ></v-textarea>
-                  </v-list-item>
+                    <v-list-item>
+                      <v-text-field
+                        label="連絡先（e-mail）"
+                        prepend-icon="mdi-email"
+                        type="email"
+                        :rules="rulesOfEmail"
+                        v-model="teamInfo.emailAddress"
+                        @blur="checkInputMust"
+                      ></v-text-field>
+                    </v-list-item>
 
-                  <v-list-item>
-                    <v-file-input
-                      accept="image/*"
-                      label="チームの写真"
-                      prepend-icon="mdi-camera"
-                      @change="selectImage"
-                      v-if="imageInputForm"
-                    ></v-file-input>
-                  </v-list-item>
+                    <v-list-item>
+                      <prefectures-list
+                        @selectPrefecture="setPrefecture"
+                        :selected-prefecture="teamInfo.placeOfActivity"
+                      ></prefectures-list>
+                    </v-list-item>
 
-                  <v-list-item>
-                    <vue-loading
-                      v-if="uploading"
-                      type="spiningDubbles"
-                      color="#7ec0e7"
-                      :size="{ width: '50px', height: '50px' }"
-                    ></vue-loading>
-                  </v-list-item>
-                </v-list>
-              </v-card-text>
-            </v-form>
+                    <v-list-item>
+                      <v-slider
+                        prepend-icon=" mdi-fire "
+                        v-model="teamInfo.levelOfSeriousness"
+                        label="本気度"
+                        max="4"
+                        step="1"
+                        :tick-labels="ticksLabels"
+                      ></v-slider>
+                    </v-list-item>
 
-            <v-alert v-if="entryTeamDone" dense max-width="70%" type="success">
-              {{ this.systemMessage }}
-            </v-alert>
+                    <v-list-item>
+                      <wanted-position-selecer
+                        @selectPosition="setWantedPosition"
+                        :multiple-flg="true"
+                        :wanted-position="teamInfo.wantedPosition"
+                      >
+                      </wanted-position-selecer>
+                    </v-list-item>
 
-            <v-btn
-              large
-              @click="entryTeam"
-              color="primary"
-              :disabled="!isEntryReady"
-            >
-              登録
-            </v-btn>
-            <br />
-            <br />
-          </v-card>
+                    <v-list-item>
+                      <v-radio-group
+                        prepend-icon="mdi-calendar-clock"
+                        label="活動ペース"
+                        v-model="teamInfo.activityCycle.weekOrMonth"
+                        @change="checkInputMust"
+                      >
+                        <br />
+                        <v-radio label="毎週" value="毎週"></v-radio>
+                        <v-radio label="毎月" value="毎月"></v-radio>
+                        <v-select
+                          :items="times"
+                          label="回数"
+                          v-model="teamInfo.activityCycle.timesAWeekOrMonth"
+                          @blur="checkInputMust"
+                        ></v-select>
+                      </v-radio-group>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-textarea
+                        rows="2"
+                        label="ひとこと"
+                        prepend-icon="mdi-comment"
+                        v-model="teamInfo.messageOfTeam"
+                        @blur="checkInputMust"
+                        :rules="rulesOfMessage"
+                        counter="30"
+                      ></v-textarea>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-file-input
+                        accept="image/*"
+                        label="チームの写真"
+                        prepend-icon="mdi-camera"
+                        @change="selectImage"
+                        v-if="imageInputForm"
+                      ></v-file-input>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <vue-loading
+                        v-if="uploading"
+                        type="spiningDubbles"
+                        color="#7ec0e7"
+                        :size="{ width: '50px', height: '50px' }"
+                      ></vue-loading>
+                    </v-list-item>
+                  </v-list>
+                </v-card-text>
+              </v-form>
+
+              <v-alert
+                v-if="entryTeamDone"
+                dense
+                max-width="70%"
+                type="success"
+              >
+                {{ this.systemMessage }}
+              </v-alert>
+
+              <v-btn
+                large
+                @click="entryTeam"
+                color="primary"
+                :disabled="!isEntryReady"
+              >
+                登録
+              </v-btn>
+              <br />
+              <br />
+            </v-card>
+          </v-col>
         </v-row>
       </v-container>
     </v-content>
