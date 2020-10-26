@@ -66,6 +66,22 @@
                   <br />
                   <br />
                 </v-list>
+
+                <!-- ポートフォリオ用にID/passを表示 -->
+                <v-card-subtitle align="start">
+                  一般ユーザID
+                  <br />
+                  ID:user@example.com
+                  <br />
+                  pass:portfolio
+                  <br />
+                  <br />
+                  管理者ID
+                  <br />
+                  ID:admin@example.com
+                  <br />
+                  pass:portfolio
+                </v-card-subtitle>
               </v-card-text>
             </v-card>
           </v-col>
