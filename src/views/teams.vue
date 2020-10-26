@@ -15,7 +15,7 @@
 
     <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
     <v-content class="bg-teams-view">
-      <v-container mt-n3 pt-0 fluid class="bg-teams-view height-100per">
+      <v-container pl-0 mt-n3 pt-0 fluid class="bg-teams-view height-100per">
         <v-row>
           <v-col
             v-if="!$vuetify.breakpoint.xsOnly"
