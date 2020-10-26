@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- サイズがxsのときにだけ表示されるドロワー -->
     <v-navigation-drawer
       width="85%"
       v-if="$vuetify.breakpoint.xsOnly"
@@ -12,6 +13,7 @@
       ></teamSidebar>
     </v-navigation-drawer>
 
+    <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
     <v-content class="bg-teams-view">
       <v-container mt-n3 pt-0 fluid class="bg-teams-view height-100per">
         <v-row>
