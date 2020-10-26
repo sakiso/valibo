@@ -8,12 +8,13 @@ GitHub: https://github.com/sakiso/valibo
 
 ## 機能概要
 * チーム検索機能
-* チーム削除機能（管理者権限のみ）
+* チーム削除機能
 * チーム登録機能
-* 写真リサイズ（縮小）機能
-
+  * 写真リサイズ（縮小）機能
 * ログイン機能（Firebase Authentication）
-* ログイン状態・権限管理（Vuex）
+  * ログイン状態・権限管理（Vuex）
+
+※チーム削除機能は管理者ユーザでログインしている場合のみ利用可能
 
 
 ## 使用技術
@@ -43,4 +44,4 @@ GitHub: https://github.com/sakiso/valibo
 * Google Chrome 最新版
 
 ## サービス利用イメージ
-[利用イメージ](https://github.com/sakiso/valibo/blob/master/valibo-image.gif)
+![gif](https://github.com/sakiso/valibo/blob/master/valibo-image.gif)
