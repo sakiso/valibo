@@ -43,4 +43,4 @@ GitHub: https://github.com/sakiso/valibo
 * Google Chrome 最新版
 
 ## サービス利用イメージ
-GIFイメージ掲載予定
+[利用イメージ](https://github.com/sakiso/valibo/blob/master/valibo-image.gif)
