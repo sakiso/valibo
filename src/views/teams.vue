@@ -15,7 +15,14 @@
 
     <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
     <v-content class="bg-teams-view">
-      <v-container pl-0 mt-n3 pt-0 fluid class="bg-teams-view height-100per">
+      <v-container
+        pr-0
+        pl-0
+        mt-n3
+        pt-0
+        fluid
+        class="bg-teams-view height-100per"
+      >
         <v-row>
           <v-col
             v-if="!$vuetify.breakpoint.xsOnly"
@@ -37,7 +44,7 @@
           </v-col>
 
           <v-col cols="12" sm="8" md="9" lg="9" xl="9">
-            <v-container mt-2>
+            <v-container pl-4 pr-4>
               <v-row>
                 <v-col
                   cols="12"
