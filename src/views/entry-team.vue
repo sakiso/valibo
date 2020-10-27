@@ -149,6 +149,7 @@
 </template>
 
 <script>
+import { db } from '@/plugins/firebase'
 import { storage } from '@/plugins/firebase'
 import { VueLoading } from 'vue-loading-template'
 import WantedPositionSelecer from '@/components/WantedPositionSelecter.vue'
@@ -230,6 +231,9 @@ export default {
     } else {
       console.log('未ログイン')
     }
+
+    //teamsコレクションへの参照
+    this.teamsRef = db.collection('teams')
   },
 
   methods: {
