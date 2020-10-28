@@ -5,6 +5,7 @@ export default {
     const options = {
       maxSizeMB: 0.8, //最大ファイルサイズ
       maxWidthOrHeight: 600, //最大縦横値
+      useWebWorker: false, //マルチスレッドWebWorkerを無効化
     }
     try {
       //圧縮した画像を生成
