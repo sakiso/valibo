@@ -196,6 +196,9 @@ export default {
           self.id = ''
           self.password = ''
           self.isReadyToSignIn = false
+
+          //ログイン成功時にトップページ（teamsビュー）に遷移させる
+          self.$router.replace('/teams')
         }
       })
     },
