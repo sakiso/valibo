@@ -13,9 +13,6 @@
       ></teamSidebar>
     </v-navigation-drawer>
 
-    <v-alert type="success" class="float">ログインしました</v-alert>
-
-    <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
     <v-content class="bg-teams-view">
       <v-container
         pr-0
@@ -26,6 +23,7 @@
         class="bg-teams-view height-100per"
       >
         <v-row>
+          <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
           <v-col
             v-if="!$vuetify.breakpoint.xsOnly"
             cols="4"
@@ -142,6 +140,9 @@
                   </v-card>
                   <v-spacer></v-spacer>
                 </v-col>
+
+                <!-- ログイン後に遷移してきたときに3秒間表示するフラッシュメッセージ -->
+                <v-alert type="success" class="float">ログインしました</v-alert>
               </v-row>
             </v-container>
 
@@ -288,5 +289,10 @@ export default {
   top: 17px;
   left: 17px;
   text-align: end;
+}
+.float {
+  position: absolute;
+  top: 50px;
+  left: 180px;
 }
 </style>
