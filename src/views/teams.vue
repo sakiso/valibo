@@ -1,5 +1,11 @@
 <template>
   <v-app>
+    <!-- ログイン後に遷移してきたときに3秒間表示するフラッシュメッセージ -->
+    <v-snackbar v-model="snackbar" :timeout="timeout" top color="info">
+      <v-icon>mdi-information</v-icon>
+      ログインしました
+    </v-snackbar>
+
     <!-- サイズがxsのときにだけ表示されるドロワー -->
     <v-navigation-drawer
       width="85%"
@@ -140,9 +146,6 @@
                   </v-card>
                   <v-spacer></v-spacer>
                 </v-col>
-
-                <!-- ログイン後に遷移してきたときに3秒間表示するフラッシュメッセージ -->
-                <v-alert type="success" class="float">ログインしました</v-alert>
               </v-row>
             </v-container>
 
@@ -189,6 +192,8 @@ export default {
       asAdmin: false,
       asUser: false,
       drawer: false,
+      snackbar: true,
+      timeout: 3000,
     }
   },
   components: {
