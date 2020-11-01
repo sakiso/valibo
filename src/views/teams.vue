@@ -13,6 +13,8 @@
       ></teamSidebar>
     </v-navigation-drawer>
 
+    <v-alert type="success" class="float">ログインしました</v-alert>
+
     <!-- サイズがxsでないときにだけ表示されるサイドバー（固定） -->
     <v-content class="bg-teams-view">
       <v-container
