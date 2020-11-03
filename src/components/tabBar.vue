@@ -25,6 +25,20 @@ export default {
     }
   },
 
+  mounted: function () {
+    //現在のpathに応じてアクティブなタブを切り替える
+    //現在のpathがitmes配列の何番目のpathと一致するかで、アクティブにすべきタブを決める
+    if (this.$route.path === this.items[0].path) {
+      this.tab = 0
+    } else if (this.$route.path === this.items[1].path) {
+      this.tab = 1
+    } else if (this.$route.path === this.items[2].path) {
+      this.tab = 2
+    } else {
+      return
+    }
+  },
+
   methods: {
     switchPage(path) {
       this.$router.replace(path)
