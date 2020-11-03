@@ -56,6 +56,13 @@
 
           <v-col cols="12" sm="8" md="9" lg="9" xl="9">
             <v-container pl-4 pr-4>
+              <v-row v-if="!asAdmin && !asUser" dense>
+                <v-col cols="12">
+                  <v-alert dense type="warning" v-if="!asUser && !asAdmin">
+                    ログインするとチームにメッセージを送れます
+                  </v-alert>
+                </v-col>
+              </v-row>
               <v-row>
                 <v-col
                   cols="12"
@@ -120,6 +127,7 @@
                         <v-row dense>
                           <v-col>
                             <v-btn
+                              v-if="asAdmin || asUser"
                               small
                               color="#F48D97"
                               dark
