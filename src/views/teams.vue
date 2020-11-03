@@ -192,7 +192,7 @@ export default {
       asAdmin: false,
       asUser: false,
       drawer: false,
-      snackbar: true,
+      snackbar: false,
       timeout: 3000,
     }
   },
@@ -226,6 +226,11 @@ export default {
       })
       this.teams = obj
     })
+  },
+
+  destroyed: function () {
+    //初回ログインでログインした旨を知らせる通知を出したあと、snackbarをfalseに更新し、今後表示しないようにする
+    this.snackbar = false
   },
 
   computed: {
