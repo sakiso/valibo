@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-//stateをlocalStrageに保存するためのプラグイン
+//stateをlocalStrage/sessionStorageに保存するためのプラグイン
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -39,14 +39,14 @@ export default new Vuex.Store({
   },
   actions: {},
 
-  //stateをlocalStrageに保存するためのプラグイン
+  //stateをlocalStrage/sessionStorageに保存するためのプラグイン
   plugins: [
     createPersistedState({
       // ストレージのキーを指定。デフォルトではvuexなので他アプリと重複する
       key: 'valibo',
 
-      // ストレージの種類としてlocalstorageを指定する。
-      storage: window.localStrage,
+      // ストレージの種類としてsessionStorageを指定する。
+      storage: window.sessionStorage,
     }),
   ],
 })
