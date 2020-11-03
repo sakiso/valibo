@@ -1,7 +1,12 @@
 <template>
   <v-app>
     <!-- ログイン後に遷移してきたときに3秒間表示するフラッシュメッセージ -->
-    <v-snackbar v-model="snackbar" :timeout="timeout" top color="info">
+    <v-snackbar
+      v-model="this.$store.state.signInNoticeSnackbar"
+      :timeout="timeout"
+      top
+      color="info"
+    >
       <v-icon>mdi-information</v-icon>
       ログインしました
     </v-snackbar>
@@ -229,8 +234,9 @@ export default {
   },
 
   destroyed: function () {
-    //初回ログインでログインした旨を知らせる通知を出したあと、snackbarをfalseに更新し、今後表示しないようにする
-    this.snackbar = false
+    console.log('setSnacbarFalse')
+    //初回ログインよりあとは、teams画面でログイン通知のsnackbarを表示させないためfalseに更新
+    this.$store.commit('setSnackbarFalse')
   },
 
   computed: {

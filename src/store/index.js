@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     role: '',
+    signInNoticeSnackbar: false,
   },
   mutations: {
     updateRole(state, role) {
@@ -26,6 +27,14 @@ export default new Vuex.Store({
     deleteRole(state) {
       //ログアウト処理時にstateのroleを初期化する
       state.role = ''
+    },
+    setSnackbarTrue(state) {
+      //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
+      state.signInNoticeSnackbar = true
+    },
+    setSnackbarFalse(state) {
+      //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
+      state.signInNoticeSnackbar = false
     },
   },
   actions: {},

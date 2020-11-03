@@ -192,6 +192,10 @@ export default {
             console.log('login as user')
           }
 
+          //teams画面でログイン通知のsnackbarを表示させるためにtrueに更新
+          console.log('setSnacbarTrue')
+          self.$store.commit('setSnackbarTrue')
+
           //画面表示項目を初期化し、ログインボタンを非活性にする
           self.id = ''
           self.password = ''
@@ -210,6 +214,9 @@ export default {
       this.asAdmin = false
       this.asUser = false
       this.$store.commit('deleteRole')
+
+      //teams画面でログイン通知のsnackbarを表示させないためfalseに更新
+      this.$store.commit('setSnackbarFalse')
 
       console.log('signOut')
     },
