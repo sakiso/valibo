@@ -29,9 +29,9 @@ export default {
   computed: {
     tabIndex: {
       get: function () {
-        console.log(this.items.findIndex((el) => el.path === this.$route.path))
-        //現在のpathでitemsを検索し、インデックスを取得
-        return this.items.indexOf(this.$route.path)
+        //現在のpathでitems.pathを比較し、一致した要素のインデックスを取得
+        //tabIndexはtabsにバインドしているので、常にURLと一致したタブがアクティブになる
+        return this.items.findIndex((el) => el.path === this.$route.path)
       },
       set: function () {
         //setterは特になし
