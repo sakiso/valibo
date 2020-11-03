@@ -53,17 +53,24 @@ export default {
   },
 
   methods: {
-    sendMessage() {
+    async sendMessage() {
       //messageコレクションへの参照
       this.messageRef = db.collection('message')
 
       //messageコレクションへのドキュメント登録
-      this.messageRef.add({
+      await this.messageRef.add({
         sender_ID: this.$store.state.email,
         receiver_ID: this.teamEmail,
         messageText: this.message,
         messageEntryDate: new Date(),
       })
+
+      //メッセージの削除
+      this.message = ''
+
+      //登録完了したら親コンポーネントに情報を伝え、メッセージ送信ダイアログを閉じる
+      console.log('adddone-child')
+      this.$emit('addDone')
     },
   },
 }

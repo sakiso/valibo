@@ -177,6 +177,7 @@
               <dialog-card
                 :title="dialogTitle"
                 :team-email="teamEmail"
+                @addDone="closeMessageDialog"
               ></dialog-card>
             </v-dialog>
           </v-col>
@@ -276,6 +277,11 @@ export default {
 
       //dialog表示
       this.dialog = true
+    },
+    closeMessageDialog() {
+      //メッセージ登録が完了したらダイアログを閉じる
+      console.log('adddone')
+      this.dialog = false
     },
 
     openDrawer() {
