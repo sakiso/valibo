@@ -176,7 +176,7 @@
             <v-dialog v-model="dialog" max-width="500px">
               <dialog-card
                 :title="dialogTitle"
-                :text="dialogText"
+                :team-email="teamEmail"
               ></dialog-card>
             </v-dialog>
           </v-col>
@@ -200,7 +200,7 @@ export default {
       teams: {},
       teamsRef: null,
       dialog: false,
-      dialogText: 'none',
+      teamEmail: 'none',
       dialogTitle: '-',
       asAdmin: false,
       asUser: false,
@@ -271,8 +271,8 @@ export default {
 
     displayDialog(teamName, email) {
       //画面から受け取ったチーム名とemailをセットし、dialogを表示する
-      this.dialogTitle = '「' + teamName + '」連絡先'
-      this.dialogText = email
+      this.dialogTitle = '「' + teamName + '」にメッセージを送る'
+      this.teamEmail = email
 
       //dialog表示
       this.dialog = true

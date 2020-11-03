@@ -4,7 +4,7 @@
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
     <v-card-text height="350px" class="text-h6"
-      >{{ text }}<br />
+      >{{ teamEmail }}<br />
       <v-container>
         <v-row dense>
           <v-col>
@@ -39,7 +39,7 @@ export default {
       type: String,
       default: '',
     },
-    text: {
+    teamEmail: {
       type: String,
       default: '',
     },
@@ -60,7 +60,7 @@ export default {
       //messageコレクションへのドキュメント登録
       this.messageRef.add({
         sender_ID: this.$store.state.email,
-        receiver_ID: 'receive',
+        receiver_ID: this.teamEmail,
         messageText: this.message,
         messageEntryDate: new Date(),
       })
