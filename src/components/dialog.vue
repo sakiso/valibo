@@ -3,8 +3,7 @@
   <v-card>
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
-    <v-card-text height="350px" class="text-h6"
-      >{{ teamEmail }}<br />
+    <v-card-text height="350px" class="text-h6">
       <v-container>
         <v-row dense>
           <v-col>
