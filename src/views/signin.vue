@@ -192,6 +192,9 @@ export default {
             console.log('login as user')
           }
 
+          //ログイン者のID（メールアドレス）をstateに保存
+          self.$store.commit('updateEmail', firebase.auth().currentUser.email)
+
           //teams画面でログイン通知のsnackbarを表示させるためにtrueに更新
           console.log('setSnacbarTrue')
           self.$store.commit('setSnackbarTrue')

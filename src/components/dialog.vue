@@ -20,8 +20,8 @@
         <v-row dense>
           <v-col cols="12" class="text-right">
             <v-btn dark large color="primary" @click="sendMessage">
-              <v-icon>mdi-send</v-icon>
-              <v-text class="ml-2">メッセージを送信する</v-text>
+              <v-icon class="mr-2">mdi-send</v-icon>
+              <span>メッセージを送信する</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -59,7 +59,7 @@ export default {
 
       //messageコレクションへのドキュメント登録
       this.messageRef.add({
-        sender_ID: 'send',
+        sender_ID: this.$store.state.email,
         receiver_ID: 'receive',
         messageText: this.message,
         messageEntryDate: new Date(),

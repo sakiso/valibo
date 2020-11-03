@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     role: '',
+    email: '',
     signInNoticeSnackbar: false,
   },
   mutations: {
@@ -35,6 +36,10 @@ export default new Vuex.Store({
     setSnackbarFalse(state) {
       //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
       state.signInNoticeSnackbar = false
+    },
+    updateEmail(state, email) {
+      //ログインユーザのメールアドレスを保存する
+      state.email = email
     },
   },
   actions: {},
