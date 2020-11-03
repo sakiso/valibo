@@ -234,7 +234,6 @@ export default {
   },
 
   destroyed: function () {
-    console.log('setSnacbarFalse')
     //初回ログインよりあとは、teams画面でログイン通知のsnackbarを表示させないためfalseに更新
     this.$store.commit('setSnackbarFalse')
   },
