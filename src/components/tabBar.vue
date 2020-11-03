@@ -25,11 +25,6 @@ export default {
     }
   },
 
-  mounted: function () {
-    console.log(this.tab)
-    this.tab = 2
-  },
-
   methods: {
     switchPage(path) {
       this.$router.replace(path)
