@@ -3,7 +3,28 @@
   <v-card>
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
-    <v-card-text height="350px" class="text-h6">{{ text }}</v-card-text>
+    <v-card-text height="350px" class="text-h6"
+      >{{ text }}<br />
+      <v-container>
+        <v-row dense>
+          <v-col>
+            <v-textarea
+              label="チームにメッセージを送ってみましょう"
+              counter="100"
+              outlined
+            ></v-textarea>
+          </v-col>
+        </v-row>
+        <v-row dense>
+          <v-col cols="12" class="text-right">
+            <v-btn dark large color="primary">
+              <v-icon>mdi-send</v-icon>
+              <v-text class="ml-2">メッセージを送信する</v-text>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -27,4 +48,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>
