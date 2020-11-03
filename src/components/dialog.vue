@@ -12,12 +12,14 @@
               label="チームにメッセージを送ってみましょう"
               counter="100"
               outlined
+              v-model="message"
             ></v-textarea>
           </v-col>
         </v-row>
+
         <v-row dense>
           <v-col cols="12" class="text-right">
-            <v-btn dark large color="primary">
+            <v-btn dark large color="primary" @click="sendMessage">
               <v-icon>mdi-send</v-icon>
               <v-text class="ml-2">メッセージを送信する</v-text>
             </v-btn>
@@ -29,6 +31,8 @@
 </template>
 
 <script>
+import { db } from '@/plugins/firebase'
+
 export default {
   props: {
     title: {
@@ -43,7 +47,24 @@ export default {
   data() {
     return {
       dialog: false,
+      message: '',
+      messageRef: null,
     }
+  },
+
+  methods: {
+    sendMessage() {
+      //messageコレクションへの参照
+      this.messageRef = db.collection('message')
+
+      //messageコレクションへのドキュメント登録
+      this.messageRef.add({
+        sender_ID: 'send',
+        receiver_ID: 'receive',
+        messageText: this.message,
+        messageEntryDate: new Date(),
+      })
+    },
   },
 }
 </script>
