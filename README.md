@@ -36,6 +36,7 @@ GitHub: https://github.com/sakiso/valibo
 
 ### ホスティング
 * Firebase Hosting
+  * GitHubと連携しビルド・デプロイを自動化
 
 
 ## 開発の背景
