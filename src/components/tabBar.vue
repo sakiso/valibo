@@ -21,6 +21,7 @@ export default {
           tab: 'チーム登録',
           path: '/entry-team',
         },
+        { icon: 'mdi-message-outline', tab: 'メッセージ', path: '/message' },
         { icon: 'mdi-login-variant', tab: 'ログイン', path: '/signin' },
       ],
     }

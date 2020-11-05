@@ -5,7 +5,8 @@ import VueRouter from 'vue-router'
 import main from '@/views/main'
 import teams from '@/views/teams'
 import entryTeam from '@/views/entry-team'
-import adminSignin from '@/views/signin'
+import message from '@/views/message'
+import signin from '@/views/signin'
 
 Vue.use(VueRouter)
 //routerの設定とインスタンス生成
@@ -19,7 +20,8 @@ const routes = [
       { path: '', component: teams },
       { path: '/teams', component: teams },
       { path: '/entry-team', component: entryTeam },
-      { path: '/signin', component: adminSignin },
+      { path: '/message', component: message },
+      { path: '/signin', component: signin },
     ],
   },
 ]
