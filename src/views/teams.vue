@@ -11,6 +11,17 @@
       ログインしました
     </v-snackbar>
 
+    <!-- メッセージ送信完了後に3秒間表示するフラッシュメッセージ -->
+    <v-snackbar
+      v-model="sendedMessageSnackbar"
+      :timeout="timeout"
+      top
+      color="success"
+    >
+      <v-icon>mdi-information</v-icon>
+      メッセージを送信しました
+    </v-snackbar>
+
     <!-- サイズがxsのときにだけ表示されるドロワー -->
     <v-navigation-drawer
       width="85%"
@@ -206,7 +217,7 @@ export default {
       asAdmin: false,
       asUser: false,
       drawer: false,
-      snackbar: false,
+      sendedMessageSnackbar: false,
       timeout: 3000,
     }
   },
@@ -282,6 +293,8 @@ export default {
       //メッセージ登録が完了したらダイアログを閉じる
       console.log('adddone')
       this.dialog = false
+      //メッセージ送信完了スナックバーを表示させる
+      this.sendedMessageSnackbar = true
     },
 
     openDrawer() {
