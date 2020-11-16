@@ -14,10 +14,7 @@
             </v-card>
           </v-col>
           <v-col cols="9">
-            <v-card height="100%">
-              <v-card-title> メッセージ詳細 </v-card-title>
-              <v-card-text> aaa </v-card-text>
-            </v-card>
+            <message-detail></message-detail>
           </v-col>
         </v-row>
       </v-container>
@@ -29,9 +26,10 @@
 //import { db } from '@/plugins/firebase'
 //import firebase from 'firebase/app'
 //import 'firebase/auth'
+import MessageDetail from '@/components/message-detail.vue'
 
 export default {
-  components: {},
+  components: { MessageDetail },
 
   data: function () {
     return {}
