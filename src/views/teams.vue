@@ -22,7 +22,7 @@
       メッセージを送信しました
     </v-snackbar>
 
-    <!-- サイズがxsのときにだけ表示されるドロワー -->
+    <!-- サイズがxsのときにだけ表示されるサイドバー -->
     <v-navigation-drawer
       width="85%"
       v-if="$vuetify.breakpoint.xsOnly"
