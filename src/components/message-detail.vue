@@ -1,10 +1,13 @@
 <template>
   <v-container pa-0 ma-0>
     <v-row>
-      <v-col v-for="message in messages" :key="message.key">
+      <v-col cols="12" v-for="message in messages" :key="message.key">
         <v-card height="100%">
           <v-card-title> メッセージ詳細 </v-card-title>
-          <v-card-text> {{ message }} </v-card-text>
+          <v-card-text> {{ message.sender_ID }} </v-card-text>
+          <v-card-text> {{ message.messageText }} </v-card-text>
+          <v-card-text> {{ processedMessageEntryDate }} </v-card-text>
+          <v-card-text> {{ message.sender_ID }} </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -20,6 +23,19 @@ export default {
     return {
       messages: {},
     }
+  },
+  computed: {
+    processedMessageEntryDate: function () {
+      return (message) => {
+        const entryDate =
+          message.messageEntryDate.getFullYear() +
+          '/' +
+          (message.messageEntryDate.getMonth() + 1) +
+          '/' +
+          message.messageEntryDate.getDate()
+        return entryDate
+      }
+    },
   },
 
   created: function () {
