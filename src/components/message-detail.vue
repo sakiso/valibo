@@ -6,7 +6,9 @@
           <v-card-title> メッセージ詳細 </v-card-title>
           <v-card-text> {{ message.sender_ID }} </v-card-text>
           <v-card-text> {{ message.messageText }} </v-card-text>
-          <v-card-text> {{ processedMessageEntryDate }} </v-card-text>
+          <v-card-text>
+            {{ processedMessageEntryDate(message.messageEntryDate) }}
+          </v-card-text>
           <v-card-text> {{ message.sender_ID }} </v-card-text>
         </v-card>
       </v-col>
@@ -26,14 +28,18 @@ export default {
   },
   computed: {
     processedMessageEntryDate: function () {
-      return (message) => {
+      return (date) => {
+        /*
         const entryDate =
-          message.messageEntryDate.getFullYear() +
+          date.getFullYear() +
           '/' +
-          (message.messageEntryDate.getMonth() + 1) +
+          (date.getMonth() + 1) +
           '/' +
-          message.messageEntryDate.getDate()
+          date.getDate()
         return entryDate
+        */
+        console.log(date.toDate)
+        return date.toDate
       }
     },
   },
