@@ -3,13 +3,21 @@
     <v-row>
       <v-col cols="12" v-for="message in messages" :key="message.key">
         <v-card height="100%">
-          <v-card-title> メッセージ詳細 </v-card-title>
-          <v-card-text> {{ message.sender_ID }} </v-card-text>
-          <v-card-text> {{ message.messageText }} </v-card-text>
           <v-card-text>
-            {{ processedMessageEntryDate(message.messageEntryDate) }}
+            <v-container>
+              <v-row>
+                <v-col> from:{{ message.sender_ID }} </v-col>
+                <v-col>
+                  {{ message.messageText }}
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  {{ processedMessageEntryDate(message.messageEntryDate) }}
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card-text>
-          <v-card-text> {{ message.sender_ID }} </v-card-text>
         </v-card>
       </v-col>
     </v-row>
