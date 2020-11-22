@@ -6,9 +6,10 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col> from:{{ message.sender_ID }} </v-col>
-                <v-col>
-                  {{ message.messageText }}
+                <v-col class="balloon_l">
+                  <div class="says">
+                    {{ message.messageText }}
+                  </div>
                 </v-col>
               </v-row>
               <v-row>
@@ -37,17 +38,14 @@ export default {
   computed: {
     processedMessageEntryDate: function () {
       return (date) => {
-        /*
         const entryDate =
-          date.getFullYear() +
+          //firestore特有のTimestamp型をJSで使えるDate型に戻すためtoDate()を使っている
+          date.toDate().getFullYear() +
           '/' +
-          (date.getMonth() + 1) +
+          (date.toDate().getMonth() + 1) +
           '/' +
-          date.getDate()
+          date.toDate().getDate()
         return entryDate
-        */
-        console.log(date.toDate)
-        return date.toDate
       }
     },
   },
@@ -70,4 +68,30 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.says {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 17px 13px 15px 18px;
+  border-radius: 12px;
+  background: #67b0b2;
+  color: #ffffff;
+  box-sizing: border-box;
+  margin: 0 !important;
+  line-height: 1.5;
+}
+.says:after {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+}
+.balloon_l .says:after {
+  left: -26px;
+  border-right: 22px solid #67b0b2;
+}
+.balloon_r .says:after {
+  right: -26px;
+  border-left: 22px solid #99dddd;
+}
+</style>
