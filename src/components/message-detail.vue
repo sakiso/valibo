@@ -75,8 +75,7 @@ export default {
   position: relative;
   padding: 17px 13px 15px 18px;
   border-radius: 12px;
-  background: #67b0b2;
-  color: #ffffff;
+  background: #c3eaec;
   box-sizing: border-box;
   margin: 0 !important;
   line-height: 1.5;
@@ -88,10 +87,10 @@ export default {
 }
 .balloon_l .says:after {
   left: -26px;
-  border-right: 22px solid #67b0b2;
+  border-right: 22px solid #c3eaec;
 }
 .balloon_r .says:after {
   right: -26px;
-  border-left: 22px solid #99dddd;
+  border-left: 22px solid #c3eaec;
 }
 </style>
