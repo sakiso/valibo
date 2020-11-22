@@ -2,24 +2,18 @@
   <v-container pa-0 ma-0>
     <v-row>
       <v-col cols="12" v-for="message in messages" :key="message.key">
-        <v-card height="100%">
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col class="balloon_l">
-                  <div class="says">
-                    {{ message.messageText }}
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
-                  {{ processedMessageEntryDate(message.messageEntryDate) }}
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-        </v-card>
+        <v-container>
+          <v-row>
+            <v-col class="balloon_l" cols="7">
+              <div class="says">
+                {{ message.messageText }}
+              </div>
+            </v-col>
+            <v-col cols="3" class="date" align-self="end">
+              {{ processedMessageEntryDate(message.messageEntryDate) }}
+            </v-col>
+          </v-row>
+        </v-container>
       </v-col>
     </v-row>
   </v-container>
@@ -40,11 +34,15 @@ export default {
       return (date) => {
         const entryDate =
           //firestore特有のTimestamp型をJSで使えるDate型に戻すためtoDate()を使っている
-          date.toDate().getFullYear() +
+          date.toDate().getMonth() +
+          1 +
           '/' +
-          (date.toDate().getMonth() + 1) +
-          '/' +
-          date.toDate().getDate()
+          date.toDate().getDate() +
+          ' ' +
+          date.toDate().getHours() +
+          ':' +
+          date.toDate().getMinutes()
+
         return entryDate
       }
     },
@@ -92,5 +90,11 @@ export default {
 .balloon_r .says:after {
   right: -26px;
   border-left: 22px solid #c3eaec;
+}
+.date {
+  color: darkgray;
+  vertical-align: bottom;
+  position: relative;
+  bottom: 0;
 }
 </style>
