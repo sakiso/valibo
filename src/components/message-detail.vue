@@ -1,12 +1,26 @@
 <template>
-  <v-container pa-0 ma-0>
+  <v-container pt-0 mt-0>
     <v-row>
       <v-col cols="12" v-for="message in messages" :key="message.key">
         <v-container>
-          <v-row>
+          <v-row v-if="message.sender_ID === 'user@example.com'">
+            <v-spacer></v-spacer>
+            <v-col cols="3" class="date right" align-self="end">
+              {{ processedMessageEntryDate(message.messageEntryDate) }}
+            </v-col>
+            <v-col class="balloon_r" cols="7">
+              <div class="says right_says">
+                {{ message.messageText }}
+                from:{{ message.sender_ID }}
+              </div>
+            </v-col>
+          </v-row>
+
+          <v-row v-else>
             <v-col class="balloon_l" cols="7">
               <div class="says">
                 {{ message.messageText }}
+                from:{{ message.sender_ID }}
               </div>
             </v-col>
             <v-col cols="3" class="date" align-self="end">
@@ -78,6 +92,17 @@ export default {
   margin: 0 !important;
   line-height: 1.5;
 }
+.right_says {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 17px 13px 15px 18px;
+  border-radius: 12px;
+  background: #e4eeee;
+  box-sizing: border-box;
+  margin: 0 !important;
+  line-height: 1.5;
+}
 .says:after {
   content: '';
   position: absolute;
@@ -89,12 +114,15 @@ export default {
 }
 .balloon_r .says:after {
   right: -26px;
-  border-left: 22px solid #c3eaec;
+  border-left: 22px solid #e4eeee;
 }
 .date {
   color: darkgray;
   vertical-align: bottom;
   position: relative;
   bottom: 0;
+}
+.right {
+  text-align: end;
 }
 </style>
