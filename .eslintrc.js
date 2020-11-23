@@ -12,7 +12,7 @@ module.exports = {
     'plugin:prettier/recommended',
     //優先度A+B のルール(エラー防止+読みやすさの向上)
     "plugin:vue/strongly-recommended",
-    "prettier/vue"
+    "prettier/vue",
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

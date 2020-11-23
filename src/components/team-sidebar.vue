@@ -123,7 +123,6 @@ export default {
           snapshot.forEach((doc) => {
             obj[doc.id] = doc.data()
           })
-          console.log(obj)
           this.$emit('selectTeams', obj)
         })
         .catch((err) => {
