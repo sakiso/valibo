@@ -1,7 +1,11 @@
 <template>
   <v-container pt-0 mt-0 pr-5 pl-5>
     <v-row>
-      <v-col cols="12" v-for="message in messages" :key="message.key">
+      <v-col
+        cols="12"
+        v-for="message in $store.state.messages"
+        :key="message.key"
+      >
         <v-container>
           <v-row v-if="message.sender_ID === 'user@example.com'">
             <v-spacer></v-spacer>
@@ -34,14 +38,10 @@
 </template>
 
 <script>
-import { db } from '@/plugins/firebase'
-
 export default {
   name: 'MessageDetail',
   data() {
-    return {
-      messages: {},
-    }
+    return {}
   },
   computed: {
     processedMessageEntryDate: function () {
@@ -62,21 +62,7 @@ export default {
     },
   },
 
-  created: function () {
-    //Firestoreからデータ取得
-    //messageコレクションへの参照
-    this.messageRef = db.collection('message')
-
-    this.messageRef.onSnapshot((querySnapshot) => {
-      //リスナー配置し、Firestoreのデータが更新されるたびに以下の関数を実行
-      //データ取得処理
-      const obj = {}
-      querySnapshot.forEach((doc) => {
-        obj[doc.id] = doc.data()
-      })
-      this.messages = obj
-    })
-  },
+  created: function () {},
 }
 </script>
 
