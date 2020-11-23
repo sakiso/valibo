@@ -4,14 +4,7 @@
       <v-container ma-0 pt-0 pb-0 fluid class="height-100per">
         <v-row class="height-100per">
           <v-col cols="3">
-            <v-card height="100%">
-              <v-card-title> メッセージ一覧 </v-card-title>
-              <v-card-text>
-                <v-list>
-                  <v-list-item>a</v-list-item>
-                </v-list>
-              </v-card-text>
-            </v-card>
+            <message-sidebar></message-sidebar>
           </v-col>
           <v-col cols="9">
             <message-detail></message-detail>
@@ -27,9 +20,10 @@
 //import firebase from 'firebase/app'
 //import 'firebase/auth'
 import MessageDetail from '@/components/message-detail.vue'
+import MessageSidebar from '@/components/message-sidebar.vue'
 
 export default {
-  components: { MessageDetail },
+  components: { MessageDetail, MessageSidebar },
 
   data: function () {
     return {}

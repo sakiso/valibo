@@ -1,5 +1,5 @@
 <template>
-  <v-container pt-0 mt-0>
+  <v-container pt-0 mt-0 pr-5 pl-5>
     <v-row>
       <v-col cols="12" v-for="message in messages" :key="message.key">
         <v-container>
