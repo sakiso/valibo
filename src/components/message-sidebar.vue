@@ -30,7 +30,7 @@ export default {
 
     //ログインユーザのメールアドレスが送受信のどちらかに含まれるメッセージを取得
     const queryRefList = this.messageRef.where(
-      'send_receive_ID',
+      'send0_receive1_ID',
       'array-contains',
       this.$store.state.email
     )
@@ -43,10 +43,15 @@ export default {
           console.log('no matching Msgs')
           return
         }
-        //検索結果ありの場合、取得したデータからsender_IDのみの配列を生成する
+        //検索結果ありの場合、取得したデータからIDの配列を生成する
+        //(ログインユーザでない方のIDのみpushしていく)
         const wk = []
         snapshot.forEach((doc) => {
-          wk.push(doc.data().sender_ID)
+          if (doc.data().send0_receive1_ID[0] === this.$store.state.email) {
+            wk.push(doc.data().send0_receive1_ID[1])
+          } else {
+            wk.push(doc.data().send0_receive1_ID[0])
+          }
         })
         return wk
       })
