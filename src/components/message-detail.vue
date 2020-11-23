@@ -33,6 +33,10 @@
           </v-row>
         </v-container>
       </v-col>
+      <v-btn large color="#F48D97" dark class="message-btn">
+        <v-icon> mdi-send-outline </v-icon>
+        メッセージを送る
+      </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -111,5 +115,10 @@ export default {
 }
 .right {
   text-align: end;
+}
+.message-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }
 </style>
