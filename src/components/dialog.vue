@@ -58,8 +58,10 @@ export default {
 
       //messageコレクションへのドキュメント登録
       await this.messageRef.add({
-        sender_ID: this.$store.state.email,
-        receiver_ID: this.teamEmail,
+        send_receive_ID: {
+          sender_ID: this.$store.state.email,
+          receiver_ID: this.teamEmail,
+        },
         messageText: this.message,
         messageEntryDate: new Date(),
       })
