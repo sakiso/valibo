@@ -20,6 +20,7 @@ export default {
     return {
       senderIdList: [],
       messageRef: null,
+      selectedMessages: {},
     }
   },
 
@@ -66,13 +67,11 @@ export default {
       .then((snapshot) => {
         //検索結果無しの場合
         if (snapshot.empty) {
-          console.log('no matching Msgs')
           return
         }
         //検索結果ありの場合、取得したデータからreceiver_IDのみの配列を生成する
         const wk = []
         snapshot.forEach((doc) => {
-          console.log('rID', doc.data().receiver_ID)
           wk.push(doc.data().receiver_ID)
         })
         return wk
@@ -88,27 +87,47 @@ export default {
   },
 
   methods: {
-    async selectMessages(sender_ID) {
-      //引数のユーザのメールアドレスでクエリを作成
-      //※
-      const queryRef = this.messageRef.where('sender_ID', '==', sender_ID)
-
+    async selectMessages(ID) {
       //thisをselfに退避
       const self = this
+
+      //引数のユーザのメールアドレスでクエリを作成
+      //[1/2]引数のユーザが送信者のクエリ
+      const queryRef_send = this.messageRef.where('sender_ID', '==', ID)
       //クエリ実行
-      await queryRef.get().then((snapshot) => {
+      await queryRef_send.get().then((snapshot) => {
         //検索結果無しの場合
         if (snapshot.empty) {
           console.log('no matching Msgs')
           return
         }
-        //検索結果ありの場合、取得したデータをstoreに書き込む
-        const selectedMessages = {}
+        //検索結果ありの場合、取得したデータをselectedMessagesに追加
         snapshot.forEach((doc) => {
-          selectedMessages[doc.id] = doc.data()
+          self.selectedMessages[doc.id] = doc.data()
         })
-        self.$store.commit('updateMessages', selectedMessages)
       })
+
+      //[2/2]引数のユーザが受信者のクエリ
+      const queryRef_recieve = this.messageRef.where('receiver_ID', '==', ID)
+      //クエリ実行
+      await queryRef_recieve.get().then((snapshot) => {
+        //検索結果無しの場合
+        if (snapshot.empty) {
+          console.log('no matching Msgs')
+          return
+        }
+        //検索結果ありの場合、取得したデータをselectedMessagesに追加
+        snapshot.forEach((doc) => {
+          self.selectedMessages[doc.id] = doc.data()
+        })
+      })
+
+      //stateに保存
+      console.log(this.selectedMessages)
+      this.$store.commit('updateMessages', this.selectedMessages)
+
+      //次の検索のためにthisのメッセージ情報はクリアする
+      this.selectedMessages = {}
     },
   },
 }
