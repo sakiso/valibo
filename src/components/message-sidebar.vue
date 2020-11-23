@@ -3,8 +3,8 @@
     <v-card-text> {{ this.$store.state.email }}</v-card-text>
     <v-card-text>
       <v-list>
-        <v-list-item v-for="(message, key) in messages" :key="key">
-          {{ message.sender_ID }}
+        <v-list-item v-for="sender_ID in senderIdList" :key="sender_ID">
+          {{ sender_ID }}
         </v-list-item>
       </v-list>
     </v-card-text>
@@ -18,7 +18,7 @@ export default {
   name: 'MessageSidebar',
   data() {
     return {
-      messages: {},
+      senderIdList: [],
     }
   },
 
@@ -34,19 +34,23 @@ export default {
     )
 
     //クエリ実行
-    await queryRef.get().then((snapshot) => {
+    const senderIdListNonUnique = await queryRef.get().then((snapshot) => {
       //検索結果無しの場合
       if (snapshot.empty) {
         console.log('no matching Msgs')
         return
       }
-      //検索結果ありの場合データ取得処理
-      const obj = {}
+      //検索結果ありの場合、取得したデータからsender_IDのみの配列を生成する
+      const wk = []
       snapshot.forEach((doc) => {
-        obj[doc.id] = doc.data()
+        wk.push(doc.data().sender_ID)
       })
-      this.messages = obj
+      return wk
     })
+
+    //一覧用にsender_IDのみの配列を生成
+    this.senderIdList = Array.from(new Set(senderIdListNonUnique))
+    console.log(this.senderIdList)
   },
 }
 </script>
