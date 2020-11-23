@@ -7,7 +7,7 @@
         :key="message.key"
       >
         <v-container>
-          <v-row v-if="message.sender_ID === 'user@example.com'">
+          <v-row v-if="message.send0_receive1_ID[0] === 'user@example.com'">
             <v-spacer></v-spacer>
             <v-col cols="3" class="date right" align-self="end">
               {{ processedMessageEntryDate(message.messageEntryDate) }}
@@ -15,7 +15,7 @@
             <v-col class="balloon_r" cols="7">
               <div class="says right_says">
                 {{ message.messageText }}
-                from:{{ message.sender_ID }}
+                from:{{ message.send0_receive1_ID[0] }}
               </div>
             </v-col>
           </v-row>
@@ -24,7 +24,7 @@
             <v-col class="balloon_l" cols="7">
               <div class="says">
                 {{ message.messageText }}
-                from:{{ message.sender_ID }}
+                from:{{ message.send0_receive1_ID[0] }}
               </div>
             </v-col>
             <v-col cols="3" class="date" align-self="end">
@@ -55,7 +55,8 @@ export default {
           ' ' +
           date.toDate().getHours() +
           ':' +
-          date.toDate().getMinutes()
+          //分の十の位を0埋めするため一度str型にした後padStartで0埋め
+          date.toDate().getMinutes().toString().padStart(2, '0')
 
         return entryDate
       }

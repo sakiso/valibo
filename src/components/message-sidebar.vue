@@ -3,7 +3,7 @@
     <v-card-text> {{ this.$store.state.email }}</v-card-text>
     <v-card-text>
       <v-list>
-        <v-list-item v-for="sender_ID in senderIdList" :key="sender_ID">
+        <v-list-item v-for="sender_ID in idList" :key="sender_ID">
           <v-btn @click="selectMessages(sender_ID)">{{ sender_ID }}</v-btn>
         </v-list-item>
       </v-list>
@@ -18,7 +18,7 @@ export default {
   name: 'MessageSidebar',
   data() {
     return {
-      senderIdList: [],
+      idList: [],
       messageRef: null,
       selectedMessages: {},
     }
@@ -35,30 +35,28 @@ export default {
       this.$store.state.email
     )
     //クエリ実行
-    const senderIdListNonUniqueList = await queryRefList
-      .get()
-      .then((snapshot) => {
-        //検索結果無しの場合
-        if (snapshot.empty) {
-          console.log('no matching Msgs')
-          return
+    const idListNonUniqueList = await queryRefList.get().then((snapshot) => {
+      //検索結果無しの場合
+      if (snapshot.empty) {
+        console.log('no matching Msgs')
+        return
+      }
+      //検索結果ありの場合、取得したデータからIDの配列を生成する
+      //(ログインユーザでない方のIDのみpushしていく)
+      const wk = []
+      snapshot.forEach((doc) => {
+        if (doc.data().send0_receive1_ID[0] === this.$store.state.email) {
+          wk.push(doc.data().send0_receive1_ID[1])
+        } else {
+          wk.push(doc.data().send0_receive1_ID[0])
         }
-        //検索結果ありの場合、取得したデータからIDの配列を生成する
-        //(ログインユーザでない方のIDのみpushしていく)
-        const wk = []
-        snapshot.forEach((doc) => {
-          if (doc.data().send0_receive1_ID[0] === this.$store.state.email) {
-            wk.push(doc.data().send0_receive1_ID[1])
-          } else {
-            wk.push(doc.data().send0_receive1_ID[0])
-          }
-        })
-        return wk
       })
+      return wk
+    })
 
     //一覧用にsender_IDのみの配列を生成
     //一意化
-    this.senderIdList = Array.from(new Set(senderIdListNonUniqueList))
+    this.idList = Array.from(new Set(idListNonUniqueList))
   },
 
   methods: {
@@ -66,26 +64,12 @@ export default {
       //thisをselfに退避
       const self = this
 
-      //引数のユーザのメールアドレスでクエリを作成
-      //[1/2]引数のユーザが送信者のクエリ
-      const queryRef_send = this.messageRef.where('sender_ID', '==', ID)
+      //引数のユーザのメールアドレスでクエリを作成(メッセージ登録日の昇順)
+      const queryRef_send = this.messageRef
+        .where('send0_receive1_ID', 'array-contains', ID)
+        .orderBy('messageEntryDate')
       //クエリ実行
       await queryRef_send.get().then((snapshot) => {
-        //検索結果無しの場合
-        if (snapshot.empty) {
-          console.log('no matching Msgs')
-          return
-        }
-        //検索結果ありの場合、取得したデータをselectedMessagesに追加
-        snapshot.forEach((doc) => {
-          self.selectedMessages[doc.id] = doc.data()
-        })
-      })
-
-      //[2/2]引数のユーザが受信者のクエリ
-      const queryRef_recieve = this.messageRef.where('receiver_ID', '==', ID)
-      //クエリ実行
-      await queryRef_recieve.get().then((snapshot) => {
         //検索結果無しの場合
         if (snapshot.empty) {
           console.log('no matching Msgs')
