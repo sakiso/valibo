@@ -1,7 +1,13 @@
 <template>
   <v-card>
     <v-card-text> {{ this.$store.state.email }}</v-card-text>
-    <v-card-text> {{ this.messagesToUser }}</v-card-text>
+    <v-card-text>
+      <v-list>
+        <v-list-item v-for="(message, key) in messages" :key="key">
+          {{ message.sender_ID }}
+        </v-list-item>
+      </v-list>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -12,7 +18,7 @@ export default {
   name: 'MessageSidebar',
   data() {
     return {
-      messagesToUser: {},
+      messages: {},
     }
   },
 
@@ -39,7 +45,7 @@ export default {
       snapshot.forEach((doc) => {
         obj[doc.id] = doc.data()
       })
-      this.messagesToUser = obj
+      this.messages = obj
     })
   },
 }
