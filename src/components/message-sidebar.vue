@@ -28,18 +28,14 @@ export default {
     //messageコレクションへの参照
     this.messageRef = db.collection('message')
 
-    /*ログインユーザのメールアドレスでクエリを作成
-      ※ログインユーザが送信者もしくは受信者のメッセージを取得する
-      ORクエリがないのでアプリ側で結合する */
-
-    //[1/2] 受信者IDから検索するクエリ
-    const queryRef_receiver = this.messageRef.where(
-      'receiver_ID',
-      '==',
+    //ログインユーザのメールアドレスが送受信のどちらかに含まれるメッセージを取得
+    const queryRefList = this.messageRef.where(
+      'send_receive_ID',
+      'array-contains',
       this.$store.state.email
     )
     //クエリ実行
-    const senderIdListNonUnique_receiver = await queryRef_receiver
+    const senderIdListNonUniqueList = await queryRefList
       .get()
       .then((snapshot) => {
         //検索結果無しの場合
@@ -55,35 +51,9 @@ export default {
         return wk
       })
 
-    //[2/2] 送信者IDから検索するクエリ
-    const queryRef_sender = this.messageRef.where(
-      'sender_ID',
-      '==',
-      this.$store.state.email
-    )
-    //クエリ実行
-    const senderIdListNonUnique_sender = await queryRef_sender
-      .get()
-      .then((snapshot) => {
-        //検索結果無しの場合
-        if (snapshot.empty) {
-          return
-        }
-        //検索結果ありの場合、取得したデータからreceiver_IDのみの配列を生成する
-        const wk = []
-        snapshot.forEach((doc) => {
-          wk.push(doc.data().receiver_ID)
-        })
-        return wk
-      })
-
     //一覧用にsender_IDのみの配列を生成
-    //一覧を合体
-    const arr = senderIdListNonUnique_receiver.concat(
-      senderIdListNonUnique_sender
-    )
     //一意化
-    this.senderIdList = Array.from(new Set(arr))
+    this.senderIdList = Array.from(new Set(senderIdListNonUniqueList))
   },
 
   methods: {
