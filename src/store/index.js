@@ -11,8 +11,12 @@ export default new Vuex.Store({
     role: '',
     email: '',
     signInNoticeSnackbar: false,
+    messages: {},
   },
   mutations: {
+    updateMessages(state, messages) {
+      state.messages = messages
+    },
     updateRole(state, role) {
       if (role === 'admin') {
         //管理者権限の場合
