@@ -7,7 +7,28 @@
             <message-sidebar></message-sidebar>
           </v-col>
           <v-col cols="9">
-            <message-detail></message-detail>
+            <v-row>
+              <message-detail></message-detail>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-card
+                  tile
+                  flat
+                  dense
+                  width="75%"
+                  class="fixed-bottom"
+                  color="light-blue"
+                >
+                  <v-card-text>
+                    <v-btn large color="#F48D97" dark>
+                      <v-icon> mdi-send-outline </v-icon>
+                      メッセージを送る
+                    </v-btn>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
       </v-container>
@@ -38,5 +59,9 @@ export default {
 <style scoped>
 .height-100per {
   height: 100%;
+}
+.fixed-bottom {
+  position: fixed;
+  bottom: 0px;
 }
 </style>
