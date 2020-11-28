@@ -21,10 +21,15 @@
                   color="light-blue"
                 >
                   <v-card-text>
-                    <v-btn large color="#F48D97" dark>
-                      <v-icon> mdi-send-outline </v-icon>
-                      メッセージを送る
-                    </v-btn>
+                    <v-row justify="end">
+                      <v-col cols="1"> s </v-col>
+                      <v-col cols="4">
+                        <v-btn large color="#F48D97" dark>
+                          <v-icon> mdi-send-outline </v-icon>
+                          メッセージを送る
+                        </v-btn>
+                      </v-col>
+                    </v-row>
                   </v-card-text>
                 </v-card>
               </v-col>
