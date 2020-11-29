@@ -4,7 +4,9 @@
     <v-card-text>
       <v-list color="#F7F7F7">
         <v-list-item v-for="sender_ID in idList" :key="sender_ID">
-          <v-btn @click="selectMessages(sender_ID)">{{ sender_ID }}</v-btn>
+          <v-btn color="#b8d5d6" @click="selectMessages(sender_ID)">{{
+            sender_ID
+          }}</v-btn>
         </v-list-item>
       </v-list>
     </v-card-text>

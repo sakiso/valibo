@@ -44,9 +44,6 @@
 </template>
 
 <script>
-//import { db } from '@/plugins/firebase'
-//import firebase from 'firebase/app'
-//import 'firebase/auth'
 import MessageDetail from '@/components/message-detail.vue'
 import MessageSidebar from '@/components/message-sidebar.vue'
 import addMessage from '@/addMessage.js'
@@ -100,13 +97,13 @@ export default {
   position: fixed;
 }
 .width-25per {
-  width: 23%;
+  width: 24%;
 }
 .height-100per {
   height: 100%;
 }
 .fixed-bottom {
   position: fixed;
-  bottom: 0px;
+  bottom: -25px;
 }
 </style>
