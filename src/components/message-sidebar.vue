@@ -82,7 +82,6 @@ export default {
       })
 
       //stateに保存
-      console.log(this.selectedMessages)
       this.$store.commit('updateMessages', this.selectedMessages)
 
       //選択したチーム情報をstateに格納（メッセージ画面上で返信するために必要なため）

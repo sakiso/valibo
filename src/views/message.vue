@@ -64,17 +64,22 @@ export default {
 
   methods: {
     async sendMessage() {
+      if (!this.message) {
+        console.log('no message input')
+        return
+      }
       //addMessageにわたす引数定義
       const messageObj = {
         send0_receive1_ID: [
           this.$store.state.email,
-          this.$store.state.selecteadEmail,
+          this.$store.state.selectedEmail,
         ],
         messageText: this.message,
         messageEntryDate: new Date(),
       }
-
       await addMessage.add(messageObj)
+
+      //メッセージ投稿後にメッセージ詳細を最新化する
 
       //メッセージの削除
       this.message = ''
