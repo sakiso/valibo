@@ -15,7 +15,6 @@
             <v-col class="balloon_r" cols="7">
               <div class="says right_says">
                 {{ message.messageText }}
-                from:{{ message.send0_receive1_ID[0] }}
               </div>
             </v-col>
           </v-row>
@@ -24,7 +23,6 @@
             <v-col class="balloon_l" cols="7">
               <div class="says">
                 {{ message.messageText }}
-                from:{{ message.send0_receive1_ID[0] }}
               </div>
             </v-col>
             <v-col cols="3" class="date" align-self="end">

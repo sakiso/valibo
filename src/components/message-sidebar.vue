@@ -1,6 +1,6 @@
 <template>
   <v-card color="#F7F7F7" height="100%" class="pa-0 ma-0">
-    <v-card-text> {{ this.$store.state.email }}</v-card-text>
+    <v-card-title>メッセージ一覧</v-card-title>
     <v-card-text>
       <v-list color="#F7F7F7">
         <v-list-item v-for="sender_ID in idList" :key="sender_ID">
