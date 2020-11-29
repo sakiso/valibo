@@ -15,7 +15,12 @@
                 <v-card dense width="75%" class="fixed-bottom" color="#b8d5d6">
                   <v-card-text>
                     <v-row justify="end">
-                      <v-text-field solo dense class="mr-6 ml-5"></v-text-field>
+                      <v-text-field
+                        v-model="message"
+                        solo
+                        dense
+                        class="mr-6 ml-5"
+                      ></v-text-field>
                       <v-btn
                         medium
                         color="#F48D97"
@@ -44,19 +49,35 @@
 //import 'firebase/auth'
 import MessageDetail from '@/components/message-detail.vue'
 import MessageSidebar from '@/components/message-sidebar.vue'
+import addMessage from '@/addMessage.js'
 
 export default {
   components: { MessageDetail, MessageSidebar },
 
   data: function () {
-    return {}
+    return {
+      message: '',
+    }
   },
 
   created: function () {},
 
   methods: {
-    sendMessage() {
-      return
+    async sendMessage() {
+      //addMessageにわたす引数定義
+      const messageObj = {
+        send0_receive1_ID: [this.$store.state.email, this.teamEmail],
+        messageText: this.message,
+        messageEntryDate: new Date(),
+      }
+
+      await addMessage.add(messageObj)
+
+      //メッセージの削除
+      this.message = ''
+
+      //登録完了したら親コンポーネントに情報を伝え、メッセージ送信ダイアログを閉じる
+      this.$emit('addDone')
     },
   },
 }

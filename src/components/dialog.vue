@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { db } from '@/plugins/firebase'
+import addMessage from '@/addMessage.js'
 
 export default {
   props: {
@@ -53,21 +53,19 @@ export default {
 
   methods: {
     async sendMessage() {
-      //messageコレクションへの参照
-      this.messageRef = db.collection('message')
-
-      //messageコレクションへのドキュメント登録
-      await this.messageRef.add({
+      //addMessageにわたす引数定義
+      const messageObj = {
         send0_receive1_ID: [this.$store.state.email, this.teamEmail],
         messageText: this.message,
         messageEntryDate: new Date(),
-      })
+      }
+
+      await addMessage.add(messageObj)
 
       //メッセージの削除
       this.message = ''
 
       //登録完了したら親コンポーネントに情報を伝え、メッセージ送信ダイアログを閉じる
-      console.log('adddone-child')
       this.$emit('addDone')
     },
   },
