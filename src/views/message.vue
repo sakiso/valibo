@@ -58,6 +58,7 @@ export default {
   data: function () {
     return {
       message: '',
+      selectedMessages: {},
     }
   },
 
@@ -81,7 +82,11 @@ export default {
       await addMessage.add(messageObj)
 
       //メッセージ投稿後にメッセージ詳細を最新化する
-      getMessage.get(this.$store.state.selectedEmail)
+      this.selectedMessages = await getMessage.get(
+        this.$store.state.selectedEmail
+      )
+      //stateに保存
+      this.$store.commit('updateMessages', this.selectedMessages)
 
       //メッセージの削除
       this.message = ''
