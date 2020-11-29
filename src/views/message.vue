@@ -16,7 +16,13 @@
                   <v-card-text>
                     <v-row justify="end">
                       <v-text-field solo dense class="mr-6 ml-5"></v-text-field>
-                      <v-btn medium color="#F48D97" dark class="mr-6">
+                      <v-btn
+                        medium
+                        color="#F48D97"
+                        dark
+                        class="mr-6"
+                        @click="sendMessage"
+                      >
                         <v-icon> mdi-send-outline </v-icon>
                         メッセージを送る
                       </v-btn>
@@ -48,7 +54,11 @@ export default {
 
   created: function () {},
 
-  methods: {},
+  methods: {
+    sendMessage() {
+      return
+    },
+  },
 }
 </script>
 
