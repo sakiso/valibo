@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <v-container ma-0 pt-0 pb-0 fluid class="height-100per">
+      <v-container ma-0 mt-n3 pl-0 pt-0 pb-0 fluid class="height-100per">
         <v-row class="height-100per">
           <v-col cols="3">
-            <message-sidebar></message-sidebar>
+            <message-sidebar class="fixed width-25per"></message-sidebar>
           </v-col>
           <v-col cols="9">
             <v-row>
@@ -12,17 +12,11 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <v-card
-                  tile
-                  flat
-                  dense
-                  width="75%"
-                  class="fixed-bottom"
-                  color="light-blue"
-                >
+                <v-card dense width="75%" class="fixed-bottom" color="#b8d5d6">
                   <v-card-text>
                     <v-row justify="end">
-                      <v-btn large color="#F48D97" dark>
+                      <v-text-field solo dense class="mr-6 ml-5"></v-text-field>
+                      <v-btn medium color="#F48D97" dark class="mr-6">
                         <v-icon> mdi-send-outline </v-icon>
                         メッセージを送る
                       </v-btn>
@@ -59,6 +53,12 @@ export default {
 </script>
 
 <style scoped>
+.fixed {
+  position: fixed;
+}
+.width-25per {
+  width: 23%;
+}
 .height-100per {
   height: 100%;
 }
