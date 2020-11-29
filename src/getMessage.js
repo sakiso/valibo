@@ -6,7 +6,7 @@ export default {
     const queryRef_send = db
       .collection('message')
       .where('send0_receive1_ID', 'array-contains', ID)
-      .orderBy('messageEntryDate')
+      .orderBy('messageEntryDate', 'desc')
     //クエリ実行
     const selectedMessages = await queryRef_send
       .get()
