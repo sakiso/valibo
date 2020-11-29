@@ -10,12 +10,16 @@ export default new Vuex.Store({
   state: {
     role: '',
     email: '',
+    selecteadEmail: '',
     signInNoticeSnackbar: false,
     messages: {},
   },
   mutations: {
     updateMessages(state, messages) {
       state.messages = messages
+    },
+    updateSelectedEmail(state, selectedEmail) {
+      state.selecteadEmail = selectedEmail
     },
     updateRole(state, role) {
       if (role === 'admin') {

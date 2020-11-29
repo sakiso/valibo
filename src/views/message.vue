@@ -66,7 +66,10 @@ export default {
     async sendMessage() {
       //addMessageにわたす引数定義
       const messageObj = {
-        send0_receive1_ID: [this.$store.state.email, this.teamEmail],
+        send0_receive1_ID: [
+          this.$store.state.email,
+          this.$store.state.selecteadEmail,
+        ],
         messageText: this.message,
         messageEntryDate: new Date(),
       }
@@ -75,9 +78,6 @@ export default {
 
       //メッセージの削除
       this.message = ''
-
-      //登録完了したら親コンポーネントに情報を伝え、メッセージ送信ダイアログを閉じる
-      this.$emit('addDone')
     },
   },
 }

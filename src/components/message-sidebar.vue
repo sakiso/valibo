@@ -85,6 +85,9 @@ export default {
       console.log(this.selectedMessages)
       this.$store.commit('updateMessages', this.selectedMessages)
 
+      //選択したチーム情報をstateに格納（メッセージ画面上で返信するために必要なため）
+      this.$store.commit('updateSelectedEmail', ID)
+
       //次の検索のためにthisのメッセージ情報はクリアする
       this.selectedMessages = {}
     },
