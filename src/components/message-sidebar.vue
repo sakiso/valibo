@@ -13,6 +13,7 @@
 
 <script>
 import { db } from '@/plugins/firebase'
+import getMessage from '@/getMessage.js'
 
 export default {
   name: 'MessageSidebar',
@@ -61,25 +62,10 @@ export default {
 
   methods: {
     async selectMessages(ID) {
-      //thisをselfに退避
-      const self = this
-
-      //引数のユーザのメールアドレスでクエリを作成(メッセージ登録日の昇順)
-      const queryRef_send = this.messageRef
-        .where('send0_receive1_ID', 'array-contains', ID)
-        .orderBy('messageEntryDate')
-      //クエリ実行
-      await queryRef_send.get().then((snapshot) => {
-        //検索結果無しの場合
-        if (snapshot.empty) {
-          console.log('no matching Msgs')
-          return
-        }
-        //検索結果ありの場合、取得したデータをselectedMessagesに追加
-        snapshot.forEach((doc) => {
-          self.selectedMessages[doc.id] = doc.data()
-        })
-      })
+      //選択されたユーザID（メールアドレス）に紐づくメッセージを日付ソートして取得する
+      this.selectedMessages = await getMessage.get(ID)
+      console.log('selected complete', this.selectedMessages)
+      console.log(this.selectedMessages)
 
       //stateに保存
       this.$store.commit('updateMessages', this.selectedMessages)

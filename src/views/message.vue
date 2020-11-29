@@ -50,6 +50,7 @@
 import MessageDetail from '@/components/message-detail.vue'
 import MessageSidebar from '@/components/message-sidebar.vue'
 import addMessage from '@/addMessage.js'
+import getMessage from '@/getMessage.js'
 
 export default {
   components: { MessageDetail, MessageSidebar },
@@ -80,6 +81,7 @@ export default {
       await addMessage.add(messageObj)
 
       //メッセージ投稿後にメッセージ詳細を最新化する
+      getMessage.get(this.$store.state.selectedEmail)
 
       //メッセージの削除
       this.message = ''
