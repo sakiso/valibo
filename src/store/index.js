@@ -37,6 +37,9 @@ export default new Vuex.Store({
         state.role = ''
       }
     },
+    deleteRole(state) {
+      state.role = ''
+    },
     deleteAllState(state) {
       //ログアウト処理時にstateのroleを初期化する
       state.role = ''
@@ -44,6 +47,7 @@ export default new Vuex.Store({
       state.selectedEmail = ''
       state.selectedTeamName = ''
       state.messages = {}
+      console.log('deleteAllState')
     },
     setSnackbarTrue(state) {
       //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
