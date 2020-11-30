@@ -4,9 +4,9 @@
     <v-card-text>
       <v-list color="#F7F7F7">
         <v-list-item v-for="sender_ID in idList" :key="sender_ID">
-          <v-btn color="#b8d5d6" @click="selectMessages(sender_ID)">{{
-            resolvedSenderName(sender_ID)
-          }}</v-btn>
+          <v-btn color="#b8d5d6" @click="selectMessages(sender_ID)">
+            {{ resolvedSenderName(sender_ID) }}
+          </v-btn>
         </v-list-item>
       </v-list>
     </v-card-text>
@@ -78,12 +78,14 @@ export default {
         } else {
           const obj = {}
           await snapshot.forEach((doc) => {
-            obj[doc.id] = doc.data()
+            //object型の入れ子になるので、後続処理で簡単に最下層のチーム名を取り出せるよう
+            //上位階層のobject（本来はドキュメントIDが入る）のkeyはwkで固定する
+            obj['wk'] = doc.data()
           })
           return await obj
         }
       })
-      return await teamName
+      return await teamName.wk.team_name
     },
 
     async selectMessages(ID) {
