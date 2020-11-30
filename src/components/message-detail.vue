@@ -2,7 +2,7 @@
   <v-container pt-0 mt-0 pr-5 pl-5>
     <v-row>
       <v-col class="headline">
-        {{ this.$store.state.selectedEmail }}
+        {{ this.$store.state.selectedTeamName }}
       </v-col>
       <v-col
         cols="12"

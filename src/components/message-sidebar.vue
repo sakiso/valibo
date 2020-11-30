@@ -4,7 +4,7 @@
     <v-card-text>
       <v-list color="#F7F7F7">
         <v-list-item v-for="idName in teamIdNameTbl" :key="idName.id">
-          <v-btn color="#b8d5d6" @click="selectMessages(idName.id)">
+          <v-btn color="#b8d5d6" @click="selectMessages(idName)">
             {{ idName.name }}
           </v-btn>
         </v-list-item>
@@ -87,22 +87,21 @@ export default {
           })
         }
       })
-      console.log('obj', teamIdNameObj)
       return teamIdNameObj
     })
-    console.log('tbl', this.teamIdNameTbl)
   },
 
   methods: {
-    async selectMessages(ID) {
+    async selectMessages(idName) {
       //選択されたユーザID（メールアドレス）に紐づくメッセージを日付ソートして取得する
-      this.selectedMessages = await getMessage.get(ID)
+      this.selectedMessages = await getMessage.get(idName.id)
 
       //stateに保存
       this.$store.commit('updateMessages', this.selectedMessages)
 
-      //選択したチーム情報をstateに格納（メッセージ画面上で返信するために必要なため）
-      this.$store.commit('updateSelectedEmail', ID)
+      //選択したチーム情報をstateに格納（メッセージ画面上で返信したり画面表示するのに必要なため）
+      this.$store.commit('updateSelectedEmail', idName.id)
+      this.$store.commit('updateSelectedTeamName', idName.name)
 
       //次の検索のためにthisのメッセージ情報はクリアする
       this.selectedMessages = {}
