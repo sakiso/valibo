@@ -26,6 +26,7 @@ export default new Vuex.Store({
       state.selectedTeamName = selectedTeamName
     },
     updateRole(state, role) {
+      console.log('updateRole')
       if (role === 'admin') {
         //管理者権限の場合
         state.role = 'admin'
@@ -42,12 +43,13 @@ export default new Vuex.Store({
     },
     deleteAllState(state) {
       //ログアウト処理時にstateのroleを初期化する
+      console.log('deleteAllState start')
       state.role = ''
       state.email = ''
       state.selectedEmail = ''
       state.selectedTeamName = ''
       state.messages = {}
-      console.log('deleteAllState')
+      console.log('deleteAllState end')
     },
     setSnackbarTrue(state) {
       //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
