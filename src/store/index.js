@@ -56,6 +56,7 @@ export default new Vuex.Store({
     setSnackbarFalse(state) {
       //初回ログインよりあとは、ログイン通知のsnackbarを非表示にする
       state.signInNoticeSnackbar = false
+      console.log('setSnackbarFalse')
     },
     updateEmail(state, email) {
       //ログインユーザのメールアドレスを保存する
