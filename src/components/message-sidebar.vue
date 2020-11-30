@@ -24,6 +24,7 @@ export default {
       idList: [],
       messageRef: null,
       selectedMessages: {},
+      teamIdNameTbl: [],
     }
   },
 
@@ -61,16 +62,14 @@ export default {
     //一覧用にsender_IDのみの配列を生成
     //一意化
     this.idList = Array.from(new Set(idListNonUniqueList))
-  },
 
-  methods: {
-    async resolvedSenderName(senderId) {
-      //firesotoreのTeamasコレクションを検索し
-      //ID(Email)に紐づくチーム名を取得する
+    //firesotoreのTeamasコレクションを検索し
+    //ID(Email)に紐づくチーム名を取得する
 
+    this.teamIdNameTbl = this.idList.map((el) => {
       //参照とクエリ生成
       const teamsRef = db.collection('teams')
-      const queryRefId = teamsRef.where('email_address', '==', senderId)
+      const queryRefId = teamsRef.where('email_address', '==', el)
       //クエリ実行
       const teamIdNameObj = queryRefId.get().then((snapshot) => {
         if (snapshot.empty) {
@@ -85,9 +84,12 @@ export default {
           return { id: obj.wk.email_address, name: obj.wk.team_name }
         }
       })
-      await console.log(teamIdNameObj)
-    },
+      console.log(teamIdNameObj)
+      return teamIdNameObj
+    })
+  },
 
+  methods: {
     async selectMessages(ID) {
       //選択されたユーザID（メールアドレス）に紐づくメッセージを日付ソートして取得する
       this.selectedMessages = await getMessage.get(ID)
