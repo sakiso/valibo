@@ -212,11 +212,11 @@ export default {
 
     signOut() {
       console.log('signOut前のstateのrole:', this.$store.state.role)
-      //ログアウト時に、asAdmin/asUserおよびstateの情報を消す
+      //ログアウト時に、asAdmin/asUserおよびstateの情報を初期化する
       firebase.auth().signOut()
       this.asAdmin = false
       this.asUser = false
-      this.$store.commit('deleteRole')
+      this.$store.commit('deleteAllState')
 
       //teams画面でログイン通知のsnackbarを表示させないためfalseに更新
       this.$store.commit('setSnackbarFalse')
