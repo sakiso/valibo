@@ -3,9 +3,9 @@
     <v-card-title>メッセージ一覧</v-card-title>
     <v-card-text>
       <v-list color="#F7F7F7">
-        <v-list-item v-for="sender_ID in idList" :key="sender_ID">
-          <v-btn color="#b8d5d6" @click="selectMessages(sender_ID)">
-            {{ resolvedSenderName(sender_ID) }}
+        <v-list-item v-for="idName in teamIdNameTbl" :key="idName.id">
+          <v-btn color="#b8d5d6" @click="selectMessages(idName.id)">
+            {{ idName.name }}
           </v-btn>
         </v-list-item>
       </v-list>
@@ -84,7 +84,7 @@ export default {
           return { id: obj.wk.email_address, name: obj.wk.team_name }
         }
       })
-      console.log(teamIdNameObj)
+      console.log('obj', teamIdNameObj)
       return teamIdNameObj
     })
   },
