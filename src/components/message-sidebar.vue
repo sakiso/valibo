@@ -72,20 +72,20 @@ export default {
       const teamsRef = db.collection('teams')
       const queryRefId = teamsRef.where('email_address', '==', senderId)
       //クエリ実行
-      const teamName = await queryRefId.get().then(async (snapshot) => {
+      const teamIdNameObj = queryRefId.get().then((snapshot) => {
         if (snapshot.empty) {
           console.log('error:該当チームなし')
         } else {
           const obj = {}
-          await snapshot.forEach((doc) => {
+          snapshot.forEach((doc) => {
             //object型の入れ子になるので、後続処理で簡単に最下層のチーム名を取り出せるよう
             //上位階層のobject（本来はドキュメントIDが入る）のkeyはwkで固定する
             obj['wk'] = doc.data()
           })
-          return await obj
+          return { id: obj.wk.email_address, name: obj.wk.team_name }
         }
       })
-      return await teamName.wk.team_name
+      await console.log(teamIdNameObj)
     },
 
     async selectMessages(ID) {
