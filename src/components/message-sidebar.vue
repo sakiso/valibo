@@ -66,12 +66,12 @@ export default {
     //firesotoreのTeamasコレクションを検索し
     //ID(Email)に紐づくチーム名を取得する
 
-    this.teamIdNameTbl = this.idList.map((el) => {
+    this.teamIdNameTbl = this.idList.map(async (el) => {
       //参照とクエリ生成
       const teamsRef = db.collection('teams')
       const queryRefId = teamsRef.where('email_address', '==', el)
       //クエリ実行
-      const teamIdNameObj = queryRefId.get().then((snapshot) => {
+      const teamIdNameObj = await queryRefId.get().then((snapshot) => {
         if (snapshot.empty) {
           console.log('error:該当チームなし')
         } else {
@@ -87,6 +87,7 @@ export default {
       console.log('obj', teamIdNameObj)
       return teamIdNameObj
     })
+    console.log('tbl', this.teamIdNameTbl)
   },
 
   methods: {
