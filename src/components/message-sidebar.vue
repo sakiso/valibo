@@ -66,7 +66,7 @@ export default {
     //firesotoreのTeamasコレクションを検索し
     //ID(Email)に紐づくチーム名を取得する
 
-    this.teamIdNameTbl = this.idList.map(async (el) => {
+    this.idList.map(async (el) => {
       //参照とクエリ生成
       const teamsRef = db.collection('teams')
       const queryRefId = teamsRef.where('email_address', '==', el)
@@ -81,7 +81,10 @@ export default {
             //上位階層のobject（本来はドキュメントIDが入る）のkeyはwkで固定する
             obj['wk'] = doc.data()
           })
-          return { id: obj.wk.email_address, name: obj.wk.team_name }
+          this.teamIdNameTbl.push({
+            id: obj.wk.email_address,
+            name: obj.wk.team_name,
+          })
         }
       })
       console.log('obj', teamIdNameObj)
