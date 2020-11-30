@@ -5,7 +5,7 @@
       <v-list color="#F7F7F7">
         <v-list-item v-for="sender_ID in idList" :key="sender_ID">
           <v-btn color="#b8d5d6" @click="selectMessages(sender_ID)">{{
-            sender_ID
+            resolvedSenderName(sender_ID)
           }}</v-btn>
         </v-list-item>
       </v-list>
@@ -27,6 +27,7 @@ export default {
     }
   },
 
+  computed: {},
   created: async function () {
     //messageコレクションへの参照
     this.messageRef = db.collection('message')
@@ -63,6 +64,28 @@ export default {
   },
 
   methods: {
+    async resolvedSenderName(senderId) {
+      //firesotoreのTeamasコレクションを検索し
+      //ID(Email)に紐づくチーム名を取得する
+
+      //参照とクエリ生成
+      const teamsRef = db.collection('teams')
+      const queryRefId = teamsRef.where('email_address', '==', senderId)
+      //クエリ実行
+      const teamName = await queryRefId.get().then(async (snapshot) => {
+        if (snapshot.empty) {
+          console.log('error:該当チームなし')
+        } else {
+          const obj = {}
+          await snapshot.forEach((doc) => {
+            obj[doc.id] = doc.data()
+          })
+          return await obj
+        }
+      })
+      return await teamName
+    },
+
     async selectMessages(ID) {
       //選択されたユーザID（メールアドレス）に紐づくメッセージを日付ソートして取得する
       this.selectedMessages = await getMessage.get(ID)
