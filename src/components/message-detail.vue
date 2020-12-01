@@ -1,5 +1,8 @@
 <template>
   <v-container pt-0 mt-0 pr-5 pl-5>
+    <v-alert class="mt-4" dense type="warning" v-if="$store.state.role === ''">
+      ログインするとメッセージ機能が利用できます
+    </v-alert>
     <v-row>
       <v-col class="headline">
         {{ $store.state.selectedTeamName }}
