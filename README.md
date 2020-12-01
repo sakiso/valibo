@@ -50,6 +50,6 @@ GitHub: https://github.com/sakiso/valibo
 ### チーム検索・メッセージ送信
 ![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_serch_message.gif)
 ### チーム登録
-![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_team%20entry.gif)
+![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_team_entry.gif)
 ### スマートフォン用レイアウト（レスポンシブデザイン）
 ![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_responsive.gif)
