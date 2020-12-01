@@ -11,6 +11,7 @@ GitHub: https://github.com/sakiso/valibo
 * チーム削除機能
 * チーム登録機能
   * 写真リサイズ（縮小）機能
+* メッセージ送受信機能
 * ログイン機能（Firebase Authentication）
   * ログイン状態・権限管理（Vuex）
 
