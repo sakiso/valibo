@@ -25,9 +25,9 @@ GitHub: https://github.com/sakiso/valibo
 ## 使用技術
 ### フロントエンド
 * Vue.js
-* Vuex
-* Vue Router
-* Vuetify
+  * Vuex
+  * Vue Router
+  * Vuetify
 
 ### バックエンド（mBaaS）
 * Firebase
@@ -47,6 +47,9 @@ GitHub: https://github.com/sakiso/valibo
 この課題を解決するため、各チームの求めているポジションや練習のレベルなど、バレーボールに特化した情報を登録・検索できるサービスを開発した。
 
 ## サービス利用イメージ
+### チーム検索・メッセージ送信
 ![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_serch_message.gif)
+### チーム登録
 ![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_team%20entry.gif)
+### スマートフォン用レイアウト（レスポンシブデザイン）
 ![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_responsive.gif)
