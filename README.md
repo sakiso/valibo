@@ -47,4 +47,6 @@ GitHub: https://github.com/sakiso/valibo
 この課題を解決するため、各チームの求めているポジションや練習のレベルなど、バレーボールに特化した情報を登録・検索できるサービスを開発した。
 
 ## サービス利用イメージ
-![gif](https://github.com/sakiso/valibo/blob/master/valibo-image.gif)
+![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_serch_message.gif)
+![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_team%20entry.gif)
+![gif](https://github.com/sakiso/valibo/blob/master/valibo-image_responsive.gif)
