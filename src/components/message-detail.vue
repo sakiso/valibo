@@ -15,10 +15,10 @@
         <v-container>
           <v-row v-if="message.send0_receive1_ID[0] === 'user@example.com'">
             <v-spacer></v-spacer>
-            <v-col cols="3" class="date right" align-self="end">
+            <v-col cols="4" sm="3" class="date right" align-self="end">
               {{ processedMessageEntryDate(message.messageEntryDate) }}
             </v-col>
-            <v-col class="balloon_r" cols="7">
+            <v-col class="balloon_r" cols="8" sm="7">
               <div class="says right_says">
                 {{ message.messageText }}
               </div>
@@ -26,12 +26,12 @@
           </v-row>
 
           <v-row v-else>
-            <v-col class="balloon_l" cols="7">
+            <v-col class="balloon_l" cols="8" sm="7">
               <div class="says">
                 {{ message.messageText }}
               </div>
             </v-col>
-            <v-col cols="3" class="date" align-self="end">
+            <v-col cols="4" sm="3" class="date" align-self="end">
               {{ processedMessageEntryDate(message.messageEntryDate) }}
             </v-col>
           </v-row>

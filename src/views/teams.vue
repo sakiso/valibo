@@ -329,7 +329,7 @@ export default {
 .serchBtn {
   position: fixed;
   top: 17px;
-  left: 17px;
+  right: 17px;
   text-align: end;
 }
 .float {

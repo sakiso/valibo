@@ -81,7 +81,7 @@
       color="#67b0b2"
       @click="openDrawer"
     >
-      <v-icon>mdi-magnify</v-icon>
+      <v-icon>mdi-tray-full</v-icon>
     </v-btn>
   </v-app>
 </template>
@@ -166,7 +166,7 @@ export default {
 .messageBoxBtn {
   position: fixed;
   top: 17px;
-  left: 17px;
+  right: 17px;
   text-align: end;
 }
 </style>
