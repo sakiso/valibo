@@ -1,13 +1,16 @@
 <template>
   <v-card color="#F7F7F7" height="100%" class="pa-0 ma-0">
-    <v-card-title>メッセージ一覧</v-card-title>
+    <v-card-title>受信メッセージ</v-card-title>
     <v-card-text>
-      <v-list color="#F7F7F7">
+      <v-list shaped color="#F7F7F7">
         <v-list-item
           v-for="idName in teamIdNameTbl"
           :key="idName.id"
           @click="selectMessages(idName)"
         >
+          <v-list-item-icon>
+            <v-icon>mdi-menu-right</v-icon>
+          </v-list-item-icon>
           {{ idName.name }}
         </v-list-item>
       </v-list>
