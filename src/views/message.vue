@@ -34,6 +34,7 @@
                         class="mr-6 ml-5"
                       ></v-text-field>
                       <v-btn
+                        v-if="!$vuetify.breakpoint.xsOnly"
                         medium
                         color="#F48D97"
                         dark
@@ -42,6 +43,16 @@
                       >
                         <v-icon> mdi-send-outline </v-icon>
                         メッセージを送る
+                      </v-btn>
+                      <v-btn
+                        v-if="$vuetify.breakpoint.xsOnly"
+                        medium
+                        color="#F48D97"
+                        dark
+                        class="mr-6"
+                        @click="sendMessage"
+                      >
+                        <v-icon> mdi-send-outline </v-icon>
                       </v-btn>
                     </v-row>
                   </v-card-text>
