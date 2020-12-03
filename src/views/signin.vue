@@ -117,10 +117,8 @@ export default {
       if (user) {
         if (self.$store.state.role === 'admin') {
           self.asAdmin = true //管理者の場合
-          console.log('adminでログイン中')
         } else if (self.$store.state.role === 'user') {
           self.asUser = true //一般ユーザの場合
-          console.log('userでログイン中')
         } else {
           //その他の場合（想定されない）
           console.log('roleが取得できない')
@@ -138,7 +136,6 @@ export default {
     checkInputMust() {
       //未入力項目がある場合、ログインボタンを非活性にする
       if (this.id === '' || this.password === '') {
-        console.log('未入力項目あり')
         this.isReadyToSignIn = false
       } else {
         //入力が完了していればログインボタンを活性化させる
@@ -148,7 +145,6 @@ export default {
     signIn() {
       //未入力項目がある場合、抜ける
       if (this.id === '' || this.password === '') {
-        console.log('未入力項目あり')
         return
       }
 
@@ -175,7 +171,6 @@ export default {
             if (!doc.exists) {
               console.log('No such document!')
             } else {
-              console.log('Document data:', doc.data().role)
               self.role = doc.data().role
             }
           })
@@ -184,19 +179,16 @@ export default {
           //asAdmin,asUserをtrueにする
           if (self.role === 'admin') {
             self.$store.commit('updateRole', 'admin')
-            console.log('login as admin')
             self.asAdmin = true
           } else if (self.role === 'user') {
             self.$store.commit('updateRole', 'user')
             self.asUser = true
-            console.log('login as user')
           }
 
           //ログイン者のID（メールアドレス）をstateに保存
           self.$store.commit('updateEmail', firebase.auth().currentUser.email)
 
           //teams画面でログイン通知のsnackbarを表示させるためにtrueに更新
-          console.log('setSnacbarTrue')
           self.$store.commit('setSnackbarTrue')
 
           //画面表示項目を初期化し、ログインボタンを非活性にする
@@ -211,7 +203,6 @@ export default {
     },
 
     signOut() {
-      console.log('signOut前のstateのrole:', this.$store.state.role)
       //ログアウト時に、asAdmin/asUserおよびstateの情報を初期化する
       firebase.auth().signOut()
       this.asAdmin = false
@@ -220,8 +211,6 @@ export default {
 
       //teams画面でログイン通知のsnackbarを表示させないためfalseに更新
       this.$store.commit('setSnackbarFalse')
-
-      console.log('signOut')
     },
   },
 }

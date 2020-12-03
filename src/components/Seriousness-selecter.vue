@@ -41,7 +41,6 @@ export default {
   methods: {
     selectMinLevel() {
       //親コンポーネントのselectLevelカスタムイベントを発火させる
-      console.log()
       this.$emit('selectMinLevel', this.levelOfSeriousness.minLevel)
     },
     selectMaxLevel() {

@@ -63,21 +63,17 @@ export default {
   methods: {
     setMinLevelOfSeriousness(level) {
       //子コンポーネントで発火されたカスタムイベントで起動する
-      console.log('min:', level)
       this.minlevelOfSeriousness = level
     },
     setMaxLevelOfSeriousness(level) {
       //子コンポーネントで発火されたカスタムイベントで起動する
-      console.log('max:', level)
       this.maxlevelOfSeriousness = level
     },
     setWantedPosition(position) {
       //子コンポーネントで発火されたカスタムイベントで起動する
-      console.log(position)
       this.wantedPosition = position
     },
     setPrefecture(prefecture) {
-      console.log(prefecture)
       this.placeOfActivity = prefecture
     },
 
@@ -93,7 +89,6 @@ export default {
         !this.wantedPosition
       ) {
         this.errMessage = '検索条件に未入力項目があります'
-        console.log('検索条件に未入力項目があります')
         return
       }
 
@@ -129,7 +124,6 @@ export default {
           //エラーの場合
           console.log('Error getting documents ... ', err)
         })
-      console.log(selectedTeams)
     },
   },
 }

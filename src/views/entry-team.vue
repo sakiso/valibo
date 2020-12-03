@@ -224,14 +224,9 @@ export default {
     //取得したroleがadminならasAdmin、userならasUserをtrueにする
     if (this.$store.state.role === 'admin') {
       this.asAdmin = true
-      console.log('admin')
     } else if (this.$store.state.role === 'user') {
       this.asUser = true
-      console.log('user')
-    } else {
-      console.log('未ログイン')
     }
-
     //teamsコレクションへの参照
     this.teamsRef = db.collection('teams')
   },
@@ -309,7 +304,6 @@ export default {
         this.teamInfo.activityCycle.timesAWeekOrMonth === '' ||
         this.imageInfo === null
       ) {
-        console.log('入力項目に不足あり')
         return
       }
 
@@ -327,11 +321,9 @@ export default {
         timestamp.getDate()
 
       //画像を圧縮する
-      console.log('start compress')
       this.compressedImage = await imageCompression.getCompressImageFile(
         this.imageInfo
       )
-      console.log('finished compress')
 
       //ファイルをアップロードする前に、ファイル名にタイムスタンプを付与して一意にする
       const uniqueImageName = this.imageInfo.name + '_' + timestamp
@@ -346,8 +338,6 @@ export default {
         .put(this.compressedImage)
         .then(async function (snapshot) {
           self.teamImageUrl = await snapshot.ref.getDownloadURL()
-          console.log(self.teamImageUrl)
-          console.log('upload done')
         })
 
       //teamsコレクションへの登録

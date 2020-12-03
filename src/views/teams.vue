@@ -230,14 +230,9 @@ export default {
     //取得したroleがadminならasAdmin、userならasUserをtrueにする
     if (this.$store.state.role === 'admin') {
       this.asAdmin = true
-      console.log('admin')
     } else if (this.$store.state.role === 'user') {
       this.asUser = true
-      console.log('user')
-    } else {
-      console.log('未ログイン')
     }
-
     //Firestoreからデータ取得
     //teamsコレクションへの参照
     this.teamsRef = db.collection('teams')
@@ -291,7 +286,6 @@ export default {
     },
     closeMessageDialog() {
       //メッセージ登録が完了したらダイアログを閉じる
-      console.log('adddone')
       this.dialog = false
       //メッセージ送信完了スナックバーを表示させる
       this.sendedMessageSnackbar = true
