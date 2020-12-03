@@ -19,7 +19,7 @@
               class="fixed width-24per"
             ></message-sidebar>
           </v-col>
-          <v-col cols="9">
+          <v-col cols="12" sm="9">
             <v-row>
               <message-detail></message-detail>
             </v-row>
