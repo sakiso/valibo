@@ -3,8 +3,11 @@
     <v-content>
       <v-container ma-0 mt-n3 pl-0 pt-0 pb-0 fluid class="height-100per">
         <v-row class="height-100per">
-          <v-col cols="3">
-            <message-sidebar class="fixed width-25per"></message-sidebar>
+          <v-col cols="0" sm="3" md="3" lg="3" xl="3">
+            <message-sidebar
+              v-if="!$vuetify.breakpoint.xsOnly"
+              class="fixed width-24per"
+            ></message-sidebar>
           </v-col>
           <v-col cols="9">
             <v-row>
@@ -12,7 +15,16 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <v-card dense width="75%" class="fixed-bottom" color="#b8d5d6">
+                <v-card
+                  dense
+                  :class="{
+                    'width-100per': $vuetify.breakpoint.xs,
+                    'fixed-bottom-30': $vuetify.breakpoint.xs,
+                    'width-75per': $vuetify.breakpoint.smAndUp,
+                    'fixed-bottom': $vuetify.breakpoint.smAndUp,
+                  }"
+                  color="#b8d5d6"
+                >
                   <v-card-text>
                     <v-row justify="end">
                       <v-text-field
@@ -96,8 +108,14 @@ export default {
 .fixed {
   position: fixed;
 }
-.width-25per {
+.width-24per {
   width: 24%;
+}
+.width-75per {
+  width: 75%;
+}
+.width-100per {
+  width: 100%;
 }
 .height-100per {
   height: 100%;
@@ -105,5 +123,9 @@ export default {
 .fixed-bottom {
   position: fixed;
   bottom: -25px;
+}
+.fixed-bottom-30 {
+  position: fixed;
+  bottom: 30px;
 }
 </style>
