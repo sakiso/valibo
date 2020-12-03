@@ -3,6 +3,11 @@
     <v-alert class="mt-4" dense type="warning" v-if="$store.state.role === ''">
       ログインするとメッセージ機能が利用できます
     </v-alert>
+    <v-row v-if="!Object.keys($store.state.messages).length">
+      <v-col cols="12" align-self="center">
+        表示するメッセージを選択してください
+      </v-col>
+    </v-row>
     <v-row>
       <v-col class="headline">
         {{ $store.state.selectedTeamName }}
