@@ -1,5 +1,15 @@
 <template>
   <v-app>
+    <!-- サイズがxsのときにだけ表示されるサイドバー -->
+    <v-navigation-drawer
+      width="60%"
+      v-if="$vuetify.breakpoint.xsOnly"
+      v-model="drawer"
+      app
+    >
+      <message-sidebar></message-sidebar>
+    </v-navigation-drawer>
+
     <v-content>
       <v-container ma-0 mt-n3 pl-0 pt-0 pb-0 fluid class="height-100per">
         <v-row class="height-100per">
@@ -63,6 +73,16 @@
         </v-row>
       </v-container>
     </v-content>
+    <v-btn
+      v-if="$vuetify.breakpoint.xsOnly"
+      class="messageBoxBtn"
+      fab
+      dark
+      color="#67b0b2"
+      @click="openDrawer"
+    >
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
   </v-app>
 </template>
 
@@ -79,6 +99,7 @@ export default {
     return {
       message: '',
       selectedMessages: {},
+      drawer: false,
     }
   },
 
@@ -111,6 +132,9 @@ export default {
       //メッセージの削除
       this.message = ''
     },
+    openDrawer() {
+      this.drawer = true
+    },
   },
 }
 </script>
@@ -138,5 +162,11 @@ export default {
 .fixed-bottom-30 {
   position: fixed;
   bottom: 30px;
+}
+.messageBoxBtn {
+  position: fixed;
+  top: 17px;
+  left: 17px;
+  text-align: end;
 }
 </style>
