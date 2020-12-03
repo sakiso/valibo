@@ -3,10 +3,12 @@
     <v-card-title>メッセージ一覧</v-card-title>
     <v-card-text>
       <v-list color="#F7F7F7">
-        <v-list-item v-for="idName in teamIdNameTbl" :key="idName.id">
-          <v-btn color="#b8d5d6" @click="selectMessages(idName)">
-            {{ idName.name }}
-          </v-btn>
+        <v-list-item
+          v-for="idName in teamIdNameTbl"
+          :key="idName.id"
+          @click="selectMessages(idName)"
+        >
+          {{ idName.name }}
         </v-list-item>
       </v-list>
     </v-card-text>
