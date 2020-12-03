@@ -104,7 +104,7 @@ export default {
         .where('wanted_position', 'array-contains', this.wantedPosition)
 
       //作成したクエリを実行
-      const selectedTeams = queryRef
+      queryRef
         .get()
         .then((snapshot) => {
           //検索結果無しの場合
