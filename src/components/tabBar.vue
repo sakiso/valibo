@@ -16,12 +16,12 @@ export default {
       tab: null,
       items: [
         { icon: 'mdi-account-group', tab: 'チーム検索', path: '/teams' },
+        { icon: 'mdi-message-outline', tab: 'メッセージ', path: '/message' },
         {
           icon: 'mdi-plus-box',
           tab: 'チーム登録',
           path: '/entry-team',
         },
-        { icon: 'mdi-message-outline', tab: 'メッセージ', path: '/message' },
         { icon: 'mdi-login-variant', tab: 'ログイン', path: '/signin' },
       ],
     }
