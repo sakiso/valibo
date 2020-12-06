@@ -98,8 +98,12 @@ export default {
 
   methods: {
     async selectMessages(idName) {
-      //選択されたユーザID（メールアドレス）に紐づくメッセージを日付ソートして取得する
-      this.selectedMessages = await getMessage.get(idName.id)
+      //選択されたユーザID（メールアドレス）とログインユーザに紐づく
+      //メッセージを日付でソートして取得する
+      this.selectedMessages = await getMessage.get(
+        idName.id, //選択されたメールアドレス
+        this.$store.state.email //ログインユーザのメールアドレス
+      )
 
       //stateに保存
       this.$store.commit('updateMessages', this.selectedMessages)

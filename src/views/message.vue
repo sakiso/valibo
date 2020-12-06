@@ -124,7 +124,8 @@ export default {
 
       //メッセージ投稿後にメッセージ詳細を最新化する
       this.selectedMessages = await getMessage.get(
-        this.$store.state.selectedEmail
+        this.$store.state.selectedEmail,
+        this.$store.state.email
       )
       //stateに保存
       this.$store.commit('updateMessages', this.selectedMessages)

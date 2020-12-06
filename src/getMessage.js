@@ -1,11 +1,15 @@
 import { db } from '@/plugins/firebase'
 
 export default {
-  async get(ID) {
-    //引数のユーザのメールアドレスでクエリを作成(メッセージ登録日の昇順)
+  async get(eMail1, eMail2) {
+    //引数のメールアドレスの両方が含まれる、
+    //すなわちその二者でやり取りしたメッセージを取得する(メッセージ登録日の昇順)
     const queryRef_send = db
       .collection('message')
-      .where('send0_receive1_ID', 'array-contains', ID)
+      .where('send0_receive1_ID', 'in', [
+        [eMail1, eMail2],
+        [eMail2, eMail1],
+      ])
       .orderBy('messageEntryDate', 'desc')
     //クエリ実行
     const selectedMessages = await queryRef_send
