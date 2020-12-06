@@ -18,7 +18,7 @@
         :key="message.key"
       >
         <v-container>
-          <v-row v-if="message.send0_receive1_ID[0] === 'user@example.com'">
+          <v-row v-if="message.send0_receive1_ID[0] === $store.state.email">
             <v-spacer></v-spacer>
             <v-col cols="4" sm="3" class="date right" align-self="end">
               {{ processedMessageEntryDate(message.messageEntryDate) }}
