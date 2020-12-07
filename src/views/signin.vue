@@ -11,10 +11,11 @@
                 <v-list>
                   <v-list-item>
                     <v-text-field
+                      clearable
                       prepend-icon=" mdi-identifier "
                       label="ID"
                       v-model="id"
-                      @blur="checkInputMust"
+                      @click:clear="deleteInputedId"
                       :disabled="asUser || asAdmin"
                     >
                     </v-text-field>
@@ -22,11 +23,12 @@
 
                   <v-list-item>
                     <v-text-field
+                      clearable
                       prepend-icon=" mdi-key "
                       label="Password"
                       type="password"
                       v-model="password"
-                      @blur="checkInputMust"
+                      @click:clear="deleteInputedPassword"
                       :disabled="asUser || asAdmin"
                       @keyup.enter="signIn"
                     ></v-text-field>
@@ -46,7 +48,7 @@
                         width="80%"
                         color="primary"
                         @click="signIn"
-                        :disabled="asAdmin || asUser || !isReadyToSignIn"
+                        :disabled="asAdmin || asUser || !id || !password"
                       >
                         ログイン
                       </v-btn>
@@ -103,7 +105,6 @@ export default {
     return {
       id: '',
       password: '',
-      isReadyToSignIn: false,
       asAdmin: false,
       asUser: false,
     }
@@ -133,14 +134,13 @@ export default {
   },
 
   methods: {
-    checkInputMust() {
+    deleteInputedId() {
       //未入力項目がある場合、ログインボタンを非活性にする
-      if (this.id === '' || this.password === '') {
-        this.isReadyToSignIn = false
-      } else {
-        //入力が完了していればログインボタンを活性化させる
-        this.isReadyToSignIn = true
-      }
+      this.id = ''
+    },
+    deleteInputedPassword() {
+      //未入力項目がある場合、ログインボタンを非活性にする
+      this.password = ''
     },
     signIn() {
       //未入力項目がある場合、抜ける
@@ -194,7 +194,6 @@ export default {
           //画面表示項目を初期化し、ログインボタンを非活性にする
           self.id = ''
           self.password = ''
-          self.isReadyToSignIn = false
 
           //ログイン成功時にトップページ（teamsビュー）に遷移させる
           self.$router.replace('/teams')
